@@ -40,13 +40,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Fix Android debug keystore directory
-        run: |
-          mkdir -p /home/runner/.config/.android
-          chmod 777 /home/runner/.config/.android
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace
+      - name: Build Debug APK (skip signing validation)
+        run: ./gradlew assembleDebug -x validateSigningDebug --stacktrace
 
       - name: Run Unit Tests
         run: ./gradlew test
