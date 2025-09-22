@@ -10,6 +10,4 @@
         android:layout_height="wrap_content"
         android:text="Teacher Dashboard Fragment"
         android:layout_gravity="center" />
-
-
 </FrameLayout>
