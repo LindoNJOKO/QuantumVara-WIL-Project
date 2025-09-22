@@ -1,0 +1,1843 @@
+Index: app/src/main/res/layout/activity_splash_screen.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_splash_screen.xml b/app/src/main/res/layout/activity_splash_screen.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_splash_screen.xml
++++ /dev/null
+@@ -1,21 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/main"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".SplashScreen">
+-
+-
+-    <ImageView
+-        android:id="@+id/logoImage"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:src="@drawable/logo"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent" />
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/activity_register.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_register.xml b/app/src/main/res/layout/activity_register.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_register.xml
++++ /dev/null
+@@ -1,128 +0,0 @@
+-<androidx.constraintlayout.widget.ConstraintLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="@drawable/reg">
+-
+-    <!-- Title -->
+-    <TextView
+-        android:id="@+id/tvRegisterTitle"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginTop="164dp"
+-        android:text="Register"
+-        android:textColor="#000000"
+-        android:textSize="24sp"
+-        android:textStyle="bold"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent" />
+-
+-    <!-- Username -->
+-    <EditText
+-        android:id="@+id/etUsername"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:hint="Username"
+-        android:background="@drawable/rounded_edittext"
+-        android:padding="16dp"
+-        app:layout_constraintTop_toBottomOf="@id/tvRegisterTitle"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        android:layout_marginTop="30dp"
+-        android:layout_marginHorizontal="65dp"/>
+-
+-    <!-- Password -->
+-    <EditText
+-        android:id="@+id/etPassword"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:hint="Password"
+-        android:inputType="textPassword"
+-        android:background="@drawable/rounded_edittext"
+-        android:padding="16dp"
+-        app:layout_constraintTop_toBottomOf="@id/etUsername"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        android:layout_marginTop="20dp"
+-        android:layout_marginHorizontal="65dp"/>
+-
+-    <!-- Role Spinner -->
+-    <Spinner
+-        android:id="@+id/spnRole"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:background="@drawable/rounded_edittext"
+-        android:padding="12dp"
+-        app:layout_constraintTop_toBottomOf="@id/etPassword"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        android:layout_marginTop="20dp"
+-        android:layout_marginHorizontal="65dp"/>
+-
+-    <!-- Register Button -->
+-    <Button
+-        android:id="@+id/btnRegister"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:layout_marginHorizontal="65dp"
+-        android:layout_marginTop="40dp"
+-        android:background="@drawable/rounded_button"
+-        android:text="Create Account"
+-        android:textColor="#E4E4E4"
+-        android:textSize="20sp"
+-        app:layout_constraintTop_toBottomOf="@id/spnRole"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"/>
+-
+-    <!-- Divider + OR -->
+-    <View
+-        android:id="@+id/dividerLeft"
+-        android:layout_width="100dp"
+-        android:layout_height="1dp"
+-        android:background="#000000"
+-        app:layout_constraintTop_toBottomOf="@id/btnRegister"
+-        app:layout_constraintStart_toStartOf="parent"
+-        android:layout_marginTop="40dp"
+-        android:layout_marginStart="65dp"/>
+-
+-    <TextView
+-        android:id="@+id/tvOr"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="OR"
+-        android:textSize="16sp"
+-        android:textColor="#000000"
+-        app:layout_constraintTop_toTopOf="@id/dividerLeft"
+-        app:layout_constraintStart_toEndOf="@id/dividerLeft"
+-        android:layout_marginStart="8dp"/>
+-
+-    <View
+-        android:id="@+id/dividerRight"
+-        android:layout_width="100dp"
+-        android:layout_height="1dp"
+-        android:background="#000000"
+-        app:layout_constraintTop_toTopOf="@id/dividerLeft"
+-        app:layout_constraintStart_toEndOf="@id/tvOr"
+-        android:layout_marginStart="8dp"/>
+-
+-
+-
+-    <!-- Already have an account? (only 'Sign in' is a link) -->
+-    <Button
+-        android:id="@+id/btnSignInNow"
+-        android:layout_width="244dp"
+-        android:layout_height="49dp"
+-        android:layout_marginBottom="44dp"
+-        android:background="@drawable/rounded_button"
+-        android:text="Sign In"
+-        android:textColor="#E4E4E4"
+-        android:textSize="16sp"
+-        android:textStyle="bold"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_bias="0.46"
+-        app:layout_constraintStart_toStartOf="parent" />
+-</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/layout/activity_login.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_login.xml b/app/src/main/res/layout/activity_login.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_login.xml
++++ /dev/null
+@@ -1,146 +0,0 @@
+-<androidx.constraintlayout.widget.ConstraintLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:id="@+id/loginLayout"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    android:background="#C1E8FF">
+-
+-    <!-- Title -->
+-
+-
+-    <!-- Subtitle -->
+-
+-    <!-- Username -->
+-
+-    <TextView
+-        android:id="@+id/tvSupport"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="If You Need Any Support Click Here"
+-        android:textColor="#000000"
+-        android:textSize="18sp"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintVertical_bias="0.247" />
+-
+-    <EditText
+-        android:id="@+id/etLoginUsername"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:hint="Enter Username Or E-mail"
+-        android:background="@drawable/rounded_edittext"
+-        android:padding="16dp"
+-        app:layout_constraintTop_toBottomOf="@id/tvSupport"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        android:layout_marginTop="20dp"
+-        android:layout_marginHorizontal="65dp"/>
+-
+-    <!-- Password -->
+-
+-    <!-- Recovery Password (Clickable Link) -->
+-    <EditText
+-        android:id="@+id/etLoginPassword"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:layout_marginHorizontal="65dp"
+-        android:layout_marginTop="20dp"
+-        android:background="@drawable/rounded_edittext"
+-        android:hint="Password"
+-        android:inputType="textPassword"
+-        android:padding="16dp"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toBottomOf="@id/etLoginUsername" />
+-
+-    <TextView
+-        android:id="@+id/tvRecovery"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:text="Recovery Password"
+-        android:textColor="#0000EE"
+-        android:textSize="24sp"
+-        android:clickable="true"
+-        android:focusable="true"
+-        app:layout_constraintTop_toBottomOf="@id/etLoginPassword"
+-        app:layout_constraintStart_toStartOf="@id/etLoginPassword"
+-        android:layout_marginTop="16dp"/>
+-
+-    <!-- Login Button -->
+-    <Button
+-        android:id="@+id/btnLogin"
+-        android:layout_width="0dp"
+-        android:layout_height="60dp"
+-        android:text="Sign in"
+-        android:textColor="#E4E4E4"
+-        android:textSize="20sp"
+-        android:background="@drawable/rounded_button"
+-        app:layout_constraintTop_toBottomOf="@id/tvRecovery"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        android:layout_marginTop="40dp"
+-        android:layout_marginHorizontal="65dp"/>
+-
+-    <!-- Divider + OR -->
+-    <View
+-        android:id="@+id/dividerLeft"
+-        android:layout_width="100dp"
+-        android:layout_height="1dp"
+-        android:background="#000000"
+-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+-        app:layout_constraintStart_toStartOf="parent"
+-        android:layout_marginTop="40dp"
+-        android:layout_marginStart="65dp"/>
+-
+-    <!-- Google Icon -->
+-
+-    <!-- Apple Icon -->
+-
+-
+-
+-
+-    <!-- "Not a Member ?" + "Register Now" (Clickable only on 'Register Now') -->
+-
+-
+-    <TextView
+-        android:id="@+id/tvOr"
+-        android:layout_width="wrap_content"
+-        android:layout_height="wrap_content"
+-        android:layout_marginStart="48dp"
+-        android:text="OR"
+-        android:textColor="#000000"
+-        android:textSize="20sp"
+-        app:layout_constraintStart_toEndOf="@id/dividerLeft"
+-        app:layout_constraintTop_toTopOf="@id/dividerLeft" />
+-
+-    <View
+-        android:id="@+id/dividerRight"
+-        android:layout_width="100dp"
+-        android:layout_height="1dp"
+-        android:layout_marginStart="52dp"
+-        android:background="#000000"
+-        app:layout_constraintStart_toEndOf="@id/tvOr"
+-        app:layout_constraintTop_toTopOf="@id/dividerLeft" />
+-
+-    <Button
+-        android:id="@+id/btnRegisterNow"
+-        android:layout_width="244dp"
+-        android:layout_height="49dp"
+-        android:background="@drawable/rounded_button"
+-        android:text="Register Now"
+-        android:textColor="#34BD28"
+-        android:textSize="16sp"
+-        android:textStyle="bold"
+-        app:layout_constraintBottom_toBottomOf="parent"
+-        app:layout_constraintEnd_toEndOf="parent"
+-        app:layout_constraintHorizontal_bias="0.497"
+-        app:layout_constraintStart_toStartOf="parent"
+-        app:layout_constraintTop_toTopOf="parent"
+-        app:layout_constraintVertical_bias="0.895" />
+-
+-
+-</androidx.constraintlayout.widget.ConstraintLayout>
+Index: app/src/main/res/layout/activity_main.xml
+===================================================================
+diff --git a/app/src/main/res/layout/activity_main.xml b/app/src/main/res/layout/activity_main.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/activity_main.xml
++++ /dev/null
+@@ -1,22 +0,0 @@
+-<androidx.coordinatorlayout.widget.CoordinatorLayout
+-    xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:app="http://schemas.android.com/apk/res-auto"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent">
+-
+-    <!-- Fragment container -->
+-    <FrameLayout
+-        android:id="@+id/fragment_container"
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:layout_marginBottom="?attr/actionBarSize" />  <!-- Add margin to account for BottomNavigationView height -->
+-
+-    <!-- Bottom Navigation -->
+-    <com.google.android.material.bottomnavigation.BottomNavigationView
+-        android:id="@+id/bottom_navigation"
+-        android:layout_width="match_parent"
+-        android:layout_height="wrap_content"
+-        android:layout_gravity="bottom"
+-        app:menu="@menu/bottom_nav_menu" />
+-
+-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+Index: app/src/main/res/layout/fragment_teacher_dashboard.xml
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_teacher_dashboard.xml b/app/src/main/res/layout/fragment_teacher_dashboard.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/fragment_teacher_dashboard.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".Fragments.TeacherDashboardFragment">
+-
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
+-
+-</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_calendar.xml
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_calendar.xml b/app/src/main/res/layout/fragment_calendar.xml
+deleted file mode 100644
+--- a/app/src/main/res/layout/fragment_calendar.xml
++++ /dev/null
+@@ -1,14 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    android:layout_width="match_parent"
+-    android:layout_height="match_parent"
+-    tools:context=".Fragments.CalendarFragment">
+-
+-    <!-- TODO: Update blank fragment layout -->
+-    <TextView
+-        android:layout_width="match_parent"
+-        android:layout_height="match_parent"
+-        android:text="@string/hello_blank_fragment" />
+-
+-</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/drawable/ic_launcher_background.xml
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_launcher_background.xml b/app/src/main/res/drawable/ic_launcher_background.xml
+deleted file mode 100644
+--- a/app/src/main/res/drawable/ic_launcher_background.xml
++++ /dev/null
+@@ -1,170 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+-    android:width="108dp"
+-    android:height="108dp"
+-    android:viewportWidth="108"
+-    android:viewportHeight="108">
+-    <path
+-        android:fillColor="#3DDC84"
+-        android:pathData="M0,0h108v108h-108z" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M9,0L9,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,0L19,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M29,0L29,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M39,0L39,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M49,0L49,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M59,0L59,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M69,0L69,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M79,0L79,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M89,0L89,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M99,0L99,108"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,9L108,9"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,19L108,19"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,29L108,29"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,39L108,39"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,49L108,49"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,59L108,59"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,69L108,69"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,79L108,79"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,89L108,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M0,99L108,99"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,29L89,29"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,39L89,39"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,49L89,49"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,59L89,59"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,69L89,69"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M19,79L89,79"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M29,19L29,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M39,19L39,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M49,19L49,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M59,19L59,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M69,19L69,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-    <path
+-        android:fillColor="#00000000"
+-        android:pathData="M79,19L79,89"
+-        android:strokeWidth="0.8"
+-        android:strokeColor="#33FFFFFF" />
+-</vector>
+Index: app/src/main/res/drawable/ic_launcher_foreground.xml
+===================================================================
+diff --git a/app/src/main/res/drawable/ic_launcher_foreground.xml b/app/src/main/res/drawable/ic_launcher_foreground.xml
+deleted file mode 100644
+--- a/app/src/main/res/drawable/ic_launcher_foreground.xml
++++ /dev/null
+@@ -1,30 +0,0 @@
+-<vector xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:aapt="http://schemas.android.com/aapt"
+-    android:width="108dp"
+-    android:height="108dp"
+-    android:viewportWidth="108"
+-    android:viewportHeight="108">
+-    <path android:pathData="M31,63.928c0,0 6.4,-11 12.1,-13.1c7.2,-2.6 26,-1.4 26,-1.4l38.1,38.1L107,108.928l-32,-1L31,63.928z">
+-        <aapt:attr name="android:fillColor">
+-            <gradient
+-                android:endX="85.84757"
+-                android:endY="92.4963"
+-                android:startX="42.9492"
+-                android:startY="49.59793"
+-                android:type="linear">
+-                <item
+-                    android:color="#44000000"
+-                    android:offset="0.0" />
+-                <item
+-                    android:color="#00000000"
+-                    android:offset="1.0" />
+-            </gradient>
+-        </aapt:attr>
+-    </path>
+-    <path
+-        android:fillColor="#FFFFFF"
+-        android:fillType="nonZero"
+-        android:pathData="M65.3,45.828l3.8,-6.6c0.2,-0.4 0.1,-0.9 -0.3,-1.1c-0.4,-0.2 -0.9,-0.1 -1.1,0.3l-3.9,6.7c-6.3,-2.8 -13.4,-2.8 -19.7,0l-3.9,-6.7c-0.2,-0.4 -0.7,-0.5 -1.1,-0.3C38.8,38.328 38.7,38.828 38.9,39.228l3.8,6.6C36.2,49.428 31.7,56.028 31,63.928h46C76.3,56.028 71.8,49.428 65.3,45.828zM43.4,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2c-0.3,-0.7 -0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C45.3,56.528 44.5,57.328 43.4,57.328L43.4,57.328zM64.6,57.328c-0.8,0 -1.5,-0.5 -1.8,-1.2s-0.1,-1.5 0.4,-2.1c0.5,-0.5 1.4,-0.7 2.1,-0.4c0.7,0.3 1.2,1 1.2,1.8C66.5,56.528 65.6,57.328 64.6,57.328L64.6,57.328z"
+-        android:strokeWidth="1"
+-        android:strokeColor="#00000000" />
+-</vector>
+\ No newline at end of file
+Index: app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+deleted file mode 100644
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_background" />
+-    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+-    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+-</adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+===================================================================
+diff --git a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml b/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
+deleted file mode 100644
+--- a/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
++++ /dev/null
+@@ -1,6 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+-    <background android:drawable="@drawable/ic_launcher_background" />
+-    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+-    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+-</adaptive-icon>
+\ No newline at end of file
+Index: app/src/main/res/xml/backup_rules.xml
+===================================================================
+diff --git a/app/src/main/res/xml/backup_rules.xml b/app/src/main/res/xml/backup_rules.xml
+deleted file mode 100644
+--- a/app/src/main/res/xml/backup_rules.xml
++++ /dev/null
+@@ -1,13 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?><!--
+-   Sample backup rules file; uncomment and customize as necessary.
+-   See https://developer.android.com/guide/topics/data/autobackup
+-   for details.
+-   Note: This file is ignored for devices older than API 31
+-   See https://developer.android.com/about/versions/12/backup-restore
+--->
+-<full-backup-content>
+-    <!--
+-   <include domain="sharedpref" path="."/>
+-   <exclude domain="sharedpref" path="device.xml"/>
+--->
+-</full-backup-content>
+\ No newline at end of file
+Index: app/src/main/res/xml/data_extraction_rules.xml
+===================================================================
+diff --git a/app/src/main/res/xml/data_extraction_rules.xml b/app/src/main/res/xml/data_extraction_rules.xml
+deleted file mode 100644
+--- a/app/src/main/res/xml/data_extraction_rules.xml
++++ /dev/null
+@@ -1,19 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?><!--
+-   Sample data extraction rules file; uncomment and customize as necessary.
+-   See https://developer.android.com/about/versions/12/backup-restore#xml-changes
+-   for details.
+--->
+-<data-extraction-rules>
+-    <cloud-backup>
+-        <!-- TODO: Use <include> and <exclude> to control what is backed up.
+-        <include .../>
+-        <exclude .../>
+-        -->
+-    </cloud-backup>
+-    <!--
+-    <device-transfer>
+-        <include .../>
+-        <exclude .../>
+-    </device-transfer>
+-    -->
+-</data-extraction-rules>
+\ No newline at end of file
+Index: app/src/main/res/values/colors.xml
+===================================================================
+diff --git a/app/src/main/res/values/colors.xml b/app/src/main/res/values/colors.xml
+deleted file mode 100644
+--- a/app/src/main/res/values/colors.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<resources>
+-    <color name="black">#FF000000</color>
+-    <color name="white">#FFFFFFFF</color>
+-</resources>
+\ No newline at end of file
+Index: app/src/main/res/values/themes.xml
+===================================================================
+diff --git a/app/src/main/res/values/themes.xml b/app/src/main/res/values/themes.xml
+deleted file mode 100644
+--- a/app/src/main/res/values/themes.xml
++++ /dev/null
+@@ -1,9 +0,0 @@
+-<resources xmlns:tools="http://schemas.android.com/tools">
+-    <!-- Base application theme. -->
+-    <style name="Base.Theme.NURTURE_NEST" parent="Theme.Material3.DayNight.NoActionBar">
+-        <!-- Customize your light theme here. -->
+-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+-    </style>
+-
+-    <style name="Theme.NURTURE_NEST" parent="Base.Theme.NURTURE_NEST" />
+-</resources>
+\ No newline at end of file
+Index: app/src/main/res/values/strings.xml
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+deleted file mode 100644
+--- a/app/src/main/res/values/strings.xml
++++ /dev/null
+@@ -1,5 +0,0 @@
+-<resources>
+-    <string name="app_name">NURTURE_NEST</string>
+-    <!-- TODO: Remove or change this placeholder text -->
+-    <string name="hello_blank_fragment">Hello blank fragment</string>
+-</resources>
+\ No newline at end of file
+Index: app/src/main/res/values-night/themes.xml
+===================================================================
+diff --git a/app/src/main/res/values-night/themes.xml b/app/src/main/res/values-night/themes.xml
+deleted file mode 100644
+--- a/app/src/main/res/values-night/themes.xml
++++ /dev/null
+@@ -1,7 +0,0 @@
+-<resources xmlns:tools="http://schemas.android.com/tools">
+-    <!-- Base application theme. -->
+-    <style name="Base.Theme.NURTURE_NEST" parent="Theme.Material3.DayNight.NoActionBar">
+-        <!-- Customize your dark theme here. -->
+-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+-    </style>
+-</resources>
+\ No newline at end of file
+Index: app/src/main/res/menu/bottom_nav_menu.xml
+===================================================================
+diff --git a/app/src/main/res/menu/bottom_nav_menu.xml b/app/src/main/res/menu/bottom_nav_menu.xml
+deleted file mode 100644
+--- a/app/src/main/res/menu/bottom_nav_menu.xml
++++ /dev/null
+@@ -1,23 +0,0 @@
+-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+-
+-    <item
+-        android:id="@+id/nav_dashboard"
+-        android:title="Dashboard"
+-        android:icon="@drawable/ic_dashboard" />
+-
+-    <item
+-        android:id="@+id/nav_settings"
+-        android:title="Settings"
+-        android:icon="@drawable/ic_settings" />
+-
+-    <item
+-        android:id="@+id/nav_calendar"
+-        android:title="Calendar"
+-        android:icon="@drawable/ic_calendar" />
+-
+-    <item
+-        android:id="@+id/nav_profile"
+-        android:title="Profile"
+-        android:icon="@drawable/ic_profile" />
+-
+-</menu>
+Index: app/src/main/java/com/example/nurture_nest/DashboardActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/DashboardActivity.kt b/app/src/main/java/com/example/nurture_nest/DashboardActivity.kt
+--- a/app/src/main/java/com/example/nurture_nest/DashboardActivity.kt
++++ b/app/src/main/java/com/example/nurture_nest/DashboardActivity.kt	(date 1758568445285)
+@@ -2,8 +2,8 @@
+ 
+ import android.os.Bundle
+ import androidx.appcompat.app.AppCompatActivity
+-import com.example.nurture_nest.Fragments.ParentDashboardFragment
+-import com.example.nurture_nest.Fragments.TeacherDashboardFragment
++//import com.example.nurture_nest.Fragments.ParentDashboardFragment
++//import com.example.nurture_nest.Fragments.TeacherDashboardFragment
+ 
+ class DashboardActivity : AppCompatActivity() {
+ 
+@@ -13,16 +13,16 @@
+ 
+         val role = intent.getStringExtra("userType")
+ 
+-        val fragment = when (role) {
+-            "Parent" -> ParentDashboardFragment()
+-            "Teacher" -> TeacherDashboardFragment()
+-            else -> null
+-        }
++        //val fragment = when (role) {
++          //  "Parent" -> ParentDashboardFragment()
++            //"Teacher" -> TeacherDashboardFragment()
++            //else -> null
++        //}
+ 
+-        fragment?.let {
+-            supportFragmentManager.beginTransaction()
+-                .replace(R.id.fragment_container, it)
+-                .commit()
+-        }
++        //fragment?.let {
++        //    supportFragmentManager.beginTransaction()
++        //        .replace(R.id.fragment_container, it)
++        //        .commit()
++        //}
+     }
+ }
+Index: app/src/main/java/com/example/nurture_nest/SplashScreen.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/SplashScreen.kt b/app/src/main/java/com/example/nurture_nest/SplashScreen.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/SplashScreen.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest
+-
+-import android.content.Intent
+-import android.content.SharedPreferences
+-import android.os.Bundle
+-import android.os.Handler
+-import android.os.Looper
+-import androidx.activity.enableEdgeToEdge
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.view.ViewCompat
+-import androidx.core.view.WindowInsetsCompat
+-
+-class SplashScreen : AppCompatActivity() {
+-
+-    private lateinit var prefs: SharedPreferences
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        enableEdgeToEdge()
+-        setContentView(R.layout.activity_splash_screen)
+-
+-        // Adjust for system bars
+-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+-            insets
+-        }
+-
+-        prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
+-
+-        // Delay splash for 2 seconds before navigating
+-        Handler(Looper.getMainLooper()).postDelayed({
+-            navigateNext()
+-        }, 2000)
+-    }
+-
+-    private fun navigateNext() {
+-        val isRegistered = prefs.getBoolean("isRegistered", false)
+-        val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
+-        val role = prefs.getString("userType", null)
+-
+-        when {
+-            !isRegistered -> {
+-                // First run → go to Register
+-                startActivity(Intent(this, Register::class.java))
+-            }
+-            !isLoggedIn -> {
+-                // Not logged in → go to Login
+-                startActivity(Intent(this, Login::class.java))
+-            }
+-            else -> {
+-                // Already logged in → always go to MainActivity with role
+-                val intent = Intent(this, MainActivity::class.java)
+-                intent.putExtra("userType", role)
+-                startActivity(intent)
+-            }
+-        }
+-        finish()
+-    }
+-}
+Index: app/src/main/java/com/example/nurture_nest/MainActivity.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/MainActivity.kt b/app/src/main/java/com/example/nurture_nest/MainActivity.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/MainActivity.kt
++++ /dev/null
+@@ -1,61 +0,0 @@
+-package com.example.nurture_nest
+-
+-import android.os.Bundle
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.fragment.app.Fragment
+-import com.example.nurture_nest.Fragments.AdminDashboardFragment
+-import com.example.nurture_nest.Fragments.CalendarFragment
+-import com.example.nurture_nest.Fragments.ParentDashboardFragment
+-import com.example.nurture_nest.Fragments.ProfileFragment
+-import com.example.nurture_nest.Fragments.SettingsFragment
+-import com.example.nurture_nest.Fragments.TeacherDashboardFragment
+-import com.google.android.material.bottomnavigation.BottomNavigationView
+-
+-class MainActivity : AppCompatActivity() {
+-
+-    private lateinit var bottomNav: BottomNavigationView
+-    private var userRole: String = "Parent" // default
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_main)
+-
+-        bottomNav = findViewById(R.id.bottom_navigation)
+-
+-        // Get role from Intent (passed by SplashScreen/Login)
+-        userRole = intent.getStringExtra("userType") ?: "Parent"
+-
+-        // Load default dashboard fragment based on role
+-        if (savedInstanceState == null) {
+-            loadFragment(getDashboardFragment(userRole))
+-        }
+-
+-        // Bottom navigation
+-        bottomNav.setOnItemSelectedListener { item ->
+-            when (item.itemId) {
+-                R.id.nav_dashboard -> loadFragment(getDashboardFragment(userRole))
+-                R.id.nav_settings -> loadFragment(SettingsFragment())
+-                R.id.nav_calendar -> loadFragment(CalendarFragment())
+-                R.id.nav_profile -> loadFragment(ProfileFragment())
+-            }
+-            true
+-        }
+-    }
+-
+-    /** Return the correct dashboard fragment based on user role */
+-    private fun getDashboardFragment(role: String): Fragment {
+-        return when (role) {
+-            "Parent" -> ParentDashboardFragment()
+-            "Teacher" -> TeacherDashboardFragment()
+-            "Admin" -> AdminDashboardFragment()
+-            else -> ParentDashboardFragment()
+-        }
+-    }
+-
+-    /** Swap fragments in the container */
+-    private fun loadFragment(fragment: Fragment) {
+-        supportFragmentManager.beginTransaction()
+-            .replace(R.id.fragment_container, fragment)
+-            .commit()
+-    }
+-}
+Index: app/src/main/java/com/example/nurture_nest/Register.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Register.kt b/app/src/main/java/com/example/nurture_nest/Register.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Register.kt
++++ /dev/null
+@@ -1,58 +0,0 @@
+-package com.example.nurture_nest
+-
+-import android.content.Intent
+-import android.content.SharedPreferences
+-import android.os.Bundle
+-import android.widget.*
+-import androidx.appcompat.app.AppCompatActivity
+-
+-class Register : AppCompatActivity() {
+-
+-    private lateinit var prefs: SharedPreferences
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_register)
+-
+-        prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
+-
+-        val username = findViewById<EditText>(R.id.etUsername)
+-        val password = findViewById<EditText>(R.id.etPassword)
+-        val roleSpinner = findViewById<Spinner>(R.id.spnRole)
+-        val registerBtn = findViewById<Button>(R.id.btnRegister)
+-        val signInBtn = findViewById<Button>(R.id.btnSignInNow)
+-
+-        // Setup role options
+-        val roles = arrayOf("Parent", "Teacher", "Admin")
+-        roleSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, roles)
+-
+-        signInBtn.setOnClickListener {
+-            startActivity(Intent(this, Login::class.java))
+-            finish()
+-        }
+-        registerBtn.setOnClickListener {
+-            val user = username.text.toString().trim()
+-            val pass = password.text.toString().trim()
+-            val role = roleSpinner.selectedItem.toString()
+-
+-            if (user.isEmpty() || pass.isEmpty()) {
+-                Toast.makeText(this, "Please enter username & password", Toast.LENGTH_SHORT).show()
+-            } else {
+-                prefs.edit()
+-                    .putBoolean("isRegistered", true)
+-                    .putString("username", user)
+-                    .putString("password", pass)
+-                    .putString("userType", role)
+-                    .apply()
+-
+-                Toast.makeText(this, "Registered as $role", Toast.LENGTH_SHORT).show()
+-
+-                // After register → go to Login
+-                startActivity(Intent(this, Login::class.java))
+-                finish()
+-
+-
+-            }
+-        }
+-    }
+-}
+Index: app/src/main/java/com/example/nurture_nest/Login.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Login.kt b/app/src/main/java/com/example/nurture_nest/Login.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Login.kt
++++ /dev/null
+@@ -1,56 +0,0 @@
+-package com.example.nurture_nest
+-
+-import android.content.Intent
+-import android.content.SharedPreferences
+-import android.os.Bundle
+-import android.widget.Button
+-import android.widget.EditText
+-import android.widget.Toast
+-import androidx.appcompat.app.AppCompatActivity
+-import androidx.core.content.edit
+-
+-class Login : AppCompatActivity() {
+-
+-    private lateinit var prefs: SharedPreferences
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        setContentView(R.layout.activity_login)
+-
+-        prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
+-
+-        val username = findViewById<EditText>(R.id.etLoginUsername)
+-        val password = findViewById<EditText>(R.id.etLoginPassword)
+-        val loginBtn = findViewById<Button>(R.id.btnLogin)
+-        val registerBtn = findViewById<Button>(R.id.btnRegisterNow)
+-
+-        // Go to Register screen
+-        registerBtn.setOnClickListener {
+-            startActivity(Intent(this, Register::class.java))
+-        }
+-
+-        // Login logic
+-        loginBtn.setOnClickListener {
+-            val user = username.text.toString().trim()
+-            val pass = password.text.toString().trim()
+-
+-            val savedUser = prefs.getString("username", null)
+-            val savedPass = prefs.getString("password", null)
+-            val savedRole = prefs.getString("userType", "Parent")
+-
+-            if (user == savedUser && pass == savedPass) {
+-                prefs.edit {
+-                    putBoolean("isLoggedIn", true)
+-                }
+-
+-                Toast.makeText(this, "Welcome $savedRole!", Toast.LENGTH_SHORT).show()
+-
+-                // Open MainActivity after login
+-                startActivity(Intent(this, MainActivity::class.java))
+-                finish()
+-            } else {
+-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+-            }
+-        }
+-    }
+-}
+Index: app/src/main/java/com/example/nurture_nest/Fragments/ProfileFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Fragments/ProfileFragment.kt b/app/src/main/java/com/example/nurture_nest/Fragments/ProfileFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Fragments/ProfileFragment.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest.Fragments
+-
+-import android.os.Bundle
+-import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import com.example.nurture_nest.R
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [ProfileFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class ProfileFragment : Fragment() {
+-    // TODO: Rename and change types of parameters
+-    private var param1: String? = null
+-    private var param2: String? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        arguments?.let {
+-            param1 = it.getString(ARG_PARAM1)
+-            param2 = it.getString(ARG_PARAM2)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.activity_profile, container, false)
+-    }
+-
+-    companion object {
+-        /**
+-         * Use this factory method to create a new instance of
+-         * this fragment using the provided parameters.
+-         *
+-         * @param param1 Parameter 1.
+-         * @param param2 Parameter 2.
+-         * @return A new instance of fragment ProfileFragment.
+-         */
+-        // TODO: Rename and change types and number of parameters
+-        @JvmStatic
+-        fun newInstance(param1: String, param2: String) =
+-            ProfileFragment().apply {
+-                arguments = Bundle().apply {
+-                    putString(ARG_PARAM1, param1)
+-                    putString(ARG_PARAM2, param2)
+-                }
+-            }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/nurture_nest/Fragments/CalendarFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Fragments/CalendarFragment.kt b/app/src/main/java/com/example/nurture_nest/Fragments/CalendarFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Fragments/CalendarFragment.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest.Fragments
+-
+-import android.os.Bundle
+-import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import com.example.nurture_nest.R
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [CalendarFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class CalendarFragment : Fragment() {
+-    // TODO: Rename and change types of parameters
+-    private var param1: String? = null
+-    private var param2: String? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        arguments?.let {
+-            param1 = it.getString(ARG_PARAM1)
+-            param2 = it.getString(ARG_PARAM2)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_calendar, container, false)
+-    }
+-
+-    companion object {
+-        /**
+-         * Use this factory method to create a new instance of
+-         * this fragment using the provided parameters.
+-         *
+-         * @param param1 Parameter 1.
+-         * @param param2 Parameter 2.
+-         * @return A new instance of fragment CalendarFragment.
+-         */
+-        // TODO: Rename and change types and number of parameters
+-        @JvmStatic
+-        fun newInstance(param1: String, param2: String) =
+-            CalendarFragment().apply {
+-                arguments = Bundle().apply {
+-                    putString(ARG_PARAM1, param1)
+-                    putString(ARG_PARAM2, param2)
+-                }
+-            }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/nurture_nest/Fragments/SettingsFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Fragments/SettingsFragment.kt b/app/src/main/java/com/example/nurture_nest/Fragments/SettingsFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Fragments/SettingsFragment.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest.Fragments
+-
+-import android.os.Bundle
+-import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import com.example.nurture_nest.R
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [SettingsFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class SettingsFragment : Fragment() {
+-    // TODO: Rename and change types of parameters
+-    private var param1: String? = null
+-    private var param2: String? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        arguments?.let {
+-            param1 = it.getString(ARG_PARAM1)
+-            param2 = it.getString(ARG_PARAM2)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.activity_settings, container, false)
+-    }
+-
+-    companion object {
+-        /**
+-         * Use this factory method to create a new instance of
+-         * this fragment using the provided parameters.
+-         *
+-         * @param param1 Parameter 1.
+-         * @param param2 Parameter 2.
+-         * @return A new instance of fragment SettingsFragment.
+-         */
+-        // TODO: Rename and change types and number of parameters
+-        @JvmStatic
+-        fun newInstance(param1: String, param2: String) =
+-            SettingsFragment().apply {
+-                arguments = Bundle().apply {
+-                    putString(ARG_PARAM1, param1)
+-                    putString(ARG_PARAM2, param2)
+-                }
+-            }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/nurture_nest/Fragments/AdminDashboardFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Fragments/AdminDashboardFragment.kt b/app/src/main/java/com/example/nurture_nest/Fragments/AdminDashboardFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Fragments/AdminDashboardFragment.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest.Fragments
+-
+-import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import androidx.fragment.app.Fragment
+-import com.example.nurture_nest.R
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [AdminDashboardFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class AdminDashboardFragment : Fragment() {
+-    // TODO: Rename and change types of parameters
+-    private var param1: String? = null
+-    private var param2: String? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        arguments?.let {
+-            param1 = it.getString(ARG_PARAM1)
+-            param2 = it.getString(ARG_PARAM2)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.activity_admin_dashboard, container, false)
+-    }
+-
+-    companion object {
+-        /**
+-         * Use this factory method to create a new instance of
+-         * this fragment using the provided parameters.
+-         *
+-         * @param param1 Parameter 1.
+-         * @param param2 Parameter 2.
+-         * @return A new instance of fragment AdminDashboardFragment.
+-         */
+-        // TODO: Rename and change types and number of parameters
+-        @JvmStatic
+-        fun newInstance(param1: String, param2: String) =
+-            AdminDashboardFragment().apply {
+-                arguments = Bundle().apply {
+-                    putString(ARG_PARAM1, param1)
+-                    putString(ARG_PARAM2, param2)
+-                }
+-            }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/nurture_nest/Fragments/ParentDashboardFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Fragments/ParentDashboardFragment.kt b/app/src/main/java/com/example/nurture_nest/Fragments/ParentDashboardFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Fragments/ParentDashboardFragment.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest.Fragments
+-
+-import android.os.Bundle
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import androidx.fragment.app.Fragment
+-import com.example.nurture_nest.R
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [ParentDashboardFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class ParentDashboardFragment : Fragment() {
+-    // TODO: Rename and change types of parameters
+-    private var param1: String? = null
+-    private var param2: String? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        arguments?.let {
+-            param1 = it.getString(ARG_PARAM1)
+-            param2 = it.getString(ARG_PARAM2)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.activity_parent_dashboard, container, false)
+-    }
+-
+-    companion object {
+-        /**
+-         * Use this factory method to create a new instance of
+-         * this fragment using the provided parameters.
+-         *
+-         * @param param1 Parameter 1.
+-         * @param param2 Parameter 2.
+-         * @return A new instance of fragment ParentDashboardFragment.
+-         */
+-        // TODO: Rename and change types and number of parameters
+-        @JvmStatic
+-        fun newInstance(param1: String, param2: String) =
+-            ParentDashboardFragment().apply {
+-                arguments = Bundle().apply {
+-                    putString(ARG_PARAM1, param1)
+-                    putString(ARG_PARAM2, param2)
+-                }
+-            }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/java/com/example/nurture_nest/Fragments/TeacherDashboardFragment.kt
+===================================================================
+diff --git a/app/src/main/java/com/example/nurture_nest/Fragments/TeacherDashboardFragment.kt b/app/src/main/java/com/example/nurture_nest/Fragments/TeacherDashboardFragment.kt
+deleted file mode 100644
+--- a/app/src/main/java/com/example/nurture_nest/Fragments/TeacherDashboardFragment.kt
++++ /dev/null
+@@ -1,60 +0,0 @@
+-package com.example.nurture_nest.Fragments
+-
+-import android.os.Bundle
+-import androidx.fragment.app.Fragment
+-import android.view.LayoutInflater
+-import android.view.View
+-import android.view.ViewGroup
+-import com.example.nurture_nest.R
+-
+-// TODO: Rename parameter arguments, choose names that match
+-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+-private const val ARG_PARAM1 = "param1"
+-private const val ARG_PARAM2 = "param2"
+-
+-/**
+- * A simple [Fragment] subclass.
+- * Use the [TeacherDashboardFragment.newInstance] factory method to
+- * create an instance of this fragment.
+- */
+-class TeacherDashboardFragment : Fragment() {
+-    // TODO: Rename and change types of parameters
+-    private var param1: String? = null
+-    private var param2: String? = null
+-
+-    override fun onCreate(savedInstanceState: Bundle?) {
+-        super.onCreate(savedInstanceState)
+-        arguments?.let {
+-            param1 = it.getString(ARG_PARAM1)
+-            param2 = it.getString(ARG_PARAM2)
+-        }
+-    }
+-
+-    override fun onCreateView(
+-        inflater: LayoutInflater, container: ViewGroup?,
+-        savedInstanceState: Bundle?
+-    ): View? {
+-        // Inflate the layout for this fragment
+-        return inflater.inflate(R.layout.fragment_teacher_dashboard, container, false)
+-    }
+-
+-    companion object {
+-        /**
+-         * Use this factory method to create a new instance of
+-         * this fragment using the provided parameters.
+-         *
+-         * @param param1 Parameter 1.
+-         * @param param2 Parameter 2.
+-         * @return A new instance of fragment TeacherDashboardFragment.
+-         */
+-        // TODO: Rename and change types and number of parameters
+-        @JvmStatic
+-        fun newInstance(param1: String, param2: String) =
+-            TeacherDashboardFragment().apply {
+-                arguments = Bundle().apply {
+-                    putString(ARG_PARAM1, param1)
+-                    putString(ARG_PARAM2, param2)
+-                }
+-            }
+-    }
+-}
+\ No newline at end of file
+Index: app/src/main/AndroidManifest.xml
+===================================================================
+diff --git a/app/src/main/AndroidManifest.xml b/app/src/main/AndroidManifest.xml
+deleted file mode 100644
+--- a/app/src/main/AndroidManifest.xml
++++ /dev/null
+@@ -1,42 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+-    xmlns:tools="http://schemas.android.com/tools"
+-    package="com.example.nurture_nest">
+-
+-    <application
+-        android:allowBackup="true"
+-        android:dataExtractionRules="@xml/data_extraction_rules"
+-        android:fullBackupContent="@xml/backup_rules"
+-        android:icon="@mipmap/ic_launcher"
+-        android:label="@string/app_name"
+-        android:roundIcon="@mipmap/ic_launcher_round"
+-        android:supportsRtl="true"
+-        android:theme="@style/Theme.NURTURE_NEST">
+-
+-        <!-- Splash Screen (Launcher) -->
+-        <activity
+-            android:name=".SplashScreen"
+-            android:exported="true">
+-            <intent-filter>
+-                <action android:name="android.intent.action.MAIN" />
+-                <category android:name="android.intent.category.LAUNCHER" />
+-            </intent-filter>
+-        </activity>
+-
+-        <!-- Login Activity -->
+-        <activity
+-            android:name=".Login"
+-            android:exported="true" />
+-
+-        <!-- Register Activity -->
+-        <activity
+-            android:name=".Register"
+-            android:exported="true" />
+-
+-        <!-- Main Activity (hosts all dashboard fragments) -->
+-        <activity
+-            android:name=".MainActivity"
+-            android:exported="true" />
+-
+-    </application>
+-</manifest>
+Index: app/src/test/java/com/example/nurture_nest/ExampleUnitTest.kt
+===================================================================
+diff --git a/app/src/test/java/com/example/nurture_nest/ExampleUnitTest.kt b/app/src/test/java/com/example/nurture_nest/ExampleUnitTest.kt
+deleted file mode 100644
+--- a/app/src/test/java/com/example/nurture_nest/ExampleUnitTest.kt
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package com.example.nurture_nest
+-
+-import org.junit.Test
+-
+-import org.junit.Assert.*
+-
+-/**
+- * Example local unit test, which will execute on the development machine (host).
+- *
+- * See [testing documentation](http://d.android.com/tools/testing).
+- */
+-class ExampleUnitTest {
+-    @Test
+-    fun addition_isCorrect() {
+-        assertEquals(4, 2 + 2)
+-    }
+-}
+\ No newline at end of file
+Index: app/src/androidTest/java/com/example/nurture_nest/ExampleInstrumentedTest.kt
+===================================================================
+diff --git a/app/src/androidTest/java/com/example/nurture_nest/ExampleInstrumentedTest.kt b/app/src/androidTest/java/com/example/nurture_nest/ExampleInstrumentedTest.kt
+deleted file mode 100644
+--- a/app/src/androidTest/java/com/example/nurture_nest/ExampleInstrumentedTest.kt
++++ /dev/null
+@@ -1,24 +0,0 @@
+-package com.example.nurture_nest
+-
+-import androidx.test.platform.app.InstrumentationRegistry
+-import androidx.test.ext.junit.runners.AndroidJUnit4
+-
+-import org.junit.Test
+-import org.junit.runner.RunWith
+-
+-import org.junit.Assert.*
+-
+-/**
+- * Instrumented test, which will execute on an Android device.
+- *
+- * See [testing documentation](http://d.android.com/tools/testing).
+- */
+-@RunWith(AndroidJUnit4::class)
+-class ExampleInstrumentedTest {
+-    @Test
+-    fun useAppContext() {
+-        // Context of the app under test.
+-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+-        assertEquals("com.example.nurture_nest", appContext.packageName)
+-    }
+-}
+\ No newline at end of file
+Index: app/proguard-rules.pro
+===================================================================
+diff --git a/app/proguard-rules.pro b/app/proguard-rules.pro
+deleted file mode 100644
+--- a/app/proguard-rules.pro
++++ /dev/null
+@@ -1,21 +0,0 @@
+-# Add project specific ProGuard rules here.
+-# You can control the set of applied configuration files using the
+-# proguardFiles setting in build.gradle.
+-#
+-# For more details, see
+-#   http://developer.android.com/guide/developing/tools/proguard.html
+-
+-# If your project uses WebView with JS, uncomment the following
+-# and specify the fully qualified class name to the JavaScript interface
+-# class:
+-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+-#   public *;
+-#}
+-
+-# Uncomment this to preserve the line number information for
+-# debugging stack traces.
+-#-keepattributes SourceFile,LineNumberTable
+-
+-# If you keep the line number information, uncomment this to
+-# hide the original source file name.
+-#-renamesourcefileattribute SourceFile
+\ No newline at end of file
+Index: app/.gitignore
+===================================================================
+diff --git a/app/.gitignore b/app/.gitignore
+deleted file mode 100644
+--- a/app/.gitignore
++++ /dev/null
+@@ -1,1 +0,0 @@
+-/build
+\ No newline at end of file
+Index: app/build.gradle.kts
+===================================================================
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+deleted file mode 100644
+--- a/app/build.gradle.kts
++++ /dev/null
+@@ -1,48 +0,0 @@
+-plugins {
+-    alias(libs.plugins.android.application)
+-    alias(libs.plugins.kotlin.android)
+-}
+-
+-android {
+-    namespace = "com.example.nurture_nest"
+-    compileSdk = 36
+-
+-    defaultConfig {
+-        applicationId = "com.example.nurture_nest"
+-        minSdk = 25
+-        targetSdk = 36
+-        versionCode = 1
+-        versionName = "1.0"
+-
+-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+-    }
+-
+-    buildTypes {
+-        release {
+-            isMinifyEnabled = false
+-            proguardFiles(
+-                getDefaultProguardFile("proguard-android-optimize.txt"),
+-                "proguard-rules.pro"
+-            )
+-        }
+-    }
+-    compileOptions {
+-        sourceCompatibility = JavaVersion.VERSION_11
+-        targetCompatibility = JavaVersion.VERSION_11
+-    }
+-    kotlinOptions {
+-        jvmTarget = "11"
+-    }
+-}
+-
+-dependencies {
+-
+-    implementation(libs.androidx.core.ktx)
+-    implementation(libs.androidx.appcompat)
+-    implementation(libs.material)
+-    implementation(libs.androidx.activity)
+-    implementation(libs.androidx.constraintlayout)
+-    testImplementation(libs.junit)
+-    androidTestImplementation(libs.androidx.junit)
+-    androidTestImplementation(libs.androidx.espresso.core)
+-}
+\ No newline at end of file
+diff --git a/app/src/main/res/drawable/ic_home.png b/app/src/main/res/drawable/ic_home.png
+index 335e6d2216063883f940ca67f312fff1d5060f21..335e6d2216063883f940ca67f312fff1d5060f21
+GIT binary patch
+literal 1854
+zc%0Q$Sx{3~7>>3@mIQ8$Gb{>e;({o}KwMB0Qj@TxRS0T94T=Q^M2g5*3W7;GHYRZ^
+zB4b$^ji{ASTjGjhkvo`xAYh6_0tnnD)TV&K#hOJ(a(e;w!I#eTp))-*=X~e;|L_0)
+zbI!{-!i|o^x%#+bFc=&sioFp<!{l^!Lf1{eTpbE7`=Yk)$6(wDlXC{9Oy-5bIKdqD
+zy3M(==e_jHDUZGH>v_jw*ExT6v=Y1E)l3e4U0~ybE!)bL^l<9#1uf(x%Nk?OolY{k
+zl^mS;(G4mkjSxjxPdMeZGT%M0l_KM((1&*{(|wRL*eY<JSoKf_Cclq)XM9X3=v(_?
+za}j<ljcp4c3r^Z8SI(!B4J}gZNI%~f&uA4a-qKt^HfX{{@s?t#HO;K5cNO^Ig}=n0
+z0gE&@Y=ZQ8%Cc}Z!w=9uwo}Q1Qu`Ikg~V_*ScOLeYsvjhg54#}nPda#Pp-XVmv>(y
+z`bAix*fxjL3;{C2R$u5QIz`+lcsUv`g@?k9OZ~4g<{S^z3gcg4k$tN2I<vP!FJ|$d
+zQ*A1oWV|QUDw*qUx~YLZR?Qnqhr(>&S$p``_^C`P=cafHy>CwQykeiBbh%!hwmnaw
+z<co!uI`&NC*!9LKOKR;;QyskH%-qBYEP|~lp62($#9&A0x3@;Ox5)P+$Hl@s+B^l~
+z0MD3(Zb*e*lWFyjBMw;@O8a=2W^CI4qu9qW*w}GGGM+i#@N^bU^SlwNTw&{I;369a
+zHjH}edV`Q2xCV;^Qnk<tsa%#@XPhl4q}Zq?F7g?hmal?V3ftk;IAr}=t<Z520=mJ%
+zmsu*~3LCYLi>zbQcIay|!`1mX`4d>PTzJ9ZaXRuZJJnV_mI|+ORQ?h7f}8lgUao&8
+ztQ)`hO?h2)rwSqBkk$~bF2!1re;0i-Z^vNVD2tzgUWWRBo5*W~p%=IG*j+cu>sG25
+zgAu+%=~UbGRxUIF?S;TaV7hHZO~)&p$gM0xp=^US4Q*>C&5TJY#7X6*z9my;KW?2)
+zvv}E4NMYHZLHnAl5xU`SVwoga0b*4QU6KN%sTdx+6qzls1_{<0DYhcB@7;FEc)J8q
+zVi9|=)>03H6c#@bi@1eoEzK|pu=o&4DB6O0m=VCT=VFnfvCG3<+dL4Wmt&Z!)u3^-
+zT>=()FGQ<ph8Y0M-iwkZuOYkn2f9jlA8SfK@Cb&8EPL7B(o5qz6-K;D7zFxk46*rB
+zwEG!iM2t1jnlhl(AdN+*yCXUAJ`S8oHYU>xZRG+6RN@VFTF;c`Su^Qcw=6&2y?p9Z
+z7|K(48WO56=A@QYE=@-F2djV2+5M*;G;x=y4`le(MzS2nlRr!HNDniHf1~^Covs$}
+zW{tLURl?!&9n$o!HMs?1ZwJrA#7wx~S)adL4a<X3kuNHWwWx%hs8#kCsMU54q?C0R
+z&|S@j{jyivQf(P~NLA^m?a&A^{%gxy84jW2UVCZVVCc!)1QwyYziHA33w@QYg>Hv$
+zgS><yAiyQ~$UiU5O(aJsx&MsKtm%5RNIh@9#G2HQI%;}Nna?Ifx1C95J~KfCOoWkw
+zm{PtR@Fc10Vx-4_B*<SK?tFEWU?7XSEG}92e<$~|#Ik#<zMLpns0Iw)Oxj3vgRw^#
+zND>1Y;5_gtb3K_&`c72BmNEk;PkngH?4;Qw*Q*QE3z&0~I8u&ivHBEH<QywqNLqyd
+z9~5LA0-&SP3ZMR^ZX)X^1Ij@ja~?xosMG<Gb@59D8!G(O10t`-F;ai$u~1TkiC}PH
+z(xRoYc2Vvjpn#CHnL#@H;eRfv1@Q8k-0KG2%QpA07!M1xK^gGwr}Jj8tC1Onz60m{
+RPSZRmIVU`tUB%pa=x?^0apwR4
+
+diff --git a/app/src/main/res/drawable/ic_calendar.png b/app/src/main/res/drawable/ic_calendar.png
+deleted file mode 100644
+index e8f05efc8734c88af32775d34ea6ec521258f206..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/drawable/logo.png b/app/src/main/res/drawable/logo.png
+deleted file mode 100644
+index f4a9e5ea56fc5e9eacff9ac877e0421451dfa053..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/drawable/ic_profile.png b/app/src/main/res/drawable/ic_profile.png
+deleted file mode 100644
+index 28c002e499696c1e106c63d2b31e736110c4eb35..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/drawable/ic_settings.png b/app/src/main/res/drawable/ic_settings.png
+deleted file mode 100644
+index 0b754334fe171ed194d8a543fe8a01b929301c04..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/drawable/ic_dashboard.png b/app/src/main/res/drawable/ic_dashboard.png
+deleted file mode 100644
+index 3d3d0f2ba8d90349767d97361e1aea6ccd52543e..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/drawable-round-notnight/ic_apple.png b/app/src/main/res/drawable-round-notnight/ic_apple.png
+index 56ef21ce6018b68164360448a60ccad3f18df81a..56ef21ce6018b68164360448a60ccad3f18df81a
+GIT binary patch
+literal 684
+zc$@*O0#p5oP)<h;3K|Lk000e1NJLTq001%o001%w1^@s69zTe&00009a7bBm000XU
+z000XU0RWnu7ytkQUP(kjRCt{2*-wZ~Q5?YW&lrr2P?8MUkcIq9MpFKiKlxKqijv5}
+zLRnf77Q#Xy3pN&%WFagh%F0^#zp#+ROcTN|ni=Kl)|q;}-h1Y~ci(&GYQFVby?4(!
+z-+Ruv=bYbRl)71h%Xo%Ea>#7lM^X@n<&16UE0RcKuN<)*LnS2Am?tO9!H+T$uh1qZ
+zJSroR#sN8@tAfN+jFS^Cm67<4MRLT85)$crSt(}>6-hh}lRp~T!s50R3o)t8|I)YL
+zja%4^F-5;m#o|!TT(oNvD{vK`OAMKG7@Z7_8m4$Mry^@`0q;tb(T6Lco`%qgyA{4b
+z#qk#Bup8^J3+M5niZbqndNU(^gI}s>K$h_pTeFbZfWa0?Bq7rJx6~ssA3s|xkrXVR
+z6Katdi{}vtB;nlBQEPAPk3b;7S#{7JzB;XzcvxcHsfy(hNDO7M12`6e$W0kge5P(i
+z?8rjoWdtIfS%`dVvBd9sC;2dg5s3I7dL+S=EJS)D5LuOl$dd>}PG=!<Jpz&5S~rP>
+z9Em_A$s#AbJ_3mZ{q?4dIx3_%n;q}#%?;m<Kq3k8DI~#bVowADNr`QJntG~wc=blm
+z_@p5IU_mXtaw>wxCk1gwjm*M8M7`0a4$ed%k>Hv-nHX}nt(54)3>mPm#Uck~NHuxi
+zEaO4ecZ}0ou)XiWbPZrx6Spq?AuZJ~Ha6iXJQyy88qVr}472nS=pr_SBwKoHof+;8
+zkK#>*XS=gH9gdXrs_l449SwxWr}?m*7(asN*Wv~~;ul`y1SU73?W2rhg!~2f9)XPC
+S_^e9+0000<MNUMnLSTaN!7c^>
+
+diff --git a/app/src/main/res/mipmap-xhdpi/ic_launcher.webp b/app/src/main/res/mipmap-xhdpi/ic_launcher.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp b/app/src/main/res/mipmap-xhdpi/ic_launcher_round.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp b/app/src/main/res/mipmap-xxxhdpi/ic_launcher.webp
+deleted file mode 100644
+index aa7d6427e6fa1074b79ccd52ef67ac15c5637e85..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp b/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp b/app/src/main/res/mipmap-xxhdpi/ic_launcher.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp b/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-mdpi/ic_launcher.webp b/app/src/main/res/mipmap-mdpi/ic_launcher.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp b/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-hdpi/ic_launcher.webp b/app/src/main/res/mipmap-hdpi/ic_launcher.webp
+deleted file mode 100644
+index c209e78ecd372343283f4157dcfd918ec5165bb3..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
+diff --git a/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp b/app/src/main/res/mipmap-hdpi/ic_launcher_round.webp
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+
