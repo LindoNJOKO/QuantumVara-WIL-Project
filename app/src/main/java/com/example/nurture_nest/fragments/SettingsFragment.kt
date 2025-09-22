@@ -1,4 +1,4 @@
-package com.example.nurture_nest.Fragments
+package com.example.nurture_nest.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

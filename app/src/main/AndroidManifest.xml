@@ -11,12 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NURTURE_NEST">
-        <activity
-            android:name=".AdminDashboard"
-            android:exported="false" />
-        <activity
-            android:name=".TeacherDashboard"
-            android:exported="false" /> <!-- Splash Screen (Launcher) -->
+
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -35,9 +30,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" /> <!-- Parent Dashboard -->
-        <activity
-            android:name=".ParentDashboard"
-            android:exported="false" />
+
     </application>
 
 </manifest>
