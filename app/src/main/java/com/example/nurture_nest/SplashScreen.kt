@@ -9,9 +9,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.nurture_nest.Fragments.AdminDashboardFragment
-import com.example.nurture_nest.Fragments.ParentDashboardFragment
-import com.example.nurture_nest.Fragments.TeacherDashboardFragment
 
 class SplashScreen : AppCompatActivity() {
 
@@ -22,7 +19,6 @@ class SplashScreen : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash_screen)
 
-        // Adjust for system bars
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -31,7 +27,6 @@ class SplashScreen : AppCompatActivity() {
 
         prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
 
-        // Delay splash for 2 seconds before navigating
         Handler(Looper.getMainLooper()).postDelayed({
             navigateNext()
         }, 2000)
@@ -42,23 +37,24 @@ class SplashScreen : AppCompatActivity() {
         val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
         val role = prefs.getString("userType", null)
 
-        when {
-            !isRegistered -> {
-                startActivity(Intent(this, Register::class.java))
-            }
-            !isLoggedIn -> {
-                startActivity(Intent(this, Login::class.java))
-            }
-            else -> {
-                // Already logged in → go to role-specific dashboard
-                when (role) {
-                    "Parent" -> startActivity(Intent(this, ParentDashboardFragment::class.java))
-                    "Teacher" -> startActivity(Intent(this, TeacherDashboardFragment::class.java))
-                    "Admin" -> startActivity(Intent(this, AdminDashboardFragment::class.java))
-                    else -> startActivity(Intent(this, MainActivity::class.java))
+        val nextIntent = when {
+            !isRegistered -> Intent(this, Register::class.java)
+            !isLoggedIn -> Intent(this, Login::class.java)
+            else -> when (role) {
+                "Parent" -> Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragmentToLoad", "ParentDashboardFragment")
                 }
+                "Teacher" -> Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragmentToLoad", "TeacherDashboardFragment")
+                }
+                "Admin" -> Intent(this, MainActivity::class.java).apply {
+                    putExtra("fragmentToLoad", "AdminDashboardFragment")
+                }
+                else -> Intent(this, MainActivity::class.java)
             }
         }
+
+        startActivity(nextIntent)
         finish()
     }
 }
