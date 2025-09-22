@@ -4,161 +4,138 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorBackground"
+    android:background="@drawable/reg"
     tools:context=".fragments.SettingsFragment">
 
-    <!-- Scrollable container for settings -->
-    <ScrollView
-        android:id="@+id/scroll_container"
+    <!-- Main content container (above bottom bar) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_content"
-            android:layout_width="match_parent"
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tvSettingsTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingBottom="24dp">
+            android:text="Settings"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-            <!-- Title -->
-            <TextView
-                android:id="@+id/tvSettingsTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Settings"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorOnBackground"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="24dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+        <!-- Notification Settings -->
+        <TextView
+            android:id="@+id/tvNotificationSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Notification Settings"
+            android:textSize="18sp"
+            android:textColor="#1AB26B"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="16dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="24dp"/>
 
-            <!-- Notification Settings -->
-            <TextView
-                android:id="@+id/tvNotificationSettings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Notification Settings"
-                android:textSize="18sp"
-                android:textColor="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/tvSettingsTitle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Account Settings -->
+        <TextView
+            android:id="@+id/tvAccountSettings"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Account Settings"
+            android:textSize="18sp"
+            android:textColor="#1AB26B"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="16dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/tvNotificationSettings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"/>
 
-            <!-- Dark Mode Switch -->
-            <TextView
-                android:id="@+id/tvThemeSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Dark Mode"
-                android:textSize="18sp"
-                android:textColor="?attr/colorPrimary"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/tvNotificationSettings"
-                app:layout_constraintStart_toStartOf="parent"/>
+        <!-- Privacy & Security -->
+        <TextView
+            android:id="@+id/tvPrivacySecurity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Privacy and Security"
+            android:textSize="18sp"
+            android:textColor="#1AB26B"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="16dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/tvAccountSettings"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"/>
 
-            <Switch
-                android:id="@+id/switchTheme"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:checked="false"
-                android:textOff="Light"
-                android:textOn="Dark"
-                app:layout_constraintBaseline_toBaselineOf="@id/tvThemeSettings"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="24dp"/>
+        <!-- Support & Help -->
+        <TextView
+            android:id="@+id/tvSupportHelp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Support and Help"
+            android:textSize="18sp"
+            android:textColor="#1AB26B"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="16dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/tvPrivacySecurity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"/>
 
-            <!-- Account Settings -->
-            <TextView
-                android:id="@+id/tvAccountSettings"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Account Settings"
-                android:textSize="18sp"
-                android:textColor="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/tvThemeSettings"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Child Management -->
+        <TextView
+            android:id="@+id/tvChildManagement"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Child Management"
+            android:textSize="18sp"
+            android:textColor="#1AB26B"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="16dp"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintTop_toBottomOf="@id/tvSupportHelp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="12dp"/>
 
-            <!-- Privacy & Security -->
-            <TextView
-                android:id="@+id/tvPrivacySecurity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Privacy and Security"
-                android:textSize="18sp"
-                android:textColor="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/tvAccountSettings"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Support & Help -->
-            <TextView
-                android:id="@+id/tvSupportHelp"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Support / Help"
-                android:textSize="18sp"
-                android:textColor="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/tvPrivacySecurity"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <!-- Child Management -->
-            <TextView
-                android:id="@+id/tvChildManagement"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="Child Management"
-                android:textSize="18sp"
-                android:textColor="?attr/colorPrimary"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingVertical="16dp"
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/tvSupportHelp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
+    <!-- Bottom Navigation Bar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:background="#00BCD4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
