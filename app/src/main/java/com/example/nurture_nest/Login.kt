@@ -3,13 +3,11 @@ package com.example.nurture_nest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.nurture_nest.Fragments.AdminDashboardFragment
-import com.example.nurture_nest.Fragments.ParentDashboardFragment
-import com.example.nurture_nest.Fragments.TeacherDashboardFragment
 
 class Login : AppCompatActivity() {
 
@@ -26,28 +24,35 @@ class Login : AppCompatActivity() {
         val loginBtn = findViewById<Button>(R.id.btnLogin)
 
         loginBtn.setOnClickListener {
-            val user = username.text.toString().trim()
-            val pass = password.text.toString().trim()
+            try {
+                val user = username.text.toString().trim()
+                val pass = password.text.toString().trim()
 
-            val savedUser = prefs.getString("username", null)
-            val savedPass = prefs.getString("password", null)
-            val savedRole = prefs.getString("userType", "Parent")
+                val savedUser = prefs.getString("username", null)
+                val savedPass = prefs.getString("password", null)
+                val savedRole = prefs.getString("userType", "Parent")
 
-            if (user == savedUser && pass == savedPass) {
-                prefs.edit().putBoolean("isLoggedIn", true).apply()
+                Log.d("LoginDebug", "User input: $user, Saved user: $savedUser")
+                Log.d("LoginDebug", "Role: $savedRole")
 
-                Toast.makeText(this, "Welcome $savedRole!", Toast.LENGTH_SHORT).show()
+                if (user == savedUser && pass == savedPass) {
+                    prefs.edit().putBoolean("isLoggedIn", true).apply()
 
-                // Navigate based on role
-                when (savedRole) {
-                    "Parent" -> startActivity(Intent(this, ParentDashboardFragment::class.java))
-                    "Teacher" -> startActivity(Intent(this, TeacherDashboardFragment::class.java))
-                    "Admin" -> startActivity(Intent(this, AdminDashboardFragment::class.java))
-                    else -> startActivity(Intent(this, MainActivity::class.java))
+                    // Save role to another pref for MainActivity
+                    val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
+                    sharedPref.edit().putString("user_role", savedRole).apply()
+
+                    Toast.makeText(this, "Welcome $savedRole!", Toast.LENGTH_SHORT).show()
+
+                    // ✅ Always start MainActivity (not fragments)
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                } else {
+                    Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
                 }
-                finish()
-            } else {
-                Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
+            } catch (e: Exception) {
+                Log.e("LoginError", "Login failed: ${e.message}", e)
+                Toast.makeText(this, "Something went wrong: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }
