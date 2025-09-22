@@ -1,68 +1,60 @@
 package com.example.nurture_nest.fragments
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
 import com.example.nurture_nest.R
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [SettingsFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 class SettingsFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            param1 = it.getString(ARG_PARAM1)
+            param2 = it.getString(ARG_PARAM2)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-
-        // Theme settings row
-        val tvThemeSettings: TextView = view.findViewById(R.id.tvThemeSettings)
-
-        // Load saved theme from SharedPreferences
-        val sharedPref = requireContext().getSharedPreferences("settings_prefs", Context.MODE_PRIVATE)
-        val currentMode = sharedPref.getInt("app_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        AppCompatDelegate.setDefaultNightMode(currentMode)
-
-        tvThemeSettings.setOnClickListener {
-            showThemeDialog(sharedPref)
-        }
-
-        return view
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
-    private fun showThemeDialog(sharedPref: android.content.SharedPreferences) {
-        val options = arrayOf("Light", "Dark", "System Default")
-
-        // Figure out current selected theme
-        val currentMode = sharedPref.getInt("app_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        val checkedItem = when (currentMode) {
-            AppCompatDelegate.MODE_NIGHT_NO -> 0
-            AppCompatDelegate.MODE_NIGHT_YES -> 1
-            else -> 2
-        }
-
-        AlertDialog.Builder(requireContext())
-            .setTitle("Choose Theme")
-            .setSingleChoiceItems(options, checkedItem) { dialog, which ->
-                val mode = when (which) {
-                    0 -> AppCompatDelegate.MODE_NIGHT_NO
-                    1 -> AppCompatDelegate.MODE_NIGHT_YES
-                    else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment SettingsFragment.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            SettingsFragment().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
                 }
-
-                // Save preference
-                sharedPref.edit().putInt("app_theme", mode).apply()
-
-                // Apply theme immediately
-                AppCompatDelegate.setDefaultNightMode(mode)
-
-                dialog.dismiss()
             }
-            .setNegativeButton("Cancel", null)
-            .show()
     }
 }
