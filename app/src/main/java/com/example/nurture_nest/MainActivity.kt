@@ -11,6 +11,8 @@ import com.example.nurture_nest.fragments.SettingsFragment
 import com.example.nurture_nest.fragments.CalendarFragment
 import com.example.nurture_nest.fragments.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.stripe.android.PaymentConfiguration
+import com.example.nurture_nest.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 
@@ -20,6 +22,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val publishableKey = BuildConfig.STRIPE_PUBLISHABLE_KEY
+        PaymentConfiguration.init(applicationContext, publishableKey)
+
         setContentView(R.layout.activity_main)
 
         // ✅ Use the same sharedPref as Login
