@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.nurture_nest.Login
 import com.example.nurture_nest.R
@@ -36,6 +37,17 @@ class ProfileFragment : Fragment() {
             val intent = Intent(requireContext(), Login::class.java)
             startActivity(intent)
             requireActivity().finish()
+        }
+
+        // Find Payment Details TextView
+        val tvPaymentDetails = view.findViewById<TextView>(R.id.tvPaymentDetails)
+        tvPaymentDetails.setOnClickListener {
+            // Navigate to PaymentFragment
+            val paymentFragment = PaymentFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, paymentFragment)
+                .addToBackStack(null)
+                .commit()
         }
 
         return view
