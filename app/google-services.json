@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "669164558979",
+    "project_id": "nurturenest-d29a8",
+    "storage_bucket": "nurturenest-d29a8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:669164558979:android:3679931db201cb25c9d9b6",
+        "android_client_info": {
+          "package_name": "com.example.nurture_nest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwfz8A5jGZHvBsJAGgU0m1HDU7JyF2AMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

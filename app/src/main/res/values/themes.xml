@@ -1,9 +1,11 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.NURTURE_NEST" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Theme.NurtureNest" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#0A2B5D</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorSurface">#000000</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+        <item name="colorBackground">#C7E7FF</item>
+        <item name="colorOnBackground">#1A1A1A</item>
+        <item name="android:windowBackground">#C7E7FF</item>
     </style>
-
-    <style name="Theme.NURTURE_NEST" parent="Base.Theme.NURTURE_NEST" />
 </resources>
