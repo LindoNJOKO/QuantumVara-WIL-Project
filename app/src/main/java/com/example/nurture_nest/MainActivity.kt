@@ -16,6 +16,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val publishableKey = BuildConfig.STRIPE_PUBLISHABLE_KEY
+        PaymentConfiguration.init(applicationContext, publishableKey)
+
         setContentView(R.layout.activity_main)
 
         // ✅ SharedPreferences to get user role

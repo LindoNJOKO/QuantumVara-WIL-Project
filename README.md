@@ -1,3 +1,4 @@
+
 # NURTURE_NEST
 
 NURTURE_NEST is an Android application designed to manage and support educational interactions for **Parents, Teachers, and Admins**. 

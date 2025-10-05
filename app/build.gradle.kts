@@ -15,6 +15,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"${project.property("STRIPE_PUBLISHABLE_KEY")}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,6 +42,8 @@ android {
         viewBinding = true
     }
 }
+
+val roomVersion = "2.6.1"
 
 dependencies {
     // AndroidX Core
