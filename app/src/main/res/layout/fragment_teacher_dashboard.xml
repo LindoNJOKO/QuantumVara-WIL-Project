@@ -1,13 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/teacher_dashboard_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/light_background"
     tools:context=".fragments.TeacherDashboardFragment">
 
+    <!-- Title -->
     <TextView
+        android:id="@+id/tvDashboardTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Teacher Dashboard Fragment"
-        android:layout_gravity="center" />
-</FrameLayout>
+        android:text="Attendance Register"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/light_on_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Legend -->
+    <LinearLayout
+        android:id="@+id/legend_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvDashboardTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tvPresentLegend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Present"
+            android:textColor="@color/light_primary"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAbsentLegend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Absent"
+            android:textColor="@color/dark_on_background"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvSickLegend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sick"
+            android:textColor="#FFA500"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvLateLegend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Late"
+            android:textColor="#FF0000"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Student List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvStudentList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/legend_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnSubmitAttendance"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"/>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmitAttendance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Submit Attendance"
+        android:textColor="@color/light_on_primary"
+        android:backgroundTint="@color/light_primary"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

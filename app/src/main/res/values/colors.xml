@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- Light theme colors -->
+    <color name="light_primary">#0A2B5D</color> <!-- Dark blue button -->
+    <color name="light_primary_variant">#052659</color>
+    <color name="light_on_primary">#FFFFFF</color>
+    <color name="light_background">#C7E7FF</color>
+    <color name="light_on_background">#1A1A1A</color>
+    <color name="light_accent">#00B074</color>
+    <color name="light_edittext_background">#FFFFFF</color>
+    <color name="light_edittext_color">#1A1A1A</color>
+
+    <!-- Dark theme colors -->
+    <color name="dark_primary">#A8DFFF</color> <!-- Button background -->
+    <color name="dark_primary_variant">#052659</color>
+    <color name="dark_on_primary">#052659</color>
+    <color name="dark_background">#0B1F4D</color> <!-- Deep blue background -->
+    <color name="dark_on_background">#FFFFFF</color>
+    <color name="dark_accent">#1AB26B</color> <!-- Green links -->
+    <color name="dark_edittext_background">#E5E5E5</color>
+    <color name="dark_edittext_color">#333333</color>
+
 </resources>

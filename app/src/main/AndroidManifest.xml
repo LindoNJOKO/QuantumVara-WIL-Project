@@ -2,7 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- ✅ App Permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="32" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+
     <application
+        android:name=".NurtureNest"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -10,27 +22,42 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NURTURE_NEST">
+        android:theme="@style/Theme.NurtureNest" >
 
-        <activity
-            android:name=".SplashScreen"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    <!-- ✅ Splash screen (entry point) -->
+    <activity
+        android:name=".SplashScreen"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- Login Activity -->
-        <activity
-            android:name=".Login"
-            android:exported="false" /> <!-- Register Activity -->
-        <activity
-            android:name=".Register"
-            android:exported="false" /> <!-- Main Activity (optional general dashboard) -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" /> <!-- Parent Dashboard -->
+    <!-- ✅ Other activities -->
+    <activity
+        android:name=".Login"
+        android:exported="false" />
+    <activity
+        android:name=".Register"
+        android:exported="false" />
+    <activity
+        android:name=".MainActivity"
+        android:exported="false"
+        android:theme="@style/Theme.NurtureNest" />
+    <activity
+        android:name=".ChatListActivity"
+        android:exported="false"
+        android:theme="@style/Theme.NurtureNest" />
+    <activity
+        android:name=".ChatActivity"
+        android:exported="false" />
+    <activity
+        android:name=".LunchOrdering"
+        android:exported="false" />
+    <activity
+        android:name=".PaymentWindow"
+        android:exported="false" />
 
-    </application>
-
-</manifest>
+</application>
+    </manifest>

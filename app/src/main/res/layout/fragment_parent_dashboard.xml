@@ -4,22 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#C1E8FF"
+    android:background="?attr/colorBackground"
     tools:context=".fragments.ParentDashboardFragment">
 
-    <!-- Main Content Container (above bottom bar) -->
+    <!-- Main Content Container -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main_content"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Top Left Circle -->
-
-        <!-- Top Right Icon -->
         <View
             android:id="@+id/ellipse3"
             android:layout_width="33dp"
@@ -30,26 +28,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/icon12"
-            android:layout_width="39dp"
-            android:layout_height="33dp"
-            android:rotation="180"
-            android:src="@drawable/ic_12"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="17dp"
-            android:layout_marginTop="36dp"/>
 
         <!-- Notification Feed Title -->
+        <ImageButton
+            android:id="@+id/btnChat"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Chats"
+            android:src="@drawable/ic_chat"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"/>
+
+
         <TextView
             android:id="@+id/notification_feed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NOTIFICATION FEED"
+            android:text="Notification Feed"
             android:textSize="30sp"
             android:textStyle="bold"
-            android:textColor="#DE000000"
+            android:textColor="?attr/colorOnBackground"
             app:layout_constraintTop_toBottomOf="@id/ellipse3"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="35dp"
@@ -61,7 +62,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            android:background="@drawable/notification_card"
+            android:background="?attr/colorPrimaryVariant"
             app:layout_constraintTop_toBottomOf="@id/notification_feed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -86,7 +87,7 @@
                 android:text="New Notification"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="@android:color/black"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintStart_toEndOf="@id/user_icon"
                 app:layout_constraintTop_toTopOf="@id/user_icon"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,51 +97,32 @@
                 android:id="@+id/notification_message"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="This is the notification body text."
+                android:text="No New Notifications"
                 android:textSize="14sp"
-                android:textColor="@android:color/darker_gray"
+                android:textColor="?attr/colorOnPrimary"
                 app:layout_constraintStart_toStartOf="@id/notification_title"
                 app:layout_constraintTop_toBottomOf="@id/notification_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="4dp"/>
-
-            <TextView
-                android:id="@+id/notification_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="2h ago"
-                android:textSize="12sp"
-                android:textColor="@android:color/darker_gray"
-                app:layout_constraintTop_toBottomOf="@id/notification_message"
-                app:layout_constraintStart_toStartOf="@id/notification_message" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Big Screenshot Image -->
         <ImageView
             android:id="@+id/screenshot"
-            android:layout_width="411dp"
-            android:layout_height="412dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
             android:scaleType="centerCrop"
             android:src="@drawable/screenshot20250509png"
+            app:layout_constraintTop_toBottomOf="@id/notification_card"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/notification_card" />
+            app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- Bottom Navigation Bar -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_bar"
-        android:layout_width="410dp"
-        android:layout_height="40dp"
-        android:background="#FDFDFD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

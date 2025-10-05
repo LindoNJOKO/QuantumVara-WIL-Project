@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.nurture_nest.Login
+import com.example.nurture_nest.LunchOrdering
+import com.example.nurture_nest.PaymentWindow
 import com.example.nurture_nest.R
 
 class ProfileFragment : Fragment() {
@@ -24,18 +27,27 @@ class ProfileFragment : Fragment() {
         // Access shared preferences
         prefs = requireActivity().getSharedPreferences("NurtureNestPrefs", 0)
 
-        // Find logout button
+        // --- Logout button ---
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
-
-        // Handle logout logic
         btnLogout.setOnClickListener {
-            // Clear stored session/user data
             prefs.edit().clear().apply()
-
-            // Redirect to login screen
             val intent = Intent(requireContext(), Login::class.java)
             startActivity(intent)
             requireActivity().finish()
+        }
+
+        // --- Payment Details ---
+        val tvPaymentDetails = view.findViewById<TextView>(R.id.tvPaymentDetails)
+        tvPaymentDetails.setOnClickListener {
+            val intent = Intent(requireContext(), PaymentWindow::class.java)
+            startActivity(intent)
+        }
+
+        // --- Lunch Orders ---
+        val tvLunchOrders = view.findViewById<TextView>(R.id.tvLunchOrders)
+        tvLunchOrders.setOnClickListener {
+            val intent = Intent(requireContext(), LunchOrdering::class.java)
+            startActivity(intent)
         }
 
         return view

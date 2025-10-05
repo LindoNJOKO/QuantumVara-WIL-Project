@@ -22,7 +22,9 @@ class Login : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.etLoginUsername)
         val password = findViewById<EditText>(R.id.etLoginPassword)
         val loginBtn = findViewById<Button>(R.id.btnLogin)
+        val registerBtn = findViewById<Button>(R.id.btnRegister) // ✅ Register button
 
+        // 🔹 Login button logic
         loginBtn.setOnClickListener {
             try {
                 val user = username.text.toString().trim()
@@ -44,7 +46,7 @@ class Login : AppCompatActivity() {
 
                     Toast.makeText(this, "Welcome $savedRole!", Toast.LENGTH_SHORT).show()
 
-                    // ✅ Always start MainActivity (not fragments)
+                    // ✅ Always start MainActivity
                     startActivity(Intent(this, MainActivity::class.java))
                     finish()
                 } else {
@@ -54,6 +56,12 @@ class Login : AppCompatActivity() {
                 Log.e("LoginError", "Login failed: ${e.message}", e)
                 Toast.makeText(this, "Something went wrong: ${e.message}", Toast.LENGTH_LONG).show()
             }
+        }
+
+        // 🔹 Register button logic
+        registerBtn.setOnClickListener {
+            val intent = Intent(this, Register::class.java)
+            startActivity(intent)
         }
     }
 }
