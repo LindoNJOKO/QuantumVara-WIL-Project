@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import com.example.nurture_nest.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.core.content.ContextCompat
+import com.stripe.android.PaymentConfiguration
+
 
 class MainActivity : AppCompatActivity() {
 

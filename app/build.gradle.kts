@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services") // Firebase plugin
+    id("kotlin-kapt") // Required for Room annotation processor
 }
 
 android {
@@ -15,7 +16,11 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        buildConfigField("String", "STRIPE_PUBLISHABLE_KEY", "\"${project.property("STRIPE_PUBLISHABLE_KEY")}\"")
+        buildConfigField(
+            "String",
+            "STRIPE_PUBLISHABLE_KEY",
+            "\"${project.property("STRIPE_PUBLISHABLE_KEY")}\""
+        )
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,20 +45,22 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
 val roomVersion = "2.6.1"
+val stripeVersion = "20.21.0" // Latest stable Stripe Android SDK
+val retrofitVersion = "2.9.0"
+val okhttpVersion = "4.12.0"
 
 dependencies {
     // AndroidX Core
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
 
-    // Material Components (explicit version to avoid inflation crash)
+    // Material Components
     implementation("com.google.android.material:material:1.11.0")
-
-
 
     // Activity & Fragment KTX
     implementation("androidx.activity:activity-ktx:1.9.0")
@@ -79,6 +86,19 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.android.gms:play-services-wallet:19.1.0")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+
+    // Room (with kapt for annotation processing)
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
+    // Stripe SDK
+    implementation("com.stripe:stripe-android:$stripeVersion")
+
+    // ✅ Retrofit & OkHttp (Networking)
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    implementation("com.squareup.okhttp3:logging-interceptor:$okhttpVersion")
 
     // Testing
     testImplementation("junit:junit:4.13.2")

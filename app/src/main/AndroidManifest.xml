@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- ✅ App Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission
@@ -22,42 +21,43 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.NurtureNest" >
+        android:theme="@style/Theme.NurtureNest">
+        <activity
+            android:name=".ReceiptsActivity"
+            android:exported="false" />
+        <!-- ✅ Splash screen (entry point) -->
+        <activity
+            android:name=".SplashScreen"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-    <!-- ✅ Splash screen (entry point) -->
-    <activity
-        android:name=".SplashScreen"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- ✅ Other activities -->
+        <activity
+            android:name=".Login"
+            android:exported="false" />
+        <activity
+            android:name=".Register"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NurtureNest" />
+        <activity
+            android:name=".ChatListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.NurtureNest" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LunchOrdering"
+            android:exported="false" />
+        <activity
+            android:name=".PaymentWindow"
+            android:exported="false" />
+    </application>
 
-    <!-- ✅ Other activities -->
-    <activity
-        android:name=".Login"
-        android:exported="false" />
-    <activity
-        android:name=".Register"
-        android:exported="false" />
-    <activity
-        android:name=".MainActivity"
-        android:exported="false"
-        android:theme="@style/Theme.NurtureNest" />
-    <activity
-        android:name=".ChatListActivity"
-        android:exported="false"
-        android:theme="@style/Theme.NurtureNest" />
-    <activity
-        android:name=".ChatActivity"
-        android:exported="false" />
-    <activity
-        android:name=".LunchOrdering"
-        android:exported="false" />
-    <activity
-        android:name=".PaymentWindow"
-        android:exported="false" />
-
-</application>
-    </manifest>
+</manifest>
