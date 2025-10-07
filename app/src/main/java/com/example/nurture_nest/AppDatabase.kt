@@ -10,6 +10,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun receiptDao(): ReceiptDao
 
     companion object {
+        @Volatile private var instance: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
             return instance ?: synchronized(this) {
@@ -17,6 +18,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "nurture_nest_db"
+                ).build()
                 instance = db
                 db
             }

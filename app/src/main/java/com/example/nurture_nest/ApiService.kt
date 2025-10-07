@@ -11,4 +11,5 @@ data class PaymentResponse(val clientSecret: String)
 interface ApiService {
     @Headers("Content-Type: application/json")
     @POST("create-payment-intent")
+    fun createPaymentIntent(@Body request: PaymentRequest): Call<PaymentResponse>
 }
