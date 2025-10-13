@@ -20,6 +20,7 @@ class Register : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.etPassword)
         val roleSpinner = findViewById<Spinner>(R.id.spnRole)
         val registerBtn = findViewById<Button>(R.id.btnRegister)
+        val SignInBtn = findViewById<Button>(R.id.btnSignInNow)
 
         // Setup role options
         val roles = arrayOf("Parent", "Teacher", "Admin")
@@ -46,6 +47,10 @@ class Register : AppCompatActivity() {
                 startActivity(Intent(this, Login::class.java))
                 finish()
             }
+        }
+        SignInBtn.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
+            startActivity(intent)
         }
     }
 }
