@@ -1,134 +1,125 @@
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="?attr/colorBackground"
     tools:context=".fragments.AdminDashboardFragment">
 
-    <!-- Top Section with Circle and Chat Button -->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
+    <!-- Main content fills the screen -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <!-- Top Left Circle -->
         <View
             android:id="@+id/ellipse3"
             android:layout_width="33dp"
             android:layout_height="33dp"
+            android:background="@drawable/circle_shape"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="17dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/circle_shape" />
+            android:layout_marginTop="36dp"/>
 
-        <!-- Chat Button -->
+        <!-- Notification Feed Title -->
+
         <ImageButton
             android:id="@+id/btnChat"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Chats"
-            android:src="@drawable/ic_chat" />
+            android:src="@drawable/ic_chat"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"/>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/notification_feed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification Feed"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="105dp"
+            android:layout_marginStart="28dp"/>
 
-    <!-- Notification Feed Title -->
-    <TextView
-        android:id="@+id/notification_feed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="35dp"
-        android:text="Notification Feed"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnBackground" />
-
-    <!-- Notification Card -->
-    <LinearLayout
-        android:id="@+id/notification_card"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="?attr/colorPrimaryVariant">
-
-        <ImageView
-            android:id="@+id/user_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_user"
-            android:contentDescription="User profile" />
-
-        <LinearLayout
+        <!-- Notification Card -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/notification_card"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical">
+            android:padding="12dp"
+            android:background="?attr/colorPrimaryVariant"
+            app:layout_constraintTop_toBottomOf="@id/notification_feed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+
+            <ImageView
+                android:id="@+id/user_icon"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_user"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:id="@+id/notification_title"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="New Notification"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="?attr/colorOnPrimary" />
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toEndOf="@id/user_icon"
+                app:layout_constraintTop_toTopOf="@id/user_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="8dp"/>
 
             <TextView
                 android:id="@+id/notification_message"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:text="No New Notifications"
                 android:textSize="14sp"
-                android:textColor="?attr/colorOnPrimary" />
+                android:textColor="?attr/colorOnPrimary"
+                app:layout_constraintStart_toStartOf="@id/notification_title"
+                app:layout_constraintTop_toBottomOf="@id/notification_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="4dp"/>
 
-        </LinearLayout>
-    </LinearLayout>
 
-    <!-- Big Screenshot Image -->
-    <ImageView
-        android:id="@+id/screenshot"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/screenshot20250509png" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Temporary Add notification Button -->
-    <Button
-        android:id="@+id/btnAddNotification"
-        android:layout_width="280dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="24dp"
-        android:background="@drawable/rounded_button"
-        android:text="Add Notification"
-        android:textColor="?attr/colorOnPrimary"
-        android:textSize="20sp" />
+        <!-- Big Rounded Image -->
+        <ImageView
+            android:id="@+id/screenshot"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/screenshot20250509png"
+            app:layout_constraintTop_toBottomOf="@id/notification_card"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCreateEvent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:contentDescription="create Event"
-        android:src="@drawable/ic_link_add"
-        app:backgroundTint="?attr/colorPrimary"
-        android:tint="?attr/colorOnPrimary"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
