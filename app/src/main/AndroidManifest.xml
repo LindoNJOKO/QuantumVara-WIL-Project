@@ -11,6 +11,7 @@
         android:maxSdkVersion="29" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:name=".NurtureNest"
@@ -23,9 +24,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NurtureNest">
         <activity
-            android:name=".ReceiptsActivity"
+            android:name=".NotificationActivity"
             android:exported="false" />
-        <!-- ✅ Splash screen (entry point) -->
+        <activity
+            android:name=".ReceiptsActivity"
+            android:exported="false" /> <!-- ✅ Splash screen (entry point) -->
         <activity
             android:name=".SplashScreen"
             android:exported="true">
