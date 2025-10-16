@@ -89,6 +89,7 @@ dependencies {
 
     // Room (with kapt for annotation processing)
     implementation("androidx.room:room-runtime:$roomVersion")
+    implementation(libs.androidx.activity)
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
