@@ -121,4 +121,14 @@
         android:textColor="?attr/colorOnPrimary"
         android:textSize="20sp" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCreateEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:contentDescription="create Event"
+        android:src="@drawable/ic_link_add"
+        app:backgroundTint="?attr/colorPrimary"
+        android:tint="?attr/colorOnPrimary"/>
+
 </LinearLayout>

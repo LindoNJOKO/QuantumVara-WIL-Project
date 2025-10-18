@@ -12,46 +12,56 @@
     app:cardElevation="4dp"
     android:foreground="?attr/selectableItemBackground">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- Event Title -->
-        <TextView
-            android:id="@+id/tvEventTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Event Title"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:ellipsize="end"
-            android:maxLines="1"/>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <!-- Event Date -->
-        <TextView
-            android:id="@+id/tvEventDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Oct 5, 2025"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"/>
+            <TextView
+                android:id="@+id/tvEventType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meeting"
+                android:textSize="12sp"
+                android:textColor="?attr/colorPrimary"
+                android:textStyle="bold"/>
 
-        <!-- Event Description -->
-        <TextView
-            android:id="@+id/tvEventDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Short description of the event goes here."
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="14sp"
-            android:layout_marginTop="2dp"
-            android:ellipsize="end"
-            android:maxLines="2"/>
+            <TextView
+                android:id="@+id/tvEventTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Parent-Teacher Meeting"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginTop="4dp"/>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tvEventDate"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="Oct 25, 2025"
+                    android:textSize="14sp"
+                    android:drawableStart="@android:drawable/ic_menu_today"
+                    android:drawablePadding="4dp"/>
+
+                <TextView
+                    android:id="@+id/tvEventTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10:00 AM"
+                    android:textSize="14sp"
+                    android:drawableStart="@android:drawable/ic_menu_recent_history"
+                    android:drawablePadding="4dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
 </androidx.cardview.widget.CardView>
