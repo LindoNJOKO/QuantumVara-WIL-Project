@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "concurrently \"node server.js\" \"lt --port 5000 --subdomain nurture-nest\""
   },
   "keywords": [],
   "author": "",
@@ -14,5 +17,8 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "stripe": "^18.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
