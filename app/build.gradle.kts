@@ -93,6 +93,7 @@ dependencies {
     kapt("androidx.room:room-compiler:$roomVersion")
     implementation("androidx.room:room-ktx:$roomVersion")
 
+
     // Stripe SDK
     implementation("com.stripe:stripe-android:$stripeVersion")
 
