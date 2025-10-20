@@ -23,9 +23,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NurtureNest">
         <activity
-            android:name=".ReceiptsActivity"
+            android:name=".PaymentActivity"
             android:exported="false" />
-        <!-- ✅ Splash screen (entry point) -->
+        <activity
+            android:name=".ReceiptsActivity"
+            android:exported="false" /> <!-- ✅ Splash screen (entry point) -->
         <activity
             android:name=".SplashScreen"
             android:exported="true">

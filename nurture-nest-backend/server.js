@@ -10,30 +10,38 @@ app.use(express.json());
 // ✅ Initialize Stripe with secret key
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Create a PaymentIntent
+// Test endpoint
+app.get("/", (req, res) => {
+  res.send("Payment server is running!");
+});
+
+// Create a PaymentIntent - UPDATED ENDPOINT NAME
 app.post("/create-payment-intent", async (req, res) => {
   try {
-    const { amount } = req.body; // amount in cents
+    const { amount } = req.body;
+
+    console.log(`Payment request: R${amount / 100}`);
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
-      currency: "zar", // change if needed
-      automatic_payment_methods: { enabled: true },
+      currency: "zar",
+      automatic_payment_methods: {
+        enabled: true,
+      },
     });
+
+    console.log("Payment created:", paymentIntent.id);
 
     res.json({
       clientSecret: paymentIntent.client_secret,
     });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
+  } catch (error) {
+    console.error("Error:", error.message);
+    res.status(500).json({ error: error.message });
   }
 });
 
-// ✅ Test route
-app.get("/", (req, res) => {
-  res.send("Stripe backend is running!");
+const PORT = 5000;
+app.listen(PORT, () => {
+  console.log(`✅ Server running on http://localhost:${PORT}`);
 });
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

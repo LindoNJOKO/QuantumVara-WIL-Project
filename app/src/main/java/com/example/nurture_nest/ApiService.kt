@@ -5,11 +5,15 @@ import retrofit2.http.Body
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
-data class PaymentRequest(val amount: Int)
-data class PaymentResponse(val clientSecret: String)
-
 interface ApiService {
-    @Headers("Content-Type: application/json")
-    @POST("create-payment-intent")
-    fun createPaymentIntent(@Body request: PaymentRequest): Call<PaymentResponse>
+    @POST("/create-payment-intent")
+    fun createPayment(@Body request: PaymentRequest): Call<PaymentResponse>
 }
+
+data class PaymentRequest(
+    val amount: Int
+)
+
+data class PaymentResponse(
+    val clientSecret: String
+)
