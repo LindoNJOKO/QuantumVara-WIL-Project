@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- ✅ App Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -63,6 +64,10 @@
         <activity
             android:name=".PaymentWindow"
             android:exported="false" />
+
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false"/>
     </application>
 
 </manifest>
