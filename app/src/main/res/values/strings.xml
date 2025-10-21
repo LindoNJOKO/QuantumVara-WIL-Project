@@ -102,5 +102,26 @@
     <string name="thursday">T</string>
     <string name="friday">F</string>
 
+    <!-- Notification Activity Strings -->
+    <string name="post_announcement_title">Post Announcement</string>
+    <string name="post_announcement_subtitle">Share important updates with your team</string>
+
+    <string name="label_title">TITLE</string>
+    <string name="label_message">MESSAGE</string>
+
+    <string name="hint_title">Enter announcement title</string>
+    <string name="hint_message">Type your message here...</string>
+
+    <string name="urgent_label">Mark as Urgent</string>
+    <string name="urgent_description">High priority notification</string>
+
+    <string name="btn_post_announcement">Post Announcement</string>
+    <string name="btn_back_dashboard">Back to Dashboard</string>
+
+    <!-- Content Descriptions for Accessibility -->
+    <string name="announcement_icon_desc">Announcement icon</string>
+    <string name="urgent_icon_desc">Urgent alert icon</string>
+    <string name="urgent_switch_desc">Toggle urgent priority for announcement</string>
+
 
 </resources>

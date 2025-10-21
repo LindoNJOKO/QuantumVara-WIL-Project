@@ -5,77 +5,220 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NotificationActivity"
-    android:padding="16dp">
+    android:fillViewport="true"
+    tools:context=".NotificationActivity">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <!-- Header -->
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_dialog_email"
+            app:tint="#1976D2"
+            android:contentDescription="@string/announcement_icon_desc"
+            android:layout_marginBottom="16dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
-            android:text="Post Announcement"
-            android:textSize="18sp"
-            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post_announcement_title"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/post_announcement_subtitle"
+            android:textSize="14sp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:layout_marginBottom="32dp" />
+
+        <!-- Content Card -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:maxWidth="488dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            android:layout_marginBottom="24dp">
 
-        <EditText
-            android:id="@+id/etTitle"
-            android:hint="Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-        <EditText
-            android:id="@+id/etMessage"
-            android:hint="Message"
-            android:layout_marginTop="8dp"
-            android:inputType="textMultiLine"
-            android:minLines="3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <!-- Title Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_title"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_marginBottom="8dp" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_title"
+                    android:padding="16dp"
+                    android:minHeight="48dp"
+                    android:minWidth="280dp"
+                    android:maxWidth="400dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/input_border"
+                    android:textSize="15sp"
+                    android:maxLines="1"
+                    android:inputType="textCapSentences"
+                    android:autofillHints="announcementTitle"
+                    android:layout_marginBottom="20dp" />
 
-            <TextView
-                android:text="Urgent"
-                android:layout_gravity="center_vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <!-- Message Input -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_message"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:layout_marginBottom="8dp" />
 
-            <Switch
-                android:id="@+id/switchUrgent"
-                android:layout_marginStart="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                <EditText
+                    android:id="@+id/etMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_message"
+                    android:padding="16dp"
+                    android:minWidth="280dp"
+                    android:maxWidth="440dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/input_border"
+                    android:textSize="15sp"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="5"
+                    android:gravity="top"
+                    android:scrollbars="vertical"
+                    android:autofillHints="announcementMessage"
+                    android:layout_marginBottom="20dp" />
 
-        </LinearLayout>
+                <!-- Urgent Toggle -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardBackgroundColor="#FFF3F3"
+                    app:cardElevation="0dp">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="16dp"
+                        android:gravity="center_vertical"
+                        android:minHeight="56dp">
+
+                        <ImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@android:drawable/ic_dialog_alert"
+                            app:tint="#D32F2F"
+                            android:contentDescription="@string/urgent_icon_desc"
+                            tools:ignore="ContentDescription" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_marginStart="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/urgent_label"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#D32F2F" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/urgent_description"
+                                android:textSize="12sp"
+                                android:textColor="#B71C1C"
+                                android:layout_marginTop="2dp" />
+
+                        </LinearLayout>
+
+                        <com.google.android.material.switchmaterial.SwitchMaterial
+                            android:id="@+id/switchUrgent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minWidth="48dp"
+                            android:minHeight="48dp"
+                            android:contentDescription="@string/urgent_switch_desc" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- Action Buttons -->
         <Button
             android:id="@+id/btnPost"
-            android:text="Post Announcement"
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="@string/btn_post_announcement"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:minWidth="240dp"
+            android:maxWidth="320dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/tvStatus"
-            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text=""
-            android:textSize="16sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold"
+            android:minHeight="24dp"
+            android:maxWidth="488dp"
+            android:layout_marginBottom="12dp" />
 
         <Button
             android:id="@+id/btnHome"
-            android:text="Back to Dashboard"
-            android:layout_marginTop="12dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="54dp"
+            android:text="@string/btn_back_dashboard"
+            android:textSize="15sp"
+            android:textColor="#424242"
+            android:minWidth="240dp"
+            android:maxWidth="320dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp" />
+
     </LinearLayout>
 
 </ScrollView>
