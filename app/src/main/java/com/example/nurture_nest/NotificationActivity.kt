@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Switch
 import android.widget.TextView
 import com.example.nurture_nest.fragments.AdminDashboardFragment
+import com.google.android.material.switchmaterial.SwitchMaterial
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -22,7 +23,7 @@ class NotificationActivity : AppCompatActivity() {
 
         val etTitle = findViewById<EditText>(R.id.etTitle)
         val etMessage = findViewById<EditText>(R.id.etMessage)
-        val switchUrgent = findViewById<Switch>(R.id.switchUrgent)
+        val switchUrgent = findViewById<SwitchMaterial>(R.id.switchUrgent)
         val btnPost = findViewById<Button>(R.id.btnPost)
         val tvStatus = findViewById<TextView>(R.id.tvStatus)
         val btnHome = findViewById<Button>(R.id.btnHome)
