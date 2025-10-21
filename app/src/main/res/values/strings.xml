@@ -55,4 +55,52 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
 
+    <!-- Lunch Ordering Screen -->
+    <string name="lunch_title">🍽️ Lunch Menu</string>
+    <string name="lunch_subtitle">Select meals for the week</string>
+
+    <!-- Days of the week -->
+    <string name="day_monday">📅 Monday</string>
+    <string name="day_tuesday">📅 Tuesday</string>
+    <string name="day_wednesday">📅 Wednesday</string>
+    <string name="day_thursday">📅 Thursday</string>
+    <string name="day_friday">📅 Friday</string>
+
+    <!-- Monday Menu Items -->
+    <string name="monday_chicken">Chicken and Rice</string>
+    <string name="monday_veggie">Vegetable Stew</string>
+
+    <!-- Tuesday Menu Items -->
+    <string name="tuesday_pasta">Mac and Cheese</string>
+    <string name="tuesday_soup">Tomato Soup and Bread</string>
+
+    <!-- Wednesday Menu Items -->
+    <string name="wednesday_beef">Beef Stew and Rice</string>
+    <string name="wednesday_fruit">Fruit Salad and Yogurt</string>
+
+    <!-- Thursday Menu Items -->
+    <string name="thursday_fish">Fish Fingers and Chips</string>
+    <string name="thursday_veggie">Vegetable Pasta</string>
+
+    <!-- Friday Menu Items -->
+    <string name="friday_pizza">Mini Pizza</string>
+    <string name="friday_soup">Pumpkin Soup</string>
+
+    <!-- Button -->
+    <string name="save_button">✓ Save Order</string>
+
+
+    <string name="class_attendance">CLASS ATTENDANCE</string>
+    <string name="submit">SUBMIT</string>
+    <string name="class_hint">CLASS:</string>
+    <string name="date_hint">DATE:</string>
+    <string name="no">No</string>
+    <string name="student_name">Student Name</string>
+    <string name="monday">M</string>
+    <string name="tuesday">T</string>
+    <string name="wednesday">W</string>
+    <string name="thursday">T</string>
+    <string name="friday">F</string>
+
+
 </resources>
