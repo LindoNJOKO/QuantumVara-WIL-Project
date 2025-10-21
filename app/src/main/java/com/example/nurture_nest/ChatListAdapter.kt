@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nurture_nest.model.Chat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ChatListAdapter(
     private val chats: List<Chat>,
@@ -26,8 +29,10 @@ class ChatListAdapter(
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val chat = chats[position]
         holder.chatName.text = chat.name
-        holder.chatMessage.text = chat.lastMessage
-        holder.chatTime.text = chat.time
+        holder.chatMessage.text = if (chat.lastMessage.isNotEmpty()) chat.lastMessage else "No messages yet"
+        holder.chatTime.text = if (chat.time > 0)
+            SimpleDateFormat("HH:mm", Locale.getDefault()).format(Date(chat.time))
+        else ""
 
         holder.itemView.setOnClickListener { onItemClick(chat) }
     }

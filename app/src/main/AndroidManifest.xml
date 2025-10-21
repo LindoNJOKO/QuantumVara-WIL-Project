@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <!-- ✅ App Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -24,14 +23,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NurtureNest">
         <activity
-            android:name=".ClassAttendance"
-            android:exported="false" />
-        <activity
-            android:name=".PaymentActivity"
-            android:exported="false" />
-        <activity
             android:name=".ReceiptsActivity"
-            android:exported="false" /> <!-- ✅ Splash screen (entry point) -->
+            android:exported="false" />
+        <!-- ✅ Splash screen (entry point) -->
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -64,10 +58,6 @@
         <activity
             android:name=".PaymentWindow"
             android:exported="false" />
-
-        <activity
-            android:name=".NotificationActivity"
-            android:exported="false"/>
     </application>
 
 </manifest>

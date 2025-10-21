@@ -4,14 +4,42 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Centered Chats Header -->
-    <TextView
+    <!-- Top Bar -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chats"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:gravity="center"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/tvChatsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Chats"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!-- 🔍 Search bar -->
+    <EditText
+        android:id="@+id/etSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search"
+        android:padding="12dp"
+        android:background="@drawable/search_box_bg"
         android:layout_marginBottom="8dp"/>
 
     <!-- RecyclerView for chat list -->
@@ -20,5 +48,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingTop="8dp"/>
+        android:paddingTop="8dp" />
 </LinearLayout>

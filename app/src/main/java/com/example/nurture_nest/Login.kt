@@ -8,60 +8,88 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Login : AppCompatActivity() {
 
     private lateinit var prefs: SharedPreferences
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        // ✅ Initialize Firebase
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
         prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
+
+        // ✅ Auto-skip login if already logged in
+        val currentUser = auth.currentUser
+        val isLoggedIn = prefs.getBoolean("isLoggedIn", false)
+        if (currentUser != null && isLoggedIn) {
+            Log.d("AutoLogin", "User already logged in: ${currentUser.email}")
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+            return
+        }
 
         val username = findViewById<EditText>(R.id.etLoginUsername)
         val password = findViewById<EditText>(R.id.etLoginPassword)
         val loginBtn = findViewById<Button>(R.id.btnLogin)
-        val registerBtn = findViewById<Button>(R.id.btnRegister) // ✅ Register button
+        val registerBtn = findViewById<Button>(R.id.btnRegister)
 
         // 🔹 Login button logic
         loginBtn.setOnClickListener {
-            try {
-                val user = username.text.toString().trim()
-                val pass = password.text.toString().trim()
+            val user = username.text.toString().trim()
+            val pass = password.text.toString().trim()
 
-                val savedUser = prefs.getString("username", null)
-                val savedPass = prefs.getString("password", null)
-                val savedRole = prefs.getString("userType", "Parent")
-
-                Log.d("LoginDebug", "User input: $user, Saved user: $savedUser")
-                Log.d("LoginDebug", "Role: $savedRole")
-
-                if (user == savedUser && pass == savedPass) {
-                    prefs.edit().putBoolean("isLoggedIn", true).apply()
-
-                    // Save role to another pref for MainActivity
-                    val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
-                    sharedPref.edit().putString("user_role", savedRole).apply()
-
-                    Toast.makeText(this, "Welcome $savedRole!", Toast.LENGTH_SHORT).show()
-
-                    // ✅ Always start MainActivity
-                    startActivity(Intent(this, MainActivity::class.java))
-                    finish()
-                } else {
-                    Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show()
-                }
-            } catch (e: Exception) {
-                Log.e("LoginError", "Login failed: ${e.message}", e)
-                Toast.makeText(this, "Something went wrong: ${e.message}", Toast.LENGTH_LONG).show()
+            if (user.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "Please enter email & password", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            // Firebase login
+            auth.signInWithEmailAndPassword(user, pass)
+                .addOnSuccessListener { result ->
+                    val uid = result.user?.uid
+                    if (uid != null) {
+                        // Fetch role from Firestore
+                        db.collection("users").document(uid).get()
+                            .addOnSuccessListener { document ->
+                                if (document.exists()) {
+                                    val role = document.getString("role") ?: "Parent"
+
+                                    prefs.edit()
+                                        .putBoolean("isLoggedIn", true)
+                                        .putString("username", user)
+                                        .putString("password", pass)
+                                        .putString("userType", role)
+                                        .apply()
+
+                                    Toast.makeText(this, "Welcome back, $role!", Toast.LENGTH_SHORT).show()
+                                    startActivity(Intent(this, MainActivity::class.java))
+                                    finish()
+                                } else {
+                                    Toast.makeText(this, "User data not found in Firestore", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Error loading user data: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Login failed: ${e.message}", Toast.LENGTH_LONG).show()
+                    Log.e("LoginError", "Firebase login error", e)
+                }
         }
 
-        // 🔹 Register button logic
+        // 🔹 Register redirect
         registerBtn.setOnClickListener {
-            val intent = Intent(this, Register::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Register::class.java))
         }
     }
 }
