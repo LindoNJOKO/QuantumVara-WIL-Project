@@ -21,4 +21,10 @@ interface ReceiptDao {
      */
     @Query("SELECT * FROM receipts ORDER BY date DESC")
     suspend fun getAllReceipts(): List<ReceiptEntity>
+
+    /**
+     * Get receipts for specific users
+     */
+    @Query("SELECT * FROM receipts WHERE userId = :userId ORDER BY date DESC")
+    suspend fun getReceiptsByUser(userId: String): List<ReceiptEntity>
 }

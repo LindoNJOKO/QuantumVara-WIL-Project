@@ -39,7 +39,7 @@ class PaymentActivity : AppCompatActivity() {
 
         // Initialize Stripe
         PaymentConfiguration.init(
-           applicationContext,
+            applicationContext,
             BuildConfig.STRIPE_PUBLISHABLE_KEY
         )
 
