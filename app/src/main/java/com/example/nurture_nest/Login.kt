@@ -66,7 +66,7 @@ class Login : AppCompatActivity() {
                                         .putBoolean("isLoggedIn", true)
                                         .putString("username", user)
                                         .putString("password", pass)
-                                        .putString("userType", role)
+                                        .putString("role", role)
                                         .apply()
 
                                     Toast.makeText(this, "Welcome back, $role!", Toast.LENGTH_SHORT).show()

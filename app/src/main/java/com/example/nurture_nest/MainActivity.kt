@@ -25,9 +25,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // ✅ SharedPreferences to get user role
-        val sharedPref = getSharedPreferences("user_prefs", MODE_PRIVATE)
-        userRole = sharedPref.getString("user_role", "") ?: ""
+        prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
 
+        userRole = prefs.getString("role", "")
+                    ?: ""
         // Load initial fragment based on role
         val initialFragment = when (userRole.lowercase()) {
             "parent" -> ParentDashboardFragment()
