@@ -7,7 +7,7 @@ import retrofit2.http.POST
 
 interface ApiService {
     @POST("/create-payment-intent")
-    fun createPayment(@Body request: PaymentRequest): Call<PaymentResponse>
+    fun createPaymentIntent(@Body request: PaymentRequest): Call<PaymentResponse>
 }
 
 data class PaymentRequest(

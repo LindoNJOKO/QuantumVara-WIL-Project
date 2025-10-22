@@ -84,7 +84,7 @@ class PaymentActivity : AppCompatActivity() {
 
         val request = PaymentRequest(amount)
 
-        ApiClient.instance.createPayment(request).enqueue(object : Callback<PaymentResponse> {
+        ApiClient.instance.createPaymentIntent(request).enqueue(object : Callback<PaymentResponse> {
             override fun onResponse(call: Call<PaymentResponse>, response: Response<PaymentResponse>) {
                 btnPay.isEnabled = true
                 btnPay.text = "Pay Now"
@@ -178,7 +178,8 @@ class PaymentActivity : AppCompatActivity() {
                 val receipt = ReceiptEntity(
                     item = reference,
                     amount = amount.toDoubleOrNull() ?: 0.0,
-                    date = timestamp
+                    date = timestamp,
+                    userId = userId
                 )
                 AppDatabase.getDatabase(this@PaymentActivity)
                     .receiptDao()
