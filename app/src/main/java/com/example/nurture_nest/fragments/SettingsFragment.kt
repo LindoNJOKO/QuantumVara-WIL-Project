@@ -15,8 +15,6 @@ import com.google.android.material.card.MaterialCardView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.EmailAuthProvider
 import android.widget.EditText
-import android.content.Intent
-
 
 class SettingsFragment : Fragment() {
 
@@ -60,7 +58,11 @@ class SettingsFragment : Fragment() {
         // --- Set listeners for notification settings ---
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             sharedPref.edit().putBoolean("notifications_enabled", isChecked).apply()
-            Toast.makeText(requireContext(), if (isChecked) "Notifications enabled" else "Notifications disabled", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                if (isChecked) "Notifications enabled" else "Notifications disabled",
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         switchVibration.setOnCheckedChangeListener { _, isChecked ->
@@ -76,6 +78,7 @@ class SettingsFragment : Fragment() {
             showThemeDialog(sharedPref)
         }
 
+        // --- Navigation buttons ---
         btnUpdateProfile.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_container, UpdateProfileFragment())
@@ -92,6 +95,36 @@ class SettingsFragment : Fragment() {
 
         btnDeleteAccount.setOnClickListener {
             showReauthDialog()
+        }
+
+        // --- NEW: TextViews for Privacy & Support ---
+        val tvPrivacySecurity = view.findViewById<TextView>(R.id.tvPrivacySecurity)
+        val tvSupportHelp = view.findViewById<TextView>(R.id.tvSupportHelp)
+
+        tvPrivacySecurity.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out,
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out
+                )
+                .replace(R.id.fragment_container, PrivacySecurityFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        tvSupportHelp.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out,
+                    android.R.anim.fade_in,
+                    android.R.anim.fade_out
+                )
+                .replace(R.id.fragment_container, SupportHelpFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
         return view
@@ -119,7 +152,6 @@ class SettingsFragment : Fragment() {
 
                 sharedPref.edit().putInt("app_theme", mode).apply()
                 AppCompatDelegate.setDefaultNightMode(mode)
-
                 dialog.dismiss()
             }
             .setNegativeButton("Cancel", null)
@@ -132,7 +164,6 @@ class SettingsFragment : Fragment() {
             .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
             .setPositiveButton("Delete") { _, _ ->
                 Toast.makeText(requireContext(), "Account deleted (not implemented yet)", Toast.LENGTH_LONG).show()
-                // TODO: Add delete account logic here
             }
             .setNegativeButton("Cancel", null)
             .show()
@@ -146,7 +177,6 @@ class SettingsFragment : Fragment() {
             return
         }
 
-        // Create a simple dialog asking for password re-entry
         val input = EditText(requireContext()).apply {
             hint = "Enter your password"
             inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
@@ -156,7 +186,7 @@ class SettingsFragment : Fragment() {
             .setTitle("Reauthenticate")
             .setMessage("Please confirm your password to delete your account.")
             .setView(input)
-            .setPositiveButton("Confirm") { dialog, _ ->
+            .setPositiveButton("Confirm") { _, _ ->
                 val password = input.text.toString().trim()
 
                 if (password.isEmpty()) {
@@ -172,7 +202,6 @@ class SettingsFragment : Fragment() {
 
                 val credential = EmailAuthProvider.getCredential(email, password)
 
-                // Reauthenticate before deleting
                 user.reauthenticate(credential)
                     .addOnSuccessListener {
                         deleteUserAccount()
@@ -187,11 +216,6 @@ class SettingsFragment : Fragment() {
 
     private fun deleteUserAccount() {
         val user = FirebaseAuth.getInstance().currentUser
-
-        
+        // TODO: Add actual delete logic
     }
-
-
-
-
 }

@@ -7,7 +7,7 @@
     android:layout_marginBottom="12dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
-    app:cardBackgroundColor="?attr/colorPrimaryVariant">
+    app:cardBackgroundColor="#60C34A">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:textColor="?attr/colorOnPrimary"
+                android:textColor="@color/dark_edittext_color"
                 android:text="Announcement Title" />
 
             <TextView
@@ -45,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:textSize="14sp"
-                android:textColor="?attr/colorOnPrimary"
+                android:textColor="@color/dark_edittext_color"
                 android:text="Announcement message" />
 
             <TextView
