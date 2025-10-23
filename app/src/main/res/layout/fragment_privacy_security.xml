@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="32dp"
+    android:scrollbars="none"
+    android:background="?attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:dividerPadding="16dp">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvPrivacyTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Privacy and Security"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
+
+        <!-- Intro Section -->
+        <TextView
+            android:id="@+id/tvPrivacyIntro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="At NURTURE_NEST, we are committed to safeguarding your personal information and ensuring that your data remains private, secure, and protected at all times."
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="?attr/colorOnBackground"
+            android:paddingBottom="20dp" />
+
+        <!-- Section 1: Data Protection -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔒 Data Protection"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvDataProtection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• All sensitive user data (login details, session tokens, and preferences) is encrypted both in storage and during transmission.\n\n• Communication between the app and our servers is secured using HTTPS and SSL protocols.\n\n• Role-based access ensures that only authorized users — such as Parents, Teachers, or Admins — can access relevant information."
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="?attr/colorOnBackground"
+            android:paddingBottom="24dp" />
+
+        <!-- Section 2: User Control -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🧠 User Control and Transparency"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvUserControl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• You can review and update your personal information at any time within your account settings.\n\n• We do not share, sell, or trade your data with third parties.\n\n• Session data is periodically validated to prevent unauthorized access."
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="?attr/colorOnBackground"
+            android:paddingBottom="24dp" />
+
+        <!-- Section 3: Security Commitment -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🛡️ Our Security Commitment"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvSecurityCommitment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="We continuously monitor and update our security infrastructure to protect against new threats and vulnerabilities. Our systems are designed to ensure reliability, transparency, and peace of mind for all users."
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="?attr/colorOnBackground" />
+
+    </LinearLayout>
+</ScrollView>

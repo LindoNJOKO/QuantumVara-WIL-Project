@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="24dp"
+    android:paddingVertical="32dp"
+    android:scrollbars="none"
+    android:background="?attr/colorBackground">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tvSupportTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="💬 Support and Help"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:paddingBottom="16dp" />
+
+        <!-- Intro Section -->
+        <TextView
+            android:id="@+id/tvSupportIntro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Need assistance? We’re here to help you make the most of NURTURE_NEST."
+            android:textSize="16sp"
+            android:lineSpacingExtra="4dp"
+            android:textColor="?attr/colorOnBackground"
+            android:paddingBottom="20dp" />
+
+        <!-- Section 1: Common Support Options -->
+        <TextView
+            android:id="@+id/tvSupportSectionHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🛠️ Common Support Options"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvSupportOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="• FAQ Section: Access quick answers to common questions within the Settings tab.\n\n• In-App Help: Step-by-step guides and tooltips are available across different screens.\n\n• Contact Us: Report issues or share feedback via the in-app “Support” option or by emailing our team at:"
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="?attr/colorOnBackground"
+            android:paddingBottom="12dp" />
+
+        <!-- Email Section -->
+        <TextView
+            android:id="@+id/tvSupportEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="email"
+            android:text="📧 dengovender@varstiycollege.co.za"
+            android:textSize="16sp"
+            android:textColor="?attr/colorPrimary"
+            android:paddingBottom="24dp" />
+
+        <!-- Section 2: Commitment -->
+        <TextView
+            android:id="@+id/tvSupportCommitmentHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🤝 Our Commitment"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/tvSupportCommitment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Our team is dedicated to ensuring a smooth and supportive experience for Parents, Teachers, and Admins alike. Whether it’s troubleshooting or guidance, we’re here to assist you every step of the way."
+            android:textSize="16sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="?attr/colorOnBackground" />
+    </LinearLayout>
+</ScrollView>
