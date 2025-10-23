@@ -5,146 +5,284 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="?attr/colorBackground"
+    android:fillViewport="true"
     tools:context=".LunchOrdering">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="4dp">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/tvLunchTitle"
+        <!-- Header Section -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Creche Lunch Menu"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textColor="?attr/colorPrimary"
-            android:layout_marginBottom="20dp"/>
+            android:orientation="vertical"
+            android:background="@drawable/header_background"
+            android:padding="4dp"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:id="@+id/tvLunchTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lunch_title"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="?attr/colorPrimary" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lunch_subtitle"
+                android:textSize="11sp"
+                android:gravity="center"
+                android:textColor="?attr/colorOnBackground"
+                android:alpha="0.7" />
+        </LinearLayout>
 
         <!-- Monday -->
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Monday"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:textColor="?attr/colorOnBackground"/>
+            android:layout_marginBottom="3dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
 
-        <CheckBox
-            android:id="@+id/cbMondayChicken"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chicken and Rice"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/cbMondayVeggie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetable Stew"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_monday"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginBottom="2dp" />
+
+                <CheckBox
+                    android:id="@+id/cbMondayChicken"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/monday_chicken"
+                    android:textSize="11sp" />
+
+                <CheckBox
+                    android:id="@+id/cbMondayVeggie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/monday_veggie"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Tuesday -->
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tuesday"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:textColor="?attr/colorOnBackground"/>
+            android:layout_marginBottom="3dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
 
-        <CheckBox
-            android:id="@+id/cbTuesdayPasta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mac and Cheese"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/cbTuesdaySoup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tomato Soup and Bread"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_tuesday"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginBottom="2dp" />
+
+                <CheckBox
+                    android:id="@+id/cbTuesdayPasta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/tuesday_pasta"
+                    android:textSize="11sp" />
+
+                <CheckBox
+                    android:id="@+id/cbTuesdaySoup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/tuesday_soup"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Wednesday -->
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Wednesday"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:textColor="?attr/colorOnBackground"/>
+            android:layout_marginBottom="3dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
 
-        <CheckBox
-            android:id="@+id/cbWednesdayBeef"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beef Stew and Rice"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/cbWednesdayFruit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fruit Salad and Yogurt"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_wednesday"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginBottom="2dp" />
+
+                <CheckBox
+                    android:id="@+id/cbWednesdayBeef"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/wednesday_beef"
+                    android:textSize="11sp" />
+
+                <CheckBox
+                    android:id="@+id/cbWednesdayFruit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/wednesday_fruit"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Thursday -->
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thursday"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:textColor="?attr/colorOnBackground"/>
+            android:layout_marginBottom="3dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
 
-        <CheckBox
-            android:id="@+id/cbThursdayFish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fish Fingers and Chips"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/cbThursdayVeggie"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Vegetable Pasta"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_thursday"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginBottom="2dp" />
+
+                <CheckBox
+                    android:id="@+id/cbThursdayFish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/thursday_fish"
+                    android:textSize="11sp" />
+
+                <CheckBox
+                    android:id="@+id/cbThursdayVeggie"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/thursday_veggie"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Friday -->
-        <TextView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Friday"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="12dp"
-            android:textColor="?attr/colorOnBackground"/>
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="1dp"
+            app:contentPadding="4dp">
 
-        <CheckBox
-            android:id="@+id/cbFridayPizza"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mini Pizza"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <CheckBox
-            android:id="@+id/cbFridaySoup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pumpkin Soup"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/day_friday"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginBottom="2dp" />
+
+                <CheckBox
+                    android:id="@+id/cbFridayPizza"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/friday_pizza"
+                    android:textSize="11sp" />
+
+                <CheckBox
+                    android:id="@+id/cbFridaySoup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:maxWidth="320dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/friday_soup"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Save Button -->
         <Button
             android:id="@+id/btnSaveLunchOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save Lunch Order"
-            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:layout_gravity="center"
+            android:text="@string/save_button"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="20dp"
             android:backgroundTint="?attr/colorPrimary"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="4dp" />
 
     </LinearLayout>
 </ScrollView>

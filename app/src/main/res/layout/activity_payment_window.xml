@@ -80,33 +80,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="12dp"/>
 
-        <!-- Payment Amount -->
-        <EditText
-            android:id="@+id/etAmount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Payment Amount (ZAR)"
-            android:inputType="numberDecimal"
-            android:padding="12dp"
-            app:layout_constraintTop_toBottomOf="@id/etBranchCode"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="20dp" />
-
-
-        <!-- Payment Reference -->
-        <EditText
-            android:id="@+id/etPaymentReference"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Payment Reference (e.g. Lunch Order #123)"
-            android:inputType="text"
-            android:padding="12dp"
-            app:layout_constraintTop_toBottomOf="@id/etAmount"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp"/>
-
         <!-- Save Bank Details -->
         <Button
             android:id="@+id/btnSaveBankDetails"
@@ -116,7 +89,7 @@
             android:backgroundTint="?attr/colorPrimary"
             android:textColor="@android:color/white"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/etPaymentReference"
+            app:layout_constraintTop_toBottomOf="@id/etBranchCode"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -130,6 +103,19 @@
             android:textColor="@android:color/white"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@id/btnSaveBankDetails"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Process Payment -->
+        <Button
+            android:id="@+id/btnViewReceipts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="View Receipts"
+            android:backgroundTint="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@id/btnProcessPayment"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 

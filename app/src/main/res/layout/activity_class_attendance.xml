@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_background"
+    tools:context=".ClassAttendance">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/class_attendance"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/light_on_background"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- White Card Container -->
+    <ScrollView
+        android:id="@+id/cardContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        android:background="@color/light_edittext_background"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintBottom_toTopOf="@id/btnSubmit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Class and Date Row -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:layout_marginBottom="16dp">
+
+                <EditText
+                    android:id="@+id/etClass"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:hint="@string/class_hint"
+                    android:inputType="text"
+                    android:autofillHints="name"
+                    android:maxLines="1"
+                    android:layout_marginEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/etDate"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:minHeight="48dp"
+                    android:hint="@string/date_hint"
+                    android:inputType="date"
+                    android:autofillHints="date"
+                    android:maxLines="1"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Scrollable Table -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- Table Header -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:text="@string/no"
+                            android:gravity="center"
+                            android:background="@color/header_yellow"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_height="40dp"
+                            android:text="@string/student_name"
+                            android:gravity="center"
+                            android:background="@color/header_light_gray"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="@string/monday"
+                            android:gravity="center"
+                            android:background="@color/header_blue"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="@string/tuesday"
+                            android:gravity="center"
+                            android:background="@color/header_purple"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="@string/wednesday"
+                            android:gravity="center"
+                            android:background="@color/header_green"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="@string/thursday"
+                            android:gravity="center"
+                            android:background="@color/header_pink"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="70dp"
+                            android:layout_height="40dp"
+                            android:text="@string/friday"
+                            android:gravity="center"
+                            android:background="@color/header_yellow"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Table Rows Container -->
+                    <LinearLayout
+                        android:id="@+id/tableContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:minWidth="200dp"
+        android:minHeight="48dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:text="@string/submit"
+        android:textColor="@color/light_on_primary"
+        android:background="@color/light_primary"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

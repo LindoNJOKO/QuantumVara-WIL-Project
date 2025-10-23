@@ -9,6 +9,7 @@ data class ReceiptEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val item: String,
     val amount: Double,
-    val date: Long
+    val date: Long,
+    val userId: String = ""
 )
 

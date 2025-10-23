@@ -21,4 +21,13 @@
     <color name="dark_edittext_background">#E5E5E5</color>
     <color name="dark_edittext_color">#333333</color>
 
+    <!-- Table Header Colors -->
+    <color name="header_yellow">#FFE599</color>
+    <color name="header_light_gray">#E8E8E8</color>
+    <color name="header_blue">#9FC5E8</color>
+    <color name="header_purple">#B4A7D6</color>
+    <color name="header_green">#B6D7A8</color>
+    <color name="header_pink">#EA9999</color>
+
+
 </resources>
