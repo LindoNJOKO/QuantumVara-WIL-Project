@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/tvMealName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chicken Burger"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary" />
+
+            <TextView
+                android:id="@+id/tvDayCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Monday • Main Course"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
+                android:textColor="?attr/colorOnBackground"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/tvIngredients"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ingredients: Chicken, Bread, Lettuce"
+                android:textSize="12sp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:id="@+id/tvAllergens"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="⚠️ Allergens: Gluten, Dairy"
+                android:textSize="12sp"
+                android:layout_marginTop="4dp"
+                android:textColor="@android:color/holo_orange_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="R 25.00"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvAvailability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓ Available"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:gravity="end">
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Edit"
+                    android:textSize="12sp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+                <Button
+                    android:id="@+id/btnToggleAvailability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Toggle"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Delete"
+                    android:textSize="12sp"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    style="@style/Widget.MaterialComponents.Button" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+</androidx.cardview.widget.CardView>

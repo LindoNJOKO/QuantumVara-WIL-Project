@@ -17,6 +17,7 @@ class ProfileFragment : Fragment() {
 
     private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
+    private var userRole: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +57,11 @@ class ProfileFragment : Fragment() {
                     tvUserName.text = doc.getString("name") ?: "No Name"
                     tvUserEmail.text = doc.getString("email") ?: "No Email"
                     tvCellphone.text = doc.getString("cellphone") ?: "No Number"
+
+                    //get users role
+                    userRole = doc.getString("role") ?: "Parent"
+
+                    updateUIForRole(tvPaymentDetails, tvLunchOrders, tvAttendanceLogs, tvChildManagement)
                 } else {
                     tvUserName.text = "Unknown User"
                 }
@@ -70,10 +76,23 @@ class ProfileFragment : Fragment() {
         }
 
         // 🔹 Lunch Ordering
+        // 🔹 Lunch Ordering
         tvLunchOrders.setOnClickListener {
-            startActivity(Intent(requireContext(), LunchOrdering::class.java))
+            when (userRole.lowercase()) {
+                "parent" -> {
+                    // Parents use improved ordering system
+                    startActivity(Intent(requireContext(), LunchOrdering::class.java))
+                }
+                "admin" -> {
+                    // Admins can manage meals
+                    startActivity(Intent(requireContext(), AdminMealManagementActivity::class.java))
+                }
+                "teacher" -> {
+                    // Teachers can view lunch orders
+                    Toast.makeText(requireContext(), "Lunch management coming soon for teachers", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-
         // 🔹 Attendance Logs
         tvAttendanceLogs.setOnClickListener {
             startActivity(Intent(requireContext(), AttendanceActivity::class.java))
@@ -93,5 +112,47 @@ class ProfileFragment : Fragment() {
         }
 
         return view
+    }
+    private fun updateUIForRole(
+        tvPaymentDetails: TextView,
+        tvLunchOrders: TextView,
+        tvAttendanceLogs: TextView,
+        tvChildManagement: TextView
+    ) {
+        when (userRole.lowercase()) {
+            "parent" -> {
+                // Parents see all options
+                tvPaymentDetails.visibility = View.VISIBLE
+                tvLunchOrders.visibility = View.VISIBLE
+                tvAttendanceLogs.visibility = View.VISIBLE
+                tvChildManagement.visibility = View.VISIBLE
+
+                // Update text labels
+                tvAttendanceLogs.text = "View Attendance"
+                tvLunchOrders.text = "Order Lunch"
+            }
+            "teacher" -> {
+                // Teachers see limited options
+                tvPaymentDetails.visibility = View.GONE
+                tvLunchOrders.visibility = View.VISIBLE
+                tvAttendanceLogs.visibility = View.VISIBLE
+                tvChildManagement.visibility = View.VISIBLE
+
+                // Update text labels
+                tvAttendanceLogs.text = "Mark Attendance"
+                tvLunchOrders.text = "View Lunch Orders"
+            }
+            "admin" -> {
+                // Admins see management options
+                tvPaymentDetails.visibility = View.VISIBLE
+                tvLunchOrders.visibility = View.VISIBLE
+                tvAttendanceLogs.visibility = View.VISIBLE
+                tvChildManagement.visibility = View.VISIBLE
+
+                // Update text labels
+                tvAttendanceLogs.text = "Attendance Reports"
+                tvLunchOrders.text = "Manage Meals"
+            }
+        }
     }
 }
