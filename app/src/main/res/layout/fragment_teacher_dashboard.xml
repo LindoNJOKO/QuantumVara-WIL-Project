@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/light_background"
+    android:background="?attr/colorBackground"
     tools:context=".fragments.TeacherDashboardFragment">
 
     <!-- Title -->
@@ -18,7 +18,7 @@
         android:text="Attendance Register"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/light_on_background"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -29,34 +29,37 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="16dp"
+        android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/tvDashboardTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/tvPresentLegend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Present"
-            android:textColor="@color/light_primary"
-            android:textStyle="bold" />
+            android:textColor="?attr/colorPrimary"
+            android:textStyle="bold"
+            android:paddingEnd="12dp" />
 
         <TextView
             android:id="@+id/tvAbsentLegend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Absent"
-            android:textColor="@color/dark_on_background"
-            android:textStyle="bold" />
+            android:textColor="?attr/colorOnBackground"
+            android:textStyle="bold"
+            android:paddingEnd="12dp" />
 
         <TextView
             android:id="@+id/tvSickLegend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sick"
+            android:text="Excused"
             android:textColor="#FFA500"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingEnd="12dp" />
 
         <TextView
             android:id="@+id/tvLateLegend"
@@ -73,12 +76,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
         app:layout_constraintTop_toBottomOf="@id/legend_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnSubmitAttendance"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"/>
+        app:layout_constraintBottom_toTopOf="@id/btnSubmitAttendance" />
 
     <!-- Submit Button -->
     <Button
@@ -86,12 +89,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Submit Attendance"
-        android:textColor="@color/light_on_primary"
-        android:backgroundTint="@color/light_primary"
+        android:textColor="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorPrimary"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

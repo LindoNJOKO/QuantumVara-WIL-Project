@@ -75,7 +75,7 @@ class ProfileFragment : Fragment() {
             startActivity(Intent(requireContext(), PaymentWindow::class.java))
         }
 
-        // 🔹 Lunch Ordering
+
         // 🔹 Lunch Ordering
         tvLunchOrders.setOnClickListener {
             when (userRole.lowercase()) {

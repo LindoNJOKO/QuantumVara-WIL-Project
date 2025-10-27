@@ -43,7 +43,7 @@ class ChatListActivity : AppCompatActivity() {
 
         backBtn.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
 
-        loadChats()
+        loadAllUsers() // 🔹 Show all users when opening
 
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -54,52 +54,54 @@ class ChatListActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadChats() {
+    /**
+     * Load all users (except current one) and show their latest chat info if any
+     */
+    private fun loadAllUsers() {
         val currentUserId = auth.currentUser?.uid ?: return
 
-        db.collection("chats")
-            .orderBy("lastMessageTime", Query.Direction.DESCENDING)
+        db.collection("users")
             .get()
             .addOnSuccessListener { result ->
                 chatList.clear()
+
                 for (doc in result.documents) {
-                    val chatId = doc.id
-                    if (chatId.contains(currentUserId)) {
-                        val otherUserId = chatId.split("_").first { it != currentUserId }
+                    val userId = doc.id
+                    if (userId == currentUserId) continue
 
-                        // Get other user's info
-                        db.collection("users").document(otherUserId)
-                            .get()
-                            .addOnSuccessListener { userDoc ->
-                                val name = userDoc.getString("name") ?: "Unknown"
-                                val email = userDoc.getString("email") ?: ""
-                                val lastMessage = doc.getString("lastMessage") ?: ""
-                                val time = doc.getLong("lastMessageTime") ?: 0L
+                    val name = doc.getString("name") ?: "Unknown"
+                    val email = doc.getString("email") ?: ""
 
-                                val chat = Chat(
-                                    id = otherUserId,
-                                    name = name,
-                                    email = email,
-                                    lastMessage = lastMessage,
-                                    time = time
-                                )
+                    val chatId = getChatId(currentUserId, userId)
+                    db.collection("chats").document(chatId)
+                        .get()
+                        .addOnSuccessListener { chatDoc ->
+                            val lastMessage = chatDoc.getString("lastMessage") ?: ""
+                            val lastTime = chatDoc.getLong("lastMessageTime") ?: 0L
 
-                                if (!chatList.any { it.id == otherUserId }) {
-                                    chatList.add(chat)
-                                    chatList.sortByDescending { it.time }
-                                    adapter.notifyDataSetChanged()
-                                }
-                            }
-                    }
+                            val chat = Chat(
+                                id = userId,
+                                name = name,
+                                email = email,
+                                lastMessage = lastMessage,
+                                time = lastTime
+                            )
+                            chatList.add(chat)
+                            chatList.sortByDescending { it.time }
+                            adapter.notifyDataSetChanged()
+                        }
                 }
             }
     }
 
+    /**
+     * Search among all users by name or email
+     */
     private fun searchUsers(query: String) {
         val currentUserId = auth.currentUser?.uid ?: return
 
         if (query.isEmpty()) {
-            loadChats()
+            loadAllUsers()
             return
         }
 
@@ -108,15 +110,37 @@ class ChatListActivity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 chatList.clear()
                 for (doc in result.documents) {
+                    val userId = doc.id
+                    if (userId == currentUserId) continue
+
                     val name = doc.getString("name") ?: ""
                     val email = doc.getString("email") ?: ""
-                    val id = doc.id
 
-                    if (id != currentUserId && (name.contains(query, true) || email.contains(query, true))) {
-                        chatList.add(Chat(id = id, name = name, email = email))
+                    if (name.contains(query, true) || email.contains(query, true)) {
+                        val chatId = getChatId(currentUserId, userId)
+                        db.collection("chats").document(chatId)
+                            .get()
+                            .addOnSuccessListener { chatDoc ->
+                                val lastMessage = chatDoc.getString("lastMessage") ?: ""
+                                val lastTime = chatDoc.getLong("lastMessageTime") ?: 0L
+
+                                val chat = Chat(
+                                    id = userId,
+                                    name = name,
+                                    email = email,
+                                    lastMessage = lastMessage,
+                                    time = lastTime
+                                )
+                                chatList.add(chat)
+                                chatList.sortByDescending { it.time }
+                                adapter.notifyDataSetChanged()
+                            }
                     }
                 }
-                adapter.notifyDataSetChanged()
             }
+    }
+
+    private fun getChatId(uid1: String, uid2: String): String {
+        return if (uid1 < uid2) "${uid1}_${uid2}" else "${uid2}_${uid1}"
     }
 }

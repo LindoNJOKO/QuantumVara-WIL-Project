@@ -28,7 +28,7 @@
             android:exported="false" />
         <activity
             android:name=".ReceiptsActivity"
-            android:exported="false" /> <!-- ✅ Splash screen (entry point) -->
+            android:exported="false" />
         <activity
             android:name=".SplashScreen"
             android:exported="true">
@@ -66,6 +66,17 @@
             android:exported="false" />
         <activity
             android:name=".NotificationActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".AttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClassAttendance"
+            android:exported="false" />
+
+        <activity
+            android:name=".ChildManagmentActivity"
             android:exported="false" />
     </application>
 

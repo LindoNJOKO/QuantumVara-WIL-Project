@@ -1,60 +1,96 @@
 package com.example.nurture_nest.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.nurture_nest.R
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nurture_nest.adapters.AttendanceAdapter
+import com.example.nurture_nest.databinding.FragmentTeacherDashboardBinding
+import com.example.nurture_nest.models.StudentAttendance
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TeacherDashboardFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TeacherDashboardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentTeacherDashboardBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var attendanceAdapter: AttendanceAdapter
+    private val studentList = mutableListOf<StudentAttendance>()
+
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_teacher_dashboard, container, false)
+    ): View {
+        _binding = FragmentTeacherDashboardBinding.inflate(inflater, container, false)
+        setupRecyclerView()
+        setupSubmitButton()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TeacherDashboardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TeacherDashboardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun setupRecyclerView() {
+        // Replace with actual student data from Firestore if you have a class list
+        studentList.addAll(
+            listOf(
+                StudentAttendance("Alice Moyo"),
+                StudentAttendance("Brian Dlamini"),
+                StudentAttendance("Carla Naidoo"),
+                StudentAttendance("Daniel Mthembu"),
+                StudentAttendance("Evelyn Khumalo")
+            )
+        )
+
+        attendanceAdapter = AttendanceAdapter(studentList)
+        binding.rvStudentList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = attendanceAdapter
+        }
+    }
+
+    private fun setupSubmitButton() {
+        binding.btnSubmitAttendance.setOnClickListener {
+            val teacherId = auth.currentUser?.uid ?: "UnknownTeacher"
+            val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+
+            val attendanceRecords = studentList.map {
+                hashMapOf(
+                    "studentName" to it.name,
+                    "status" to (it.status ?: "Not Marked"),
+                    "date" to currentDate,
+                    "teacherId" to teacherId,
+                    "timestamp" to System.currentTimeMillis()
+                )
             }
+
+            val attendanceCollection = db.collection("attendance").document(currentDate).collection("records")
+
+            // Batch write for all students
+            val batch = db.batch()
+            for (record in attendanceRecords) {
+                val docRef = attendanceCollection.document(record["studentName"].toString())
+                batch.set(docRef, record)
+            }
+
+            batch.commit()
+                .addOnSuccessListener {
+                    Toast.makeText(requireContext(), "Attendance saved to Firebase ✅", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(requireContext(), "Error saving attendance: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

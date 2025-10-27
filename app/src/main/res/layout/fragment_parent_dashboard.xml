@@ -6,25 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorBackground"
-    tools:context=".fragments.ParentDashboardFragment">
+    tools:context=".fragments.AdminDashboardFragment">
 
-    <!-- Top Section with Circle and Chat Button -->
+    <!-- Header -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp">
+        android:paddingVertical="16dp">
 
-        <!-- Top Left Circle -->
-        <View
-            android:id="@+id/ellipse3"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/circle_shape" />
+        <TextView
+            android:id="@+id/AdminDashTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:text="Home Dashboard"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorOnBackground" />
 
-        <!-- Chat Button -->
         <ImageButton
             android:id="@+id/btnChat"
             android:layout_width="48dp"
@@ -32,32 +31,30 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="16dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Chats"
+            android:contentDescription="Chat"
             android:src="@drawable/ic_chat" />
-
     </RelativeLayout>
 
-    <!-- Notification Feed Title -->
+    <!-- Notification Section -->
     <TextView
         android:id="@+id/notification_feed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="20dp"
         android:text="Notification Feed"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnBackground" />
 
-
-    <!-- Recycle View for announcements -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnnouncements"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="16dp"
         android:clipToPadding="false" />
+
+
 </LinearLayout>
