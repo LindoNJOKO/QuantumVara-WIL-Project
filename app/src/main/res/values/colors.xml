@@ -10,6 +10,7 @@
     <color name="light_accent">#00B074</color>
     <color name="light_edittext_background">#FFFFFF</color>
     <color name="light_edittext_color">#1A1A1A</color>
+    <color name="selected_meal_bg">#E8F5E9</color>
 
     <!-- Dark theme colors -->
     <color name="dark_primary">#A8DFFF</color> <!-- Button background -->
@@ -20,6 +21,8 @@
     <color name="dark_accent">#1AB26B</color> <!-- Green links -->
     <color name="dark_edittext_background">#E5E5E5</color>
     <color name="dark_edittext_color">#333333</color>
+    <color name="selected_meal_bg_dark">#1B5E20</color>
+
 
     <!-- Table Header Colors -->
     <color name="header_yellow">#FFE599</color>

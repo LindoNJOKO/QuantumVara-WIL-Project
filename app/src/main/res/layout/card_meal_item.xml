@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardMeal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header with name and selected indicator -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMealName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grilled Chicken Burger"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tvMealCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🍽️ Main Course"
+                    android:textSize="14sp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="?attr/colorOnBackground"
+                    android:alpha="0.7" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivSelectedIndicator"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@android:drawable/checkbox_on_background"
+                android:tint="@android:color/holo_green_dark"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/tvMealDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Juicy grilled chicken breast served on a fresh bun with lettuce and tomato"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            android:textColor="?attr/colorOnBackground" />
+
+        <!-- Ingredients -->
+        <TextView
+            android:id="@+id/tvMealIngredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ingredients: Chicken, Bread, Lettuce, Tomato, Mayo"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:textColor="?attr/colorOnBackground"
+            android:alpha="0.8" />
+
+        <!-- Allergens Warning -->
+        <TextView
+            android:id="@+id/tvMealAllergens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⚠️ Contains: Gluten, Eggs"
+            android:textSize="12sp"
+            android:layout_marginTop="4dp"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textStyle="bold" />
+
+        <!-- Price and Action -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvMealPrice"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="R 35.00"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary" />
+
+            <Button
+                android:id="@+id/btnAddToCart"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Add to Cart"
+                android:textSize="14sp"
+                android:backgroundTint="?attr/colorPrimary" />
+
+            <Button
+                android:id="@+id/btnRemoveFromCart"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="Remove"
+                android:textSize="14sp"
+                android:visibility="gone"
+                android:backgroundTint="@android:color/holo_red_dark" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
