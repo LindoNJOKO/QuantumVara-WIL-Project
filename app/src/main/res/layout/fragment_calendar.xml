@@ -6,7 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorBackground"
-    android:padding="16dp"
+    android:fitsSystemWindows="true"
+    android:paddingTop="?attr/actionBarSize"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp"
     tools:context=".fragments.CalendarFragment">
 
     <!-- Calendar View -->
@@ -14,11 +18,12 @@
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:weekSeparatorLineColor="?attr/colorPrimaryVariant"
         android:focusedMonthDateColor="?attr/colorPrimary"
         android:unfocusedMonthDateColor="?attr/colorOnBackground"
         android:weekDayTextAppearance="?android:attr/textAppearanceSmall"
-        android:dateTextAppearance="?android:attr/textAppearanceMedium"/>
+        android:dateTextAppearance="?android:attr/textAppearanceMedium" />
 
     <!-- Upcoming Events Section -->
     <TextView
@@ -29,7 +34,8 @@
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="?attr/colorOnBackground"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvUpcomingEvents"
@@ -37,8 +43,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="?attr/colorBackground"
-        android:paddingTop="8dp"
         android:clipToPadding="false"
-        tools:listitem="@layout/item_upcoming_event"/>
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        tools:listitem="@layout/item_upcoming_event" />
 
 </LinearLayout>

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         prefs = getSharedPreferences("NurtureNestPrefs", MODE_PRIVATE)
 
         userRole = prefs.getString("role", "")
-                    ?: ""
+            ?: ""
         // Load initial fragment based on role
         val initialFragment = when (userRole.lowercase()) {
             "parent" -> ParentDashboardFragment()

@@ -9,8 +9,19 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.nurture_nest.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.FirebaseFirestore
 
 class UpdateProfileFragment : Fragment() {
+
+    private lateinit var etName: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etPhone: EditText
+    private lateinit var btnSaveProfile: Button
+
+    private val auth = FirebaseAuth.getInstance()
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -18,20 +29,85 @@ class UpdateProfileFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_update_profile, container, false)
 
-        val etName: EditText = view.findViewById(R.id.etName)
-        val etEmail: EditText = view.findViewById(R.id.etEmail)
-        val btnSave: Button = view.findViewById(R.id.btnSaveProfile)
+        etName = view.findViewById(R.id.etName)
+        etEmail = view.findViewById(R.id.etEmail)
+        etPhone = view.findViewById(R.id.etPhone)
+        btnSaveProfile = view.findViewById(R.id.btnSaveProfile)
 
-        btnSave.setOnClickListener {
-            val name = etName.text.toString().trim()
-            val email = etEmail.text.toString().trim()
+        val user = auth.currentUser
 
-            if (name.isEmpty() || email.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                // TODO: Save to database or API
+        // Load basic Firebase user data
+        etName.setText(user?.displayName ?: "")
+        etEmail.setText(user?.email ?: "")
+
+        // ✅ Always load phone from Firestore
+        user?.let {
+            db.collection("users").document(it.uid)
+                .get()
+                .addOnSuccessListener { doc ->
+                    if (doc.exists()) {
+                        val phone = doc.getString("phone") ?: ""
+                        etPhone.setText(phone)
+                    } else {
+                        // If no Firestore record exists yet, create a placeholder
+                        db.collection("users").document(it.uid)
+                            .set(mapOf("phone" to ""))
+                    }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to load user info", Toast.LENGTH_SHORT).show()
+                }
+        }
+
+        btnSaveProfile.setOnClickListener {
+            val newName = etName.text.toString().trim()
+            val newEmail = etEmail.text.toString().trim()
+            val newPhone = etPhone.text.toString().trim()
+
+            if (newName.isEmpty() || newEmail.isEmpty() || newPhone.isEmpty()) {
+                Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            if (user == null) {
+                Toast.makeText(requireContext(), "User not logged in", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Update display name in Firebase Auth
+            val profileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName(newName)
+                .build()
+
+            user.updateProfile(profileUpdates)
+                .addOnSuccessListener {
+                    // Update email in Firebase Auth
+                    user.updateEmail(newEmail)
+                        .addOnSuccessListener {
+                            // ✅ Save all fields to Firestore
+                            val userData = hashMapOf(
+                                "name" to newName,
+                                "email" to newEmail,
+                                "phone" to newPhone
+                            )
+
+                            db.collection("users").document(user.uid)
+                                .set(userData)
+                                .addOnSuccessListener {
+                                    Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                                    parentFragmentManager.popBackStack()
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(requireContext(), "Failed to update Firestore: ${it.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Failed to update email: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Failed to update name: ${it.message}", Toast.LENGTH_SHORT).show()
+                }
         }
 
         return view

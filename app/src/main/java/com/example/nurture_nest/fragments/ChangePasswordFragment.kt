@@ -1,6 +1,5 @@
 package com.example.nurture_nest.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,34 +9,66 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.nurture_nest.R
+import com.google.firebase.auth.EmailAuthProvider
+import com.google.firebase.auth.FirebaseAuth
 
 class ChangePasswordFragment : Fragment() {
 
-    @SuppressLint("MissingInflatedId")
+    private lateinit var etCurrentPassword: EditText
+    private lateinit var etNewPassword: EditText
+    private lateinit var etConfirmPassword: EditText
+    private lateinit var btnChangePassword: Button
+    private val auth = FirebaseAuth.getInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_change_password, container, false)
 
-        val etCurrentPassword: EditText = view.findViewById(R.id.etCurrentPassword)
-        val etNewPassword: EditText = view.findViewById(R.id.etNewPassword)
-        val etConfirmPassword: EditText = view.findViewById(R.id.etConfirmPassword)
-        val btnChangePassword: Button = view.findViewById(R.id.btnChangePasswordFinal)
+        etCurrentPassword = view.findViewById(R.id.etCurrentPassword)
+        etNewPassword = view.findViewById(R.id.etNewPassword)
+        etConfirmPassword = view.findViewById(R.id.etConfirmPassword)
+        btnChangePassword = view.findViewById(R.id.btnChangePasswordFinal)
 
         btnChangePassword.setOnClickListener {
-            val current = etCurrentPassword.text.toString().trim()
+            val currentPass = etCurrentPassword.text.toString().trim()
             val newPass = etNewPassword.text.toString().trim()
-            val confirm = etConfirmPassword.text.toString().trim()
+            val confirmPass = etConfirmPassword.text.toString().trim()
+            val user = auth.currentUser
 
-            if (current.isEmpty() || newPass.isEmpty() || confirm.isEmpty()) {
-                Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
-            } else if (newPass != confirm) {
-                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "Password changed successfully", Toast.LENGTH_SHORT).show()
-                // TODO: Update password in your backend or database
+            if (currentPass.isEmpty() || newPass.isEmpty() || confirmPass.isEmpty()) {
+                Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            if (newPass != confirmPass) {
+                Toast.makeText(requireContext(), "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (user == null || user.email.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "User not found", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val credential = EmailAuthProvider.getCredential(user.email!!, currentPass)
+
+            // Reauthenticate before updating password
+            user.reauthenticate(credential)
+                .addOnSuccessListener {
+                    user.updatePassword(newPass)
+                        .addOnSuccessListener {
+                            Toast.makeText(requireContext(), "Password updated successfully", Toast.LENGTH_SHORT).show()
+                            parentFragmentManager.popBackStack()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(requireContext(), "Failed to update password: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Incorrect current password", Toast.LENGTH_SHORT).show()
+                }
         }
 
         return view

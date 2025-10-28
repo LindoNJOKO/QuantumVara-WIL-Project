@@ -1,6 +1,7 @@
 package com.example.nurture_nest.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -216,6 +217,22 @@ class SettingsFragment : Fragment() {
 
     private fun deleteUserAccount() {
         val user = FirebaseAuth.getInstance().currentUser
-        // TODO: Add actual delete logic
+
+        user?.delete()
+            ?.addOnSuccessListener {
+                Toast.makeText(requireContext(), "Account deleted successfully", Toast.LENGTH_LONG).show()
+
+                // TODO: Optional - remove user data from Firestore/Realtime DB here
+                // FirebaseFirestore.getInstance().collection("users").document(user.uid).delete()
+
+                // After deletion, send user to login screen
+                val intent = Intent(requireContext(), com.example.nurture_nest.Login::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
+            ?.addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to delete account: ${it.message}", Toast.LENGTH_LONG).show()
+            }
     }
+
 }
