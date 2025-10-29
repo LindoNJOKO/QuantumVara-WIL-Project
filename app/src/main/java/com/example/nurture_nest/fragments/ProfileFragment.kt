@@ -134,7 +134,7 @@ class ProfileFragment : Fragment() {
             "teacher" -> {
                 // Teachers see limited options
                 tvPaymentDetails.visibility = View.GONE
-                tvLunchOrders.visibility = View.VISIBLE
+                tvLunchOrders.visibility = View.GONE
                 tvAttendanceLogs.visibility = View.VISIBLE
                 tvChildManagement.visibility = View.VISIBLE
 

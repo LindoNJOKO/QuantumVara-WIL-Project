@@ -56,22 +56,48 @@ class AdminMealManagementActivity : AppCompatActivity() {
     }
 
     private fun loadMeals() {
+        // SIMPLE QUERY - NO ORDERING
         db.collection("meals")
-            .orderBy("dayOfWeek", Query.Direction.ASCENDING)
-            .orderBy("category", Query.Direction.ASCENDING)
             .addSnapshotListener { snapshots, e ->
                 if (e != null) {
                     Toast.makeText(this, "Error loading meals: ${e.message}", Toast.LENGTH_SHORT).show()
+                    android.util.Log.e("AdminMealMgmt", "Error loading meals", e)
+                    return@addSnapshotListener
+                }
+
+                if (snapshots == null) {
+                    Toast.makeText(this, "No meals found", Toast.LENGTH_SHORT).show()
                     return@addSnapshotListener
                 }
 
                 meals.clear()
-                snapshots?.documents?.forEach { doc ->
-                    val meal = doc.toObject(Meal::class.java)?.copy(id = doc.id)
-                    meal?.let { meals.add(it) }
+                snapshots.documents.forEach { doc ->
+                    try {
+                        val meal = doc.toObject(Meal::class.java)?.copy(id = doc.id)
+                        meal?.let { meals.add(it) }
+                    } catch (ex: Exception) {
+                        android.util.Log.e("AdminMealMgmt", "Error parsing meal: ${doc.id}", ex)
+                    }
                 }
+
+                // Sort locally
+                meals.sortWith(compareBy({ getDayOrder(it.dayOfWeek) }, { it.category }))
+
                 adapter.notifyDataSetChanged()
+
+                android.util.Log.d("AdminMealMgmt", "Loaded ${meals.size} meals")
             }
+    }
+
+    private fun getDayOrder(day: String): Int {
+        return when (day) {
+            "Monday" -> 1
+            "Tuesday" -> 2
+            "Wednesday" -> 3
+            "Thursday" -> 4
+            "Friday" -> 5
+            else -> 6
+        }
     }
 
     private fun showAddEditMealDialog(meal: Meal?) {
@@ -99,8 +125,12 @@ class AdminMealManagementActivity : AppCompatActivity() {
             etIngredients.setText(it.ingredients.joinToString(", "))
             etAllergens.setText(it.allergens.joinToString(", "))
             etPrice.setText(it.price.toString())
-            spinnerDay.setSelection(days.indexOf(it.dayOfWeek))
-            spinnerCategory.setSelection(categories.indexOf(it.category))
+
+            val dayIndex = days.indexOf(it.dayOfWeek)
+            if (dayIndex >= 0) spinnerDay.setSelection(dayIndex)
+
+            val categoryIndex = categories.indexOf(it.category)
+            if (categoryIndex >= 0) spinnerCategory.setSelection(categoryIndex)
         }
 
         AlertDialog.Builder(this)
@@ -118,8 +148,18 @@ class AdminMealManagementActivity : AppCompatActivity() {
                     return@setPositiveButton
                 }
 
-                val ingredients = ingredientsText.split(",").map { it.trim() }.filter { it.isNotEmpty() }
-                val allergens = allergensText.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+                val ingredients = if (ingredientsText.isNotEmpty()) {
+                    ingredientsText.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+                } else {
+                    emptyList()
+                }
+
+                val allergens = if (allergensText.isNotEmpty()) {
+                    allergensText.split(",").map { it.trim() }.filter { it.isNotEmpty() }
+                } else {
+                    emptyList()
+                }
+
                 val price = priceText.toDoubleOrNull() ?: 0.0
 
                 val mealData = Meal(
@@ -131,7 +171,8 @@ class AdminMealManagementActivity : AppCompatActivity() {
                     category = spinnerCategory.selectedItem.toString(),
                     dayOfWeek = spinnerDay.selectedItem.toString(),
                     price = price,
-                    isAvailable = meal?.isAvailable ?: true
+                    isAvailable = meal?.isAvailable ?: true,
+                    createdAt = meal?.createdAt ?: System.currentTimeMillis()
                 )
 
                 saveMeal(mealData)
@@ -150,28 +191,32 @@ class AdminMealManagementActivity : AppCompatActivity() {
             "dayOfWeek" to meal.dayOfWeek,
             "price" to meal.price,
             "isAvailable" to meal.isAvailable,
-            "createdAt" to (meal.createdAt.takeIf { it > 0 } ?: System.currentTimeMillis())
+            "createdAt" to meal.createdAt
         )
 
         if (meal.id.isEmpty()) {
             // Add new meal
             db.collection("meals")
                 .add(mealMap)
-                .addOnSuccessListener {
+                .addOnSuccessListener { docRef ->
                     Toast.makeText(this, "Meal added successfully", Toast.LENGTH_SHORT).show()
+                    android.util.Log.d("AdminMealMgmt", "Meal added with ID: ${docRef.id}")
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    android.util.Log.e("AdminMealMgmt", "Error adding meal", e)
                 }
         } else {
             // Update existing meal
             db.collection("meals").document(meal.id)
-                .update(mealMap)
+                .set(mealMap)  // Changed from update to set
                 .addOnSuccessListener {
                     Toast.makeText(this, "Meal updated successfully", Toast.LENGTH_SHORT).show()
+                    android.util.Log.d("AdminMealMgmt", "Meal updated: ${meal.id}")
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    android.util.Log.e("AdminMealMgmt", "Error updating meal", e)
                 }
         }
     }
