@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="12dp"
         android:paddingVertical="10dp"
-        android:background="?attr/colorPrimaryVariant"
+        android:background="?attr/colorOnPrimary"
         android:elevation="3dp">
 
         <ImageButton
@@ -31,7 +31,7 @@
             android:text="Chat Name"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="?attr/colorOnSurface"
+            android:textColor="?attr/TextColor"
             android:layout_centerInParent="true" />
     </RelativeLayout>
 
@@ -57,11 +57,11 @@
         <EditText
             android:id="@+id/etMessage"
             android:layout_width="0dp"
-            android:layout_height="52dp"
+            android:layout_height="60dp"
             android:layout_weight="1"
             android:hint="Type a message..."
-            android:textColor="?attr/colorOnBackground"
-            android:textColorHint="?attr/colorOnBackground"
+            android:textColor="?attr/colorOnSurface"
+            android:textColorHint="?attr/colorBackground"
             android:background="@drawable/message_input_bg"
             android:paddingHorizontal="16dp"
             android:inputType="textMultiLine"
@@ -70,8 +70,8 @@
         <!-- Send Button -->
         <ImageButton
             android:id="@+id/btnSend"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_send"
             android:contentDescription="Send Message"

@@ -5,4 +5,5 @@
     <attr name="colorPrimaryVariant" format="color"/>
     <attr name="colorOnPrimary" format="color"/>
     <attr name="colorSurface" format="color"/>
+    <attr name="TextColor" format="color"/>
 </resources>

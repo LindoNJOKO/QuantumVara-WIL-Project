@@ -13,6 +13,7 @@ import com.example.nurture_nest.model.Meal
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.viewpager2.widget.ViewPager2
+import com.example.nurture_nest.adapters.WeeklyMenuPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

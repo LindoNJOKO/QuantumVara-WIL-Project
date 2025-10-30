@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/light_background"
+    android:background="?attr/colorBackground"
     tools:context=".AttendanceActivity">
 
     <!-- Title -->
@@ -16,11 +16,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Attendance Logs"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/light_on_background"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Progress Bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/tvAttendanceLogsTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp" />
+
+    <!-- Empty Message (when no data found) -->
+    <TextView
+        android:id="@+id/tvEmptyMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No attendance records found."
+        android:textSize="16sp"
+        android:textColor="?attr/colorOnBackground"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
 
     <!-- RecyclerView for attendance logs -->
     <androidx.recyclerview.widget.RecyclerView
@@ -28,12 +55,12 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAttendanceLogsTitle"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvEmptyMessage"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnRefreshLogs"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp"/>
+        app:layout_constraintBottom_toTopOf="@id/btnRefreshLogs" />
 
     <!-- Refresh Button -->
     <Button
@@ -41,8 +68,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Refresh Logs"
-        android:textColor="@color/light_on_primary"
-        android:backgroundTint="@color/light_primary"
+        android:textColor="?attr/colorOnPrimary"
+        android:backgroundTint="?attr/colorPrimary"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"

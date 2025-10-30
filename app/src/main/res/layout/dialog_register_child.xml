@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootRegisterChild"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="?attr/colorBackground">
+
+    <TextView
+        android:id="@+id/tvSelectParentLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select Parent:"
+        android:textSize="16sp"
+        android:paddingBottom="8dp" />
+
+    <Spinner
+        android:id="@+id/spinnerParents"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+    <TextView
+        android:id="@+id/tvOrLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="— OR —"
+        android:textAlignment="center"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/tvCreateParentLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="If the parent is not listed, create one below:"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etParentName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Parent display name (optional)"
+        android:inputType="textPersonName"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/etParentEmail"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Parent email (recommended)"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="8dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="12dp" />
+
+    <TextView
+        android:id="@+id/tvChildNameLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Child Name:"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/etChildName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Enter child's name"
+        android:inputType="textPersonName"
+        android:layout_marginTop="8dp" />
+</LinearLayout>

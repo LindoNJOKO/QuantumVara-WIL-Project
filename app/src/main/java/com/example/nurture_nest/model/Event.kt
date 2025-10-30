@@ -1,4 +1,4 @@
-package com.example.nurture_nest
+package com.example.nurture_nest.model
 
 data class Event(
     val id: String = "",

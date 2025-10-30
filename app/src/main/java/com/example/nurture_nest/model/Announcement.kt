@@ -1,4 +1,4 @@
-package com.example.nurture_nest
+package com.example.nurture_nest.model
 
 import com.google.firebase.Timestamp
 

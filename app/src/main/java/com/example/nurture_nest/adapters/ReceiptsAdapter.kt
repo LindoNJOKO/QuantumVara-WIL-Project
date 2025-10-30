@@ -1,10 +1,12 @@
-package com.example.nurture_nest
+package com.example.nurture_nest.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nurture_nest.R
+import com.example.nurture_nest.ReceiptEntity
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.Date

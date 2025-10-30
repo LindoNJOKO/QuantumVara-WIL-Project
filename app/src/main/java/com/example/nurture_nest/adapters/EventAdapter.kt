@@ -1,10 +1,10 @@
-package com.example.nurture_nest
+package com.example.nurture_nest.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.example.nurture_nest.databinding.ItemUpcomingEventBinding
+import com.example.nurture_nest.model.Event
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale

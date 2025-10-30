@@ -11,7 +11,7 @@ import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nurture_nest.MealAdapter
+import com.example.nurture_nest.adapters.MealAdapter
 import com.example.nurture_nest.model.Meal
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.Query

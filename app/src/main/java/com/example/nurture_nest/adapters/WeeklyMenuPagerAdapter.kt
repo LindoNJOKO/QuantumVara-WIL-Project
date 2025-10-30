@@ -1,5 +1,4 @@
-package com.example.nurture_nest
-
+package com.example.nurture_nest.adapters
 
 import android.view.LayoutInflater
 import android.view.View

@@ -10,11 +10,11 @@ import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nurture_nest.AnnouncementAdapter
+import com.example.nurture_nest.adapters.AnnouncementAdapter
 import com.google.firebase.firestore.*
 import com.example.nurture_nest.ChatListActivity
 import com.example.nurture_nest.NotificationHelper
-import com.example.nurture_nest.Announcement
+import com.example.nurture_nest.model.Announcement
 import com.example.nurture_nest.R
 
 

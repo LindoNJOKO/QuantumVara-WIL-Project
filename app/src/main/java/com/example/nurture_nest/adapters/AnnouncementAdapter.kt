@@ -1,4 +1,4 @@
-package com.example.nurture_nest
+package com.example.nurture_nest.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nurture_nest.model.Announcement
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
+import com.example.nurture_nest.R
 import java.util.*
 
 class AnnouncementAdapter : ListAdapter<Announcement, AnnouncementAdapter.VH>(DIFF) {
@@ -16,7 +18,6 @@ class AnnouncementAdapter : ListAdapter<Announcement, AnnouncementAdapter.VH>(DI
     companion object {
         val DIFF = object : DiffUtil.ItemCallback<Announcement>() {
             override fun areItemsTheSame(oldItem: Announcement, newItem: Announcement): Boolean {
-                // no id field in model; compare title+timestamp
                 return oldItem.title == newItem.title && oldItem.timestamp == newItem.timestamp
             }
 
@@ -27,12 +28,13 @@ class AnnouncementAdapter : ListAdapter<Announcement, AnnouncementAdapter.VH>(DI
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_announcement, parent, false)
+        val v = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_announcement, parent, false)
         return VH(v)
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)) // ✅ works as long as type parameters and imports are correct
     }
 
     class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -44,12 +46,9 @@ class AnnouncementAdapter : ListAdapter<Announcement, AnnouncementAdapter.VH>(DI
             tvTitle.text = a.title
             tvMessage.text = a.message
             val ts: Timestamp? = a.timestamp
-            val formatted = if (ts != null) {
-                val sdf = SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault())
-                sdf.format(ts.toDate())
-            } else {
-                "Just now"
-            }
+            val formatted = ts?.let {
+                SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault()).format(it.toDate())
+            } ?: "Just now"
             tvTime.text = formatted
         }
     }

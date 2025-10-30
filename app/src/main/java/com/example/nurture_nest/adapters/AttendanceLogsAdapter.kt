@@ -1,8 +1,9 @@
-package com.example.nurture_nest
+package com.example.nurture_nest.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nurture_nest.AttendanceLog
 import com.example.nurture_nest.databinding.ItemAttendanceLogBinding
 
 class AttendanceLogsAdapter(private val logs: List<AttendanceLog>) :
