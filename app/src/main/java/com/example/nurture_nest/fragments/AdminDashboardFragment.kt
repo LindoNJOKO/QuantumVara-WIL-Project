@@ -7,21 +7,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.Spinner
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.nurture_nest.R
 import com.example.nurture_nest.ChatListActivity
 import com.example.nurture_nest.NotificationActivity
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class AdminDashboardFragment : Fragment() {
 
-    private lateinit var fabCreateEvent: ExtendedFloatingActionButton
+    private lateinit var fabCreateEvent: FloatingActionButton
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
@@ -30,27 +36,28 @@ class AdminDashboardFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false)
 
-        // Initialize UI elements
+        // Initialize FAB
         fabCreateEvent = view.findViewById(R.id.fabCreateEvent)
-        val chatBtn = view.findViewById<ImageButton>(R.id.btnChat)
-        val notificationBtn = view.findViewById<Button>(R.id.btnAddNotification)
 
-        // FAB - Create Event
-        fabCreateEvent.setOnClickListener { showCreateEventDialog() }
-
-        // Chat Button
-        chatBtn?.setOnClickListener {
-            startActivity(Intent(requireContext(), ChatListActivity::class.java))
+        // Set click listener
+        fabCreateEvent.setOnClickListener {
+            showCreateEventDialog()
         }
 
-        // Notification Button
-        notificationBtn?.setOnClickListener {
-            startActivity(Intent(requireContext(), NotificationActivity::class.java))
+        val chatBtn = view.findViewById<ImageButton>(R.id.btnChat)
+        chatBtn.setOnClickListener {
+            val intent = Intent(requireContext(), ChatListActivity::class.java)
+            startActivity(intent)
+        }
+
+        val notificationBtn = view.findViewById<Button>(R.id.btnAddNotification)
+        notificationBtn.setOnClickListener {
+            val intent = Intent(requireContext(), NotificationActivity::class.java)
+            startActivity(intent)
         }
 
         return view
     }
-
     private fun showCreateEventDialog() {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_create_event, null)
@@ -63,17 +70,17 @@ class AdminDashboardFragment : Fragment() {
         val etTime = dialogView.findViewById<TextInputEditText>(R.id.etEventTime)
         val etLocation = dialogView.findViewById<TextInputEditText>(R.id.etEventLocation)
 
-        var selectedDate: Long? = null
-        val calendar = Calendar.getInstance()
+        var selectedDate = 0L
 
         btnSelectDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
             DatePickerDialog(
                 requireContext(),
                 { _, year, month, day ->
                     calendar.set(year, month, day)
                     selectedDate = calendar.timeInMillis
                     tvSelectedDate.text = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
-                        .format(Date(selectedDate!!))
+                        .format(Date(selectedDate))
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
@@ -81,33 +88,24 @@ class AdminDashboardFragment : Fragment() {
             ).show()
         }
 
-        val dialog = AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext())
             .setTitle("Create Event")
             .setView(dialogView)
-            .setPositiveButton("Create", null)
-            .setNegativeButton("Cancel", null)
-            .create()
+            .setPositiveButton("Create") { _, _ ->
+                val title = etTitle.text.toString()
+                val description = etDescription.text.toString()
+                val type = spinnerType.selectedItem.toString()
+                val time = etTime.text.toString()
+                val location = etLocation.text.toString()
 
-        dialog.setOnShowListener {
-            val createBtn = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
-            createBtn.setOnClickListener {
-                val title = etTitle.text?.toString()?.trim() ?: ""
-                val description = etDescription.text?.toString()?.trim() ?: ""
-                val eventType = spinnerType.selectedItem?.toString() ?: ""
-                val time = etTime.text?.toString()?.trim() ?: ""
-                val location = etLocation.text?.toString()?.trim() ?: ""
-
-                if (title.isEmpty() || selectedDate == null) {
-                    Toast.makeText(requireContext(), "Please fill in all required fields.", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
+                if (title.isNotEmpty() && selectedDate > 0) {
+                    createEvent(title, description, type, selectedDate, time, location)
+                } else {
+                    Toast.makeText(requireContext(), "Please fill required fields", Toast.LENGTH_SHORT).show()
                 }
-
-                createEvent(title, description, eventType, selectedDate!!, time, location)
-                dialog.dismiss()
             }
-        }
-
-        dialog.show()
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun createEvent(
@@ -118,8 +116,6 @@ class AdminDashboardFragment : Fragment() {
         time: String,
         location: String
     ) {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "unknown"
-
         val event = hashMapOf(
             "title" to title,
             "description" to description,
@@ -127,23 +123,23 @@ class AdminDashboardFragment : Fragment() {
             "date" to date,
             "time" to time,
             "location" to location,
-            "createdBy" to userId,
+            "createdBy" to FirebaseAuth.getInstance().currentUser?.uid,
             "createdAt" to System.currentTimeMillis()
         )
 
         db.collection("events")
             .add(event)
-            .addOnSuccessListener { doc ->
-                Toast.makeText(requireContext(), "✅ Event created!", Toast.LENGTH_SHORT).show()
-                sendEventNotification(title, description, doc.id)
+            .addOnSuccessListener { documentReference ->
+                Toast.makeText(requireContext(), "Event created successfully!", Toast.LENGTH_SHORT).show()
+                sendEventNotification(title, description, documentReference.id)
             }
             .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), "❌ Failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to create event: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
     private fun sendEventNotification(title: String, description: String, eventId: String) {
-        val notification = hashMapOf(
+        val notificationData = hashMapOf(
             "title" to title,
             "message" to description,
             "type" to "event",
@@ -152,12 +148,12 @@ class AdminDashboardFragment : Fragment() {
         )
 
         db.collection("notifications")
-            .add(notification)
+            .add(notificationData)
             .addOnSuccessListener {
-                Toast.makeText(requireContext(), "📢 Notification sent!", Toast.LENGTH_SHORT).show()
+                // Notification sent to all parents
             }
             .addOnFailureListener {
-                Toast.makeText(requireContext(), "⚠️ Failed to send notification", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Failed to send notification", Toast.LENGTH_SHORT).show()
             }
     }
 }

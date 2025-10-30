@@ -22,6 +22,8 @@
     <color name="dark_edittext_background">#E5E5E5</color>
     <color name="dark_edittext_color">#333333</color>
     <color name="selected_meal_bg_dark">#1B5E20</color>
+    <color name="darkAccent">#0D38B8</color> <!-- a nice deep blue -->
+
 
 
     <!-- Table Header Colors -->

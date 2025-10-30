@@ -3,8 +3,8 @@
 
     <!-- General messages -->
     <string name="welcome_message">Welcome to Nurture Nest</string>
-    <string name="login_prompt">Please Entre Email</string>
-    <string name="password_prompt">Please Entre Password</string>
+    <string name="login_prompt">Please Enter Email</string>
+    <string name="password_prompt">Please Enter Password</string>
     <string name="register_prompt">Create a new account</string>
     <string name="forgot_password">Forgot your password?</string>
 

@@ -10,157 +10,234 @@
     android:paddingTop="?attr/actionBarSize"
     tools:context=".fragments.ProfileFragment">
 
-    <!-- Profile Picture -->
-    <ImageView
-        android:id="@+id/ivProfilePic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_profile_placeholder"
-        android:contentDescription="Profile Picture"
-        android:scaleType="centerCrop"
+    <!-- Profile Card -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardProfileInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        app:strokeWidth="1dp"
+        app:strokeColor="#E0E0E0"
+        app:cardBackgroundColor="#F9FAFB"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="16dp"
-        android:background="@drawable/rounded_imageview" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Full Name -->
-    <TextView
-        android:id="@+id/tvUserName"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- Profile Picture (Tappable) -->
+            <ImageView
+                android:id="@+id/ivProfilePic"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_profile_placeholder"
+                android:contentDescription="Profile Picture"
+                android:scaleType="centerCrop"
+                android:background="@drawable/rounded_imageview"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Full Name -->
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Full Name"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/darkAccent"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@id/ivProfilePic"
+                app:layout_constraintTop_toTopOf="@id/ivProfilePic"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Email -->
+            <TextView
+                android:id="@+id/tvUserEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="email@example.com"
+                android:textSize="16sp"
+                android:textColor="@color/darkAccent"
+                android:alpha="0.7"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toEndOf="@id/ivProfilePic"
+                app:layout_constraintTop_toBottomOf="@id/tvUserName"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Cellphone -->
+            <TextView
+                android:id="@+id/tvUserPhone"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="123-456-7890"
+                android:textSize="16sp"
+                android:textColor="@color/darkAccent"
+                android:alpha="0.7"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintStart_toEndOf="@id/ivProfilePic"
+                app:layout_constraintTop_toBottomOf="@id/tvUserEmail"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <!-- Menu Items with Icons -->
+    <LinearLayout
+        android:id="@+id/btnLunchOrders"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Full Name"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnBackground"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toEndOf="@id/ivProfilePic"
-        app:layout_constraintTop_toTopOf="@id/ivProfilePic"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Email -->
-    <TextView
-        android:id="@+id/tvUserEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="email@example.com"
-        android:textSize="16sp"
-        android:textColor="?attr/colorOnBackground"
-        android:alpha="0.7"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@id/ivProfilePic"
-        app:layout_constraintTop_toBottomOf="@id/tvUserName"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Cellphone -->
-    <TextView
-        android:id="@+id/tvUserPhone"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="123-456-7890"
-        android:textSize="16sp"
-        android:textColor="?attr/colorOnBackground"
-        android:alpha="0.7"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toEndOf="@id/ivProfilePic"
-        app:layout_constraintTop_toBottomOf="@id/tvUserEmail"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-    <!-- Divider -->
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="?attr/colorOnBackground"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ivProfilePic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <!-- Menu Items Section -->
-    <TextView
-        android:id="@+id/tvLunchOrders"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Lunch Orders"
-        android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
-        android:clickable="true"
-        android:focusable="true"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingVertical="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_marginTop="32dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/ivProfilePic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvAttendanceLogs"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Attendance Logs"
-        android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/cardProfileInfo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:contentDescription="Lunch Orders Icon"
+            android:src="@drawable/ic_lunch" />
+
+        <TextView
+            android:id="@+id/tvLunchOrders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunch Orders"
+            android:textSize="18sp"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnAttendanceLogs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingVertical="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/tvLunchOrders"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvPaymentDetails"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Payment Details"
-        android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btnLunchOrders"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_attendance"
+            android:contentDescription="Attendance Logs Icon" />
+
+        <TextView
+            android:id="@+id/tvAttendanceLogs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attendance Logs"
+            android:textSize="18sp"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnPaymentDetails"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingVertical="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/tvAttendanceLogs"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-    <TextView
-        android:id="@+id/tvChildManagement"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Child Management"
-        android:textSize="18sp"
-        android:textColor="?attr/colorPrimary"
         android:clickable="true"
         android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btnAttendanceLogs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_payment"
+            android:contentDescription="Payment Details Icon"/>
+
+        <TextView
+            android:id="@+id/tvPaymentDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment Details"
+            android:textSize="18sp"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnChildManagement"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
         android:paddingVertical="16dp"
         android:background="?attr/selectableItemBackground"
         android:layout_marginTop="16dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintTop_toBottomOf="@id/tvPaymentDetails"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/btnPaymentDetails"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:src="@drawable/ic_child"
+            android:contentDescription="Child Management Icon" />
+
+        <TextView
+            android:id="@+id/tvChildManagement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Child Management"
+            android:textSize="18sp"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+
+    <!-- Logout Button -->
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_margin="16dp"
         android:text="Logout"
-        android:textColor="?attr/colorOnPrimary"
+        android:textColor="@android:color/holo_red_dark"
         android:backgroundTint="?attr/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/tvChildManagement"
+        app:layout_constraintTop_toBottomOf="@id/btnChildManagement"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
