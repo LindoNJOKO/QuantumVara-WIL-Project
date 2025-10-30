@@ -1,9 +1,9 @@
 package com.example.nurture_nest.model
 
 data class Chat(
-    val id: String = "",              // Other user's ID
-    val name: String = "",            // Other user's display name
-    val email: String = "",           // Other user's email
-    val lastMessage: String = "",     // Last message in the chat
-    val time: Long = 0L               // Timestamp of last message
+    val id: String = "",              // UID of the other participant
+    val name: String = "",            // Display name
+    val email: String = "",           // Optional email
+    val lastMessage: String = "No messages yet", // Last message preview
+    val lastMessageTime: Long = 0L    // Timestamp of last message
 )

@@ -7,10 +7,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.nurture_nest.adapters.MessageAdapter
 import com.example.nurture_nest.model.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.Timestamp
 
 class ChatActivity : AppCompatActivity() {
 
@@ -50,20 +53,18 @@ class ChatActivity : AppCompatActivity() {
         adapter = MessageAdapter(messages)
         recyclerMessages.adapter = adapter
 
-        // ✅ Create consistent chatId
-        chatId = if (currentUserId < receiverId!!) {
-            "chat_${currentUserId}_${receiverId}"
+        // ✅ Use consistent chatId format (NO "chat_" prefix)
+        chatId = if (currentUserId < (receiverId ?: "")) {
+            "${currentUserId}_${receiverId}"
         } else {
-            "chat_${receiverId}_${currentUserId}"
+            "${receiverId}_${currentUserId}"
         }
 
-        // ✅ Listen to Firestore for messages
         listenForMessages()
 
-        // ✅ Send button logic
         btnSend.setOnClickListener {
             val text = etMessage.text.toString().trim()
-            if (text.isNotEmpty()) {
+            if (text.isNotEmpty() && receiverId != null) {
                 sendMessage(currentUserId, receiverId!!, text)
                 etMessage.text.clear()
             }
@@ -75,12 +76,12 @@ class ChatActivity : AppCompatActivity() {
             .collection("messages")
             .orderBy("timestamp", Query.Direction.ASCENDING)
             .addSnapshotListener { snapshots, error ->
-                if (error != null) return@addSnapshotListener
+                if (error != null || snapshots == null) return@addSnapshotListener
 
                 messages.clear()
-                for (doc in snapshots!!) {
+                for (doc in snapshots.documents) {
                     val message = doc.toObject(Message::class.java)
-                    messages.add(message)
+                    if (message != null) messages.add(message)
                 }
                 adapter.notifyDataSetChanged()
                 recyclerMessages.scrollToPosition(messages.size - 1)
@@ -88,15 +89,28 @@ class ChatActivity : AppCompatActivity() {
     }
 
     private fun sendMessage(senderId: String, receiverId: String, text: String) {
+        val timestamp = Timestamp.now()
+
         val message = hashMapOf(
             "senderId" to senderId,
             "receiverId" to receiverId,
             "text" to text,
-            "timestamp" to com.google.firebase.Timestamp.now()
+            "timestamp" to timestamp
         )
 
-        db.collection("chats").document(chatId!!)
-            .collection("messages")
-            .add(message)
+        val chatRef = db.collection("chats").document(chatId!!)
+
+        // 1️⃣ Add message to messages subcollection
+        chatRef.collection("messages").add(message)
+            .addOnSuccessListener {
+                // 2️⃣ Update summary info in parent chat doc
+                val chatSummary = hashMapOf(
+                    "participants" to listOf(senderId, receiverId),
+                    "lastMessage" to text,
+                    "lastMessageTime" to timestamp.toDate().time // store as Long
+                )
+
+                chatRef.set(chatSummary, SetOptions.merge())
+            }
     }
 }

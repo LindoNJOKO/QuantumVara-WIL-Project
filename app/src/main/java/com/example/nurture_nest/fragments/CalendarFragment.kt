@@ -12,8 +12,8 @@ import android.widget.CalendarView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nurture_nest.EventAdapter
-import com.example.nurture_nest.Event
+import com.example.nurture_nest.adapters.EventAdapter
+import com.example.nurture_nest.model.Event
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import java.util.*

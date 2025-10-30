@@ -82,8 +82,8 @@
 
                         <Switch
                             android:id="@+id/switchNotifications"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
                     </LinearLayout>
 
                     <!-- Vibrate Switch -->
@@ -104,8 +104,8 @@
 
                         <Switch
                             android:id="@+id/switchVibration"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
                     </LinearLayout>
 
                     <!-- Notification Sound -->
@@ -126,8 +126,8 @@
 
                         <Switch
                             android:id="@+id/switchSound"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_width="60dp"
+                            android:layout_height="60dp" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

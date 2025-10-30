@@ -9,138 +9,114 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.nurture_nest.model.Chat
+import com.example.nurture_nest.adapters.UserAdapter
+import com.example.nurture_nest.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 class ChatListActivity : AppCompatActivity() {
 
-    private lateinit var recyclerChats: RecyclerView
-    private lateinit var adapter: ChatListAdapter
-    private lateinit var etSearch: EditText
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchBar: EditText
+    private lateinit var btnBack: ImageButton
+    private lateinit var adapter: UserAdapter
 
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
-    private val chatList = mutableListOf<Chat>()
+
+    private val users = mutableListOf<User>()
+    private val filteredUsers = mutableListOf<User>()
+    private val lastMessages = mutableMapOf<String, Pair<String, Long>>() // userId -> (message, time)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_list)
 
-        recyclerChats = findViewById(R.id.recyclerChats)
-        etSearch = findViewById(R.id.etSearch)
-        val backBtn = findViewById<ImageButton>(R.id.btnBack)
+        recyclerView = findViewById(R.id.recyclerChats)
+        searchBar = findViewById(R.id.etSearch)
+        btnBack = findViewById(R.id.btnBack)
 
-        recyclerChats.layoutManager = LinearLayoutManager(this)
-        adapter = ChatListAdapter(chatList) { chat ->
+        adapter = UserAdapter(filteredUsers) { selectedUser ->
             val intent = Intent(this, ChatActivity::class.java)
-            intent.putExtra("chatName", chat.name)
-            intent.putExtra("receiverId", chat.id)
+            intent.putExtra("receiverId", selectedUser.uid)
+            intent.putExtra("chatName", selectedUser.name)
             startActivity(intent)
         }
-        recyclerChats.adapter = adapter
 
-        backBtn.setOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
 
-        loadAllUsers() // 🔹 Show all users when opening
+        btnBack.setOnClickListener { finish() }
 
-        etSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
+        loadUsersBasedOnRole()
+
+        searchBar.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                searchUsers(s.toString())
+                filterUsers(s.toString())
             }
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
-    /**
-     * Load all users (except current one) and show their latest chat info if any
-     */
-    private fun loadAllUsers() {
+    private fun loadUsersBasedOnRole() {
         val currentUserId = auth.currentUser?.uid ?: return
 
-        db.collection("users")
+        db.collection("users").document(currentUserId)
             .get()
-            .addOnSuccessListener { result ->
-                chatList.clear()
+            .addOnSuccessListener { currentUserDoc ->
+                val currentRole = currentUserDoc.getString("role")?.lowercase() ?: "parent"
+                val targetRole = if (currentRole == "parent") "admin" else "parent"
 
-                for (doc in result.documents) {
-                    val userId = doc.id
-                    if (userId == currentUserId) continue
+                db.collection("users")
+                    .whereEqualTo("role", targetRole.capitalize()) // 🔥 match capitalized role in Firestore
+                    .get()
+                    .addOnSuccessListener { userSnapshot ->
+                        users.clear()
+                        lastMessages.clear()
 
-                    val name = doc.getString("name") ?: "Unknown"
-                    val email = doc.getString("email") ?: ""
+                        for (userDoc in userSnapshot.documents) {
+                            val user = userDoc.toObject(User::class.java)
+                            if (user != null) {
+                                users.add(user)
 
-                    val chatId = getChatId(currentUserId, userId)
-                    db.collection("chats").document(chatId)
-                        .get()
-                        .addOnSuccessListener { chatDoc ->
-                            val lastMessage = chatDoc.getString("lastMessage") ?: ""
-                            val lastTime = chatDoc.getLong("lastMessageTime") ?: 0L
+                                val chatId = generateChatId(currentUserId, user.uid)
+                                db.collection("chats").document(chatId)
+                                    .collection("messages")
+                                    .orderBy("timestamp", Query.Direction.DESCENDING)
+                                    .limit(1)
+                                    .get()
+                                    .addOnSuccessListener { msgSnapshot ->
+                                        val messageDoc = msgSnapshot.documents.firstOrNull()
+                                        val msgText = messageDoc?.getString("text") ?: "No messages yet"
+                                        val msgTime = messageDoc?.getTimestamp("timestamp")?.toDate()?.time ?: 0L
 
-                            val chat = Chat(
-                                id = userId,
-                                name = name,
-                                email = email,
-                                lastMessage = lastMessage,
-                                time = lastTime
-                            )
-                            chatList.add(chat)
-                            chatList.sortByDescending { it.time }
-                            adapter.notifyDataSetChanged()
-                        }
-                }
-            }
-    }
-
-    /**
-     * Search among all users by name or email
-     */
-    private fun searchUsers(query: String) {
-        val currentUserId = auth.currentUser?.uid ?: return
-
-        if (query.isEmpty()) {
-            loadAllUsers()
-            return
-        }
-
-        db.collection("users")
-            .get()
-            .addOnSuccessListener { result ->
-                chatList.clear()
-                for (doc in result.documents) {
-                    val userId = doc.id
-                    if (userId == currentUserId) continue
-
-                    val name = doc.getString("name") ?: ""
-                    val email = doc.getString("email") ?: ""
-
-                    if (name.contains(query, true) || email.contains(query, true)) {
-                        val chatId = getChatId(currentUserId, userId)
-                        db.collection("chats").document(chatId)
-                            .get()
-                            .addOnSuccessListener { chatDoc ->
-                                val lastMessage = chatDoc.getString("lastMessage") ?: ""
-                                val lastTime = chatDoc.getLong("lastMessageTime") ?: 0L
-
-                                val chat = Chat(
-                                    id = userId,
-                                    name = name,
-                                    email = email,
-                                    lastMessage = lastMessage,
-                                    time = lastTime
-                                )
-                                chatList.add(chat)
-                                chatList.sortByDescending { it.time }
-                                adapter.notifyDataSetChanged()
+                                        lastMessages[user.uid] = Pair(msgText, msgTime)
+                                        filterUsers(searchBar.text.toString())
+                                    }
                             }
+                        }
+                        filterUsers(searchBar.text.toString())
                     }
-                }
             }
     }
 
-    private fun getChatId(uid1: String, uid2: String): String {
-        return if (uid1 < uid2) "${uid1}_${uid2}" else "${uid2}_${uid1}"
+
+    private fun generateChatId(uid1: String, uid2: String): String {
+        return if (uid1 < uid2) "${uid1}_$uid2" else "${uid2}_$uid1"
+    }
+
+    private fun filterUsers(query: String) {
+        val lowerQuery = query.lowercase()
+        filteredUsers.clear()
+
+        filteredUsers.addAll(
+            users.filter { it.name.lowercase().contains(lowerQuery) }
+                .sortedByDescending { lastMessages[it.uid]?.second ?: 0L }
+        )
+
+        adapter.setLastMessages(lastMessages)
+        adapter.notifyDataSetChanged()
     }
 }

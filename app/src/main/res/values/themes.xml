@@ -7,5 +7,6 @@
         <item name="colorBackground">#C7E7FF</item>
         <item name="colorOnBackground">#1A1A1A</item>
         <item name="android:windowBackground">#C7E7FF</item>
+        <item name="TextColor">#000000</item>
     </style>
 </resources>

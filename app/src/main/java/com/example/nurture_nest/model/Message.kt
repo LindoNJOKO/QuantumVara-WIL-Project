@@ -7,7 +7,4 @@ data class Message(
     val receiverId: String = "",
     val text: String = "",
     val timestamp: Timestamp? = null
-) {
-    val isSent: Boolean
-        get() = senderId == com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
-}
+)

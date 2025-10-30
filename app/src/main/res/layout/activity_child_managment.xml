@@ -1,10 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="?attr/colorBackground"
     tools:context=".ChildManagmentActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tvChildDetailsTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Child Management"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Admin: Search for child -->
+        <EditText
+            android:id="@+id/etSearchChildId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Child/Parent ID to search"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/tvChildDetailsTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <Button
+            android:id="@+id/btnSearchChild"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Search"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@id/etSearchChildId"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <!-- Preferred Name -->
+        <EditText
+            android:id="@+id/etPreferredName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Preferred Name"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/btnSearchChild"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"/>
+
+        <EditText
+            android:id="@+id/etAllergies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Allergies"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etPreferredName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etMedicalConditions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Medical Conditions (e.g. asthma)"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etAllergies"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etVisionNeeds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Vision Needs (e.g. far-/short-sighted)"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etMedicalConditions"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etEmergencyContactName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Emergency Contact Name"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etVisionNeeds"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etEmergencyContactNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Emergency Contact Number"
+            android:inputType="phone"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etEmergencyContactName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <EditText
+            android:id="@+id/etAdditionalNotes"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:hint="Additional Notes"
+            android:gravity="top"
+            android:padding="12dp"
+            app:layout_constraintTop_toBottomOf="@id/etEmergencyContactNumber"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="12dp"/>
+
+        <Button
+            android:id="@+id/btnSaveChildDetails"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Save Child Details"
+            android:backgroundTint="?attr/colorPrimary"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/etAdditionalNotes"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

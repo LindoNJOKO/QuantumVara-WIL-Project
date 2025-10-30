@@ -15,6 +15,7 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
+
         <TextView
             android:id="@+id/AdminDashTitle"
             android:layout_width="wrap_content"
@@ -39,29 +40,6 @@
 
     </RelativeLayout>
 
-    <!-- Notification Feed Title -->
-    <TextView
-        android:id="@+id/notification_feed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="35dp"
-        android:text="Notification Feed"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnBackground" />
-
-    <!-- RecyclerView for Announcements -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvAnnouncements"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="16dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:clipToPadding="false" />
-
     <!-- Action Section -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -71,6 +49,7 @@
         android:padding="24dp"
         android:layout_marginBottom="16dp">
 
+        <!-- Add Notification Button -->
         <!-- Add Notification Button -->
         <Button
             android:id="@+id/btnAddNotification"
@@ -85,6 +64,24 @@
             android:textStyle="bold"
             android:letterSpacing="0.05"
             android:fontFamily="sans-serif-medium" />
+
+        <!-- ✅ Register Child Button -->
+        <Button
+            android:id="@+id/btnRegisterChild"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_button"
+            android:elevation="6dp"
+            android:text="Register Child"
+            android:textColor="?attr/colorOnPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
+            android:fontFamily="sans-serif-medium" />
+
+
+
 
         <!-- Extended Floating Action Button (Create Event) -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
