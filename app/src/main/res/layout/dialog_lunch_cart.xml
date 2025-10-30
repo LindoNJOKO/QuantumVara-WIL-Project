@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <LinearLayout
@@ -50,15 +51,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Special Instructions (Optional)">
+            android:textColorHint="@color/dark_on_background"
+            android:hint="Special Instructions (Optional)"
+            app:placeholderText="e.g., No onions, extra sauce, allergies, etc."
+            app:placeholderTextColor="@color/dark_on_background">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSpecialNotes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/dark_on_background"
                 android:minLines="3"
-                android:gravity="top"
-                android:hint="e.g., No onions, extra sauce, allergies, etc." />
+                android:gravity="top" />
         </com.google.android.material.textfield.TextInputLayout>
+
 
     </LinearLayout>
 

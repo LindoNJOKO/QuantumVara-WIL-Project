@@ -7,28 +7,28 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="3dp">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvDay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:layout_marginBottom="8dp"
+            android:text="Monday"
+            android:textColor="?attr/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvDay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Monday"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="?attr/colorPrimary"
-                android:layout_marginBottom="8dp" />
+        <RadioGroup
+            android:id="@+id/rgMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-            <RadioGroup
-                android:id="@+id/rgMeals"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-
-        </LinearLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -2,20 +2,21 @@ package com.example.nurture_nest.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import com.example.nurture_nest.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.EmailAuthProvider
-import android.widget.EditText
+import com.google.firebase.auth.FirebaseAuth
 
 class SettingsFragment : Fragment() {
 
@@ -23,7 +24,6 @@ class SettingsFragment : Fragment() {
     private lateinit var switchVibration: Switch
     private lateinit var switchSound: Switch
     private lateinit var cardThemeSettings: MaterialCardView
-
     private lateinit var btnUpdateProfile: MaterialButton
     private lateinit var btnChangePassword: MaterialButton
     private lateinit var btnDeleteAccount: MaterialButton
@@ -39,28 +39,21 @@ class SettingsFragment : Fragment() {
         switchVibration = view.findViewById(R.id.switchVibration)
         switchSound = view.findViewById(R.id.switchSound)
         cardThemeSettings = view.findViewById(R.id.cardThemeSettings)
-
         btnUpdateProfile = view.findViewById(R.id.btnUpdateProfile)
         btnChangePassword = view.findViewById(R.id.btnChangePassword)
         btnDeleteAccount = view.findViewById(R.id.btnDeleteAccount)
 
-        // --- SharedPreferences for settings ---
         val sharedPref = requireContext().getSharedPreferences("settings_prefs", Context.MODE_PRIVATE)
 
-        // Load saved notification settings
+        // --- Load saved settings ---
         switchNotifications.isChecked = sharedPref.getBoolean("notifications_enabled", true)
         switchVibration.isChecked = sharedPref.getBoolean("vibration_enabled", true)
         switchSound.isChecked = sharedPref.getBoolean("sound_enabled", true)
 
-        // Apply saved theme
-        val currentMode = sharedPref.getInt("app_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        AppCompatDelegate.setDefaultNightMode(currentMode)
-
-        // --- Set listeners for notification settings ---
+        // --- Set up listeners ---
         switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             sharedPref.edit().putBoolean("notifications_enabled", isChecked).apply()
-            Toast.makeText(
-                requireContext(),
+            Toast.makeText(requireContext(),
                 if (isChecked) "Notifications enabled" else "Notifications disabled",
                 Toast.LENGTH_SHORT
             ).show()
@@ -94,35 +87,18 @@ class SettingsFragment : Fragment() {
                 .commit()
         }
 
-        btnDeleteAccount.setOnClickListener {
-            showReauthDialog()
-        }
+        btnDeleteAccount.setOnClickListener { showReauthDialog() }
 
-        // --- NEW: TextViews for Privacy & Support ---
-        val tvPrivacySecurity = view.findViewById<TextView>(R.id.tvPrivacySecurity)
-        val tvSupportHelp = view.findViewById<TextView>(R.id.tvSupportHelp)
-
-        tvPrivacySecurity.setOnClickListener {
+        // --- Extra: Privacy & Support ---
+        view.findViewById<TextView>(R.id.tvPrivacySecurity)?.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out,
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out
-                )
                 .replace(R.id.fragment_container, PrivacySecurityFragment())
                 .addToBackStack(null)
                 .commit()
         }
 
-        tvSupportHelp.setOnClickListener {
+        view.findViewById<TextView>(R.id.tvSupportHelp)?.setOnClickListener {
             parentFragmentManager.beginTransaction()
-                .setCustomAnimations(
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out,
-                    android.R.anim.fade_in,
-                    android.R.anim.fade_out
-                )
                 .replace(R.id.fragment_container, SupportHelpFragment())
                 .addToBackStack(null)
                 .commit()
@@ -131,10 +107,8 @@ class SettingsFragment : Fragment() {
         return view
     }
 
-    private fun showThemeDialog(sharedPref: android.content.SharedPreferences) {
+    private fun showThemeDialog(sharedPref: SharedPreferences) {
         val options = arrayOf("Light", "Dark", "System Default")
-
-        // Determine which is currently selected
         val currentMode = sharedPref.getInt("app_theme", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         val checkedItem = when (currentMode) {
             AppCompatDelegate.MODE_NIGHT_NO -> 0
@@ -142,9 +116,9 @@ class SettingsFragment : Fragment() {
             else -> 2
         }
 
-        AlertDialog.Builder(requireContext())
+        val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Choose Theme")
-            .setSingleChoiceItems(options, checkedItem) { dialog, which ->
+            .setSingleChoiceItems(options, checkedItem) { dialogInterface, which ->
                 val mode = when (which) {
                     0 -> AppCompatDelegate.MODE_NIGHT_NO
                     1 -> AppCompatDelegate.MODE_NIGHT_YES
@@ -153,34 +127,25 @@ class SettingsFragment : Fragment() {
 
                 sharedPref.edit().putInt("app_theme", mode).apply()
                 AppCompatDelegate.setDefaultNightMode(mode)
-                dialog.dismiss()
-            }
-            .setNegativeButton("Cancel", null)
-            .show()
-    }
+                (requireActivity() as AppCompatActivity).delegate.applyDayNight()
 
-    private fun showDeleteAccountDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Delete Account")
-            .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
-            .setPositiveButton("Delete") { _, _ ->
-                Toast.makeText(requireContext(), "Account deleted (not implemented yet)", Toast.LENGTH_LONG).show()
+                // ✅ Don’t restart or reload fragment
+                AppCompatDelegate.setDefaultNightMode(mode)
+                dialogInterface.dismiss()
             }
             .setNegativeButton("Cancel", null)
-            .show()
+            .create()
+
+        // ✅ Prevent window leaks by showing only when safe
+        if (isAdded && !requireActivity().isFinishing) dialog.show()
     }
 
     private fun showReauthDialog() {
-        val user = FirebaseAuth.getInstance().currentUser
-
-        if (user == null) {
-            Toast.makeText(requireContext(), "No user logged in", Toast.LENGTH_SHORT).show()
-            return
-        }
-
+        val user = FirebaseAuth.getInstance().currentUser ?: return
         val input = EditText(requireContext()).apply {
             hint = "Enter your password"
-            inputType = android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
+            inputType = android.text.InputType.TYPE_CLASS_TEXT or
+                    android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD
         }
 
         AlertDialog.Builder(requireContext())
@@ -189,26 +154,19 @@ class SettingsFragment : Fragment() {
             .setView(input)
             .setPositiveButton("Confirm") { _, _ ->
                 val password = input.text.toString().trim()
-
                 if (password.isEmpty()) {
                     Toast.makeText(requireContext(), "Password required", Toast.LENGTH_SHORT).show()
                     return@setPositiveButton
                 }
 
-                val email = user.email
-                if (email.isNullOrEmpty()) {
-                    Toast.makeText(requireContext(), "Email not found for user", Toast.LENGTH_SHORT).show()
-                    return@setPositiveButton
-                }
-
+                val email = user.email ?: return@setPositiveButton
                 val credential = EmailAuthProvider.getCredential(email, password)
 
                 user.reauthenticate(credential)
-                    .addOnSuccessListener {
-                        deleteUserAccount()
-                    }
+                    .addOnSuccessListener { deleteUserAccount() }
                     .addOnFailureListener {
-                        Toast.makeText(requireContext(), "Authentication failed: ${it.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(),
+                            "Authentication failed: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
             }
             .setNegativeButton("Cancel", null)
@@ -216,16 +174,9 @@ class SettingsFragment : Fragment() {
     }
 
     private fun deleteUserAccount() {
-        val user = FirebaseAuth.getInstance().currentUser
-
-        user?.delete()
+        FirebaseAuth.getInstance().currentUser?.delete()
             ?.addOnSuccessListener {
                 Toast.makeText(requireContext(), "Account deleted successfully", Toast.LENGTH_LONG).show()
-
-                // TODO: Optional - remove user data from Firestore/Realtime DB here
-                // FirebaseFirestore.getInstance().collection("users").document(user.uid).delete()
-
-                // After deletion, send user to login screen
                 val intent = Intent(requireContext(), com.example.nurture_nest.Login::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
@@ -234,5 +185,4 @@ class SettingsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to delete account: ${it.message}", Toast.LENGTH_LONG).show()
             }
     }
-
 }

@@ -22,6 +22,7 @@ class ParentDashboardFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
     private var listenerRegistration: ListenerRegistration? = null
+    private var latestTimestamp: Long = 0L  // 🔹 Track latest announcement seen
 
     private lateinit var rv: RecyclerView
     private val adapter = AnnouncementAdapter()
@@ -33,16 +34,13 @@ class ParentDashboardFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_parent_dashboard, container, false)
 
-        // Initialize RecyclerView
         rv = view.findViewById(R.id.rvAnnouncements)
         rv.layoutManager = LinearLayoutManager(requireContext())
         rv.adapter = adapter
 
-        // Link Chat button
         val btnChat: ImageButton = view.findViewById(R.id.btnChat)
         btnChat.setOnClickListener {
-            val intent = Intent(requireContext(), ChatListActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), ChatListActivity::class.java))
         }
 
         return view
@@ -64,34 +62,35 @@ class ParentDashboardFragment : Fragment() {
             .limit(50)
 
         listenerRegistration = query.addSnapshotListener { snapshots, e ->
-            if (e != null) {
-                Log.w("ParentDashboardFragment", "listen:error", e)
-                return@addSnapshotListener
-            }
-            if (snapshots == null) return@addSnapshotListener
+            if (e != null || snapshots == null) return@addSnapshotListener
 
+            val all = snapshots.documents.mapNotNull { it.toObject(Announcement::class.java) }
+
+            // 🔹 Update RecyclerView
+            adapter.submitList(all)
+
+            // 🔹 Notify only for *newer* items
             for (dc in snapshots.documentChanges) {
                 if (dc.type == DocumentChange.Type.ADDED) {
                     val ann = dc.document.toObject(Announcement::class.java)
-                    // show local notification for newly added docs
-                    NotificationHelper.showLocalNotification(
-                        requireContext(),
-                        ann.title,
-                        ann.message,
-                        ann.urgent
-                    )
-                }
-            }
+                    val annTime = (dc.document.getTimestamp("timestamp")?.toDate()?.time) ?: 0L
 
-            // update recycler view with all docs (simple approach)
-            val all = snapshots.documents.map {
-                it.toObject(Announcement::class.java)!!.apply {
-                    // nothing
+                    if (annTime > latestTimestamp && latestTimestamp != 0L) {
+                        NotificationHelper.showLocalNotification(
+                            requireContext(),
+                            ann.title,
+                            ann.message,
+                            ann.urgent
+                        )
+                    }
+
+                    // Update tracker
+                    if (annTime > latestTimestamp) latestTimestamp = annTime
                 }
             }
-            adapter.submitList(all)
         }
     }
 }
+
 
 

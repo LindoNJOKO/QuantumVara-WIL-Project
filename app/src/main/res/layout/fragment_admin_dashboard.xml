@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorBackground"
+    android:fitsSystemWindows="true"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".fragments.AdminDashboardFragment">
 
     <!-- Title and Chat Button -->
@@ -85,7 +87,7 @@
 
         <!-- Extended Floating Action Button (Create Event) -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/fabCreateEvent"
+            android:id="@+id/fabAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

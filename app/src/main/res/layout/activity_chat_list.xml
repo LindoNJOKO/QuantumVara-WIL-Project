@@ -73,6 +73,7 @@
         android:layout_weight="1"
         android:clipToPadding="false"
         android:paddingTop="4dp"
+
         android:paddingBottom="8dp"
         android:scrollbars="vertical" />
 </LinearLayout>

@@ -3,6 +3,8 @@
     android:orientation="vertical"
     android:background="?attr/colorBackground"
     android:layout_width="match_parent"
+    android:fitsSystemWindows="true"
+    android:paddingTop="?attr/actionBarSize"
     android:layout_height="match_parent">
 
     <!-- 🧭 Header -->
@@ -41,6 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+
         android:padding="12dp"
         android:clipToPadding="false" />
 

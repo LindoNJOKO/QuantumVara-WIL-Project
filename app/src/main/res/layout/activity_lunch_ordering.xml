@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,106 +8,129 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="?attr/colorBackground"
+    android:fitsSystemWindows="true"
+    android:paddingTop="?attr/actionBarSize"
     tools:context=".LunchOrdering">
 
-    <!-- Header Section -->
-    <LinearLayout
+    <!-- 🍱 Header Section (Material Card) -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/dark_background"
+        android:layout_margin="16dp">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Weekly Lunch Order"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:gravity="center" />
+            android:orientation="vertical"
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Browse daily menus and add meals to your cart"
-            android:textSize="14sp"
-            android:textColor="@android:color/white"
-            android:alpha="0.9"
-            android:gravity="center"
-            android:layout_marginTop="4dp" />
+            android:padding="16dp">
 
-        <!-- Child Name Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Child's Name"
-            android:layout_marginTop="12dp"
-            android:textColorHint="@android:color/white"
-            app:hintTextColor="@android:color/white"
-            app:boxStrokeColor="@android:color/white"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etChildName"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Weekly Lunch Order"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:inputType="textPersonName|textCapWords"
-                android:maxLines="1" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:gravity="center" />
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Browse daily menus and add meals to your cart"
+                android:textSize="14sp"
+                android:textColor="@android:color/white"
+                android:alpha="0.9"
+                android:gravity="center"
+                android:layout_marginTop="4dp" />
 
-    <!-- Day Tabs -->
+            <!-- 👶 Child Name Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:hint="Child's Name"
+                app:boxStrokeColor="@android:color/white"
+                app:hintTextColor="@android:color/white"
+                android:textColorHint="@android:color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etChildName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName|textCapWords"
+                    android:maxLines="1"
+                    android:textColor="@android:color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- 📅 Day Tabs -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/dark_accent"
         android:elevation="2dp"
         app:tabMode="scrollable"
-        app:tabTextColor="?attr/colorOnBackground"
+        app:tabTextColor="@android:color/white"
         app:tabSelectedTextColor="?attr/colorPrimary"
         app:tabIndicatorColor="?attr/colorPrimary" />
 
-    <!-- ViewPager for Daily Menus -->
+    <!-- 📜 ViewPager for Daily Menus -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
 
-    <!-- Cart Section -->
-    <LinearLayout
+        android:layout_weight="1"
+        android:background="?attr/colorBackground"
+
+        android:clipToPadding="false" />
+
+    <!-- 🛒 Cart Section -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:background="@android:color/white"
-        android:elevation="8dp">
+        app:cardElevation="10dp"
+        app:cardCornerRadius="0dp"
+        app:cardBackgroundColor="@android:color/white">
 
-        <TextView
-            android:id="@+id/tvCartTotal"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Cart (0): R 0.00"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="?attr/colorPrimary"
-            android:gravity="center_vertical" />
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:gravity="center_vertical">
 
-        <Button
-            android:id="@+id/btnViewCart"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:text="View Cart"
-            android:textSize="16sp"
-            android:enabled="false"
-            android:alpha="0.5"
-            android:backgroundTint="?attr/colorPrimary" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tvCartTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cart (0): R 0.00"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"
+                android:gravity="center_vertical" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnViewCart"
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:text="View Cart"
+                android:textSize="16sp"
+                android:enabled="false"
+                android:alpha="0.5"
+                app:cornerRadius="12dp"
+                app:backgroundTint="?attr/colorPrimary"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
