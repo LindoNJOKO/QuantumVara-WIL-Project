@@ -3,6 +3,7 @@ package com.example.nurture_nest
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Patterns
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Timestamp
@@ -41,11 +42,27 @@ class Register : AppCompatActivity() {
             val pass = etPassword.text.toString().trim()
             val role = spnRole.selectedItem.toString()
 
-            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            // 🔍 Basic validation
+            when {
+                name.isEmpty() || email.isEmpty() || pass.isEmpty() || phone.isEmpty() -> {
+                    Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                !Patterns.EMAIL_ADDRESS.matcher(email).matches() -> {
+                    Toast.makeText(this, "Invalid email address", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                pass.length < 6 -> {
+                    Toast.makeText(this, "Password must be at least 6 characters", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                !phone.matches(Regex("^\\d{10}$")) -> {
+                    Toast.makeText(this, "Phone number must be exactly 10 digits", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
 
+            // ✅ Proceed with Firebase registration
             auth.createUserWithEmailAndPassword(email, pass)
                 .addOnSuccessListener { authResult ->
                     val uid = authResult.user?.uid ?: return@addOnSuccessListener
@@ -64,7 +81,7 @@ class Register : AppCompatActivity() {
                         .addOnSuccessListener {
                             Toast.makeText(this, "Registered successfully as $role", Toast.LENGTH_SHORT).show()
 
-                            // ✅ Automatically sign the user in after registration
+                            // Auto-login user after registration
                             auth.signInWithEmailAndPassword(email, pass)
                                 .addOnSuccessListener {
                                     prefs.edit()
@@ -89,8 +106,16 @@ class Register : AppCompatActivity() {
                             Toast.makeText(this, "Error saving user: ${it.message}", Toast.LENGTH_LONG).show()
                         }
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Registration failed: ${it.message}", Toast.LENGTH_LONG).show()
+                .addOnFailureListener { e ->
+                    // Friendly Firebase error feedback
+                    val errorMessage = when {
+                        e.message?.contains("email address is already in use", ignoreCase = true) == true ->
+                            "This email is already registered. Try logging in instead."
+                        e.message?.contains("network error", ignoreCase = true) == true ->
+                            "Network error. Please check your internet connection."
+                        else -> "Registration failed: ${e.message}"
+                    }
+                    Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
                 }
         }
 

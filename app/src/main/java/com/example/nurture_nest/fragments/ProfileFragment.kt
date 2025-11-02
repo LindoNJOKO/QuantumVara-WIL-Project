@@ -95,7 +95,9 @@ class ProfileFragment : Fragment() {
         }
         // 🔹 Attendance Logs
         tvAttendanceLogs.setOnClickListener {
-            startActivity(Intent(requireContext(), AttendanceActivity::class.java))
+            val intent = Intent(requireContext(), AttendanceActivity::class.java)
+            intent.putExtra("userRole", userRole) // ✅ Pass the role
+            startActivity(intent)
         }
 
         // 🔹 Child Management

@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/dark_primary"
         android:padding="12dp">
 
         <TextView
@@ -26,7 +27,7 @@
             android:id="@+id/tvLogStudentName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Student: Jane Doe"
+            android:text="Student Name: Jane Doe"
             android:textColor="@color/light_on_background"/>
 
         <TextView
@@ -35,6 +36,6 @@
             android:layout_height="wrap_content"
             android:text="Status: Present"
             android:textStyle="italic"
-            android:textColor="@color/light_primary"/>
+            android:textColor="@color/dark_edittext_color"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

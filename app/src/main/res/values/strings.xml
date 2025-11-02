@@ -123,6 +123,21 @@
     <string name="urgent_icon_desc">Urgent alert icon</string>
     <string name="urgent_switch_desc">Toggle urgent priority for announcement</string>
 
-    
+    <string-array name="months_array">
+        <item>All Months</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+
 
 </resources>

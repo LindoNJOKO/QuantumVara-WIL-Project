@@ -36,22 +36,18 @@ class UpdateProfileFragment : Fragment() {
 
         val user = auth.currentUser
 
-        // Load basic Firebase user data
+        // Load existing data
         etName.setText(user?.displayName ?: "")
         etEmail.setText(user?.email ?: "")
 
-        // ✅ Always load phone from Firestore
+        // Load cellphone number from Firestore
         user?.let {
             db.collection("users").document(it.uid)
                 .get()
                 .addOnSuccessListener { doc ->
                     if (doc.exists()) {
-                        val phone = doc.getString("phone") ?: ""
+                        val phone = doc.getString("cellphone") ?: ""
                         etPhone.setText(phone)
-                    } else {
-                        // If no Firestore record exists yet, create a placeholder
-                        db.collection("users").document(it.uid)
-                            .set(mapOf("phone" to ""))
                     }
                 }
                 .addOnFailureListener {
@@ -59,14 +55,26 @@ class UpdateProfileFragment : Fragment() {
                 }
         }
 
+        // Save button logic
         btnSaveProfile.setOnClickListener {
             val newName = etName.text.toString().trim()
             val newEmail = etEmail.text.toString().trim()
             val newPhone = etPhone.text.toString().trim()
 
-            if (newName.isEmpty() || newEmail.isEmpty() || newPhone.isEmpty()) {
-                Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            // 🧠 Basic validations
+            when {
+                newName.isEmpty() || newEmail.isEmpty() || newPhone.isEmpty() -> {
+                    Toast.makeText(requireContext(), "All fields are required", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                newPhone.length != 10 -> {
+                    Toast.makeText(requireContext(), "Invalid Phone number. Phone number can only be 10 digits", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                !newPhone.matches(Regex("^\\d{10}$")) -> {
+                    Toast.makeText(requireContext(), "Phone number must contain only digits", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
 
             if (user == null) {
@@ -81,24 +89,32 @@ class UpdateProfileFragment : Fragment() {
 
             user.updateProfile(profileUpdates)
                 .addOnSuccessListener {
-                    // Update email in Firebase Auth
                     user.updateEmail(newEmail)
                         .addOnSuccessListener {
-                            // ✅ Save all fields to Firestore
-                            val userData = hashMapOf(
+                            // Save to Firestore (consistent with your database field names)
+                            val data = mapOf(
                                 "name" to newName,
                                 "email" to newEmail,
-                                "phone" to newPhone
+                                "cellphone" to newPhone
                             )
 
                             db.collection("users").document(user.uid)
-                                .set(userData)
+                                .update(data)
                                 .addOnSuccessListener {
                                     Toast.makeText(requireContext(), "Profile updated successfully", Toast.LENGTH_SHORT).show()
                                     parentFragmentManager.popBackStack()
                                 }
                                 .addOnFailureListener {
-                                    Toast.makeText(requireContext(), "Failed to update Firestore: ${it.message}", Toast.LENGTH_SHORT).show()
+                                    // If document doesn't exist, create it
+                                    db.collection("users").document(user.uid)
+                                        .set(data)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(requireContext(), "Profile created successfully", Toast.LENGTH_SHORT).show()
+                                            parentFragmentManager.popBackStack()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(requireContext(), "Firestore save failed: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
                                 }
                         }
                         .addOnFailureListener {
