@@ -17,7 +17,6 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp">
 
-
         <TextView
             android:id="@+id/AdminDashTitle"
             android:layout_width="wrap_content"
@@ -39,7 +38,6 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Chats"
             android:src="@drawable/ic_chat" />
-
     </RelativeLayout>
 
     <!-- Action Section -->
@@ -52,40 +50,32 @@
         android:layout_marginBottom="16dp">
 
         <!-- Add Notification Button -->
-        <!-- Add Notification Button -->
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddNotification"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_button"
-            android:elevation="6dp"
             android:text="Add Notification"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:letterSpacing="0.05"
             android:fontFamily="sans-serif-medium" />
 
-        <!-- ✅ Register Child Button -->
-        <Button
+        <!-- Register Child Button -->
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRegisterChild"
+            style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="20dp"
-            android:background="@drawable/rounded_button"
-            android:elevation="6dp"
             android:text="Register Child"
             android:textColor="?attr/colorOnPrimary"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:letterSpacing="0.05"
             android:fontFamily="sans-serif-medium" />
 
-
-
-
-        <!-- Extended Floating Action Button (Create Event) -->
+        <!-- Create Event FAB -->
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/fabAdd"
             android:layout_width="wrap_content"
@@ -102,5 +92,4 @@
             app:backgroundTint="?attr/colorPrimary" />
 
     </LinearLayout>
-
 </LinearLayout>

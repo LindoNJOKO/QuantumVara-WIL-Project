@@ -1,6 +1,7 @@
 package com.example.nurture_nest
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +47,7 @@ class AttendanceActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        scope.cancel() // cancel coroutines when activity is destroyed
+        scope.cancel()
     }
 
     private fun loadAttendanceLogs() {
@@ -56,12 +57,6 @@ class AttendanceActivity : AppCompatActivity() {
         binding.progressBar.visibility = View.VISIBLE
         binding.tvEmptyMessage.visibility = View.GONE
         binding.btnRefreshLogs.isEnabled = false
-
-        val currentTeacherId = auth.currentUser?.uid
-        if (currentTeacherId == null) {
-            showEmptyMessage("Not logged in.")
-            return
-        }
 
         scope.launch {
             try {
@@ -75,12 +70,22 @@ class AttendanceActivity : AppCompatActivity() {
 
                 for (dateDoc in dateDocuments.documents) {
                     val date = dateDoc.id
+                    Log.d("AttendanceActivity", "Fetching records for date: $date")
+
                     val recordsSnapshot = db.collection("attendance")
                         .document(date)
                         .collection("records")
-                        .whereEqualTo("teacherId", currentTeacherId)
                         .get()
                         .await()
+
+                    Log.d(
+                        "AttendanceActivity",
+                        "Found ${recordsSnapshot.size()} records under $date"
+                    )
+
+                    for (record in recordsSnapshot.documents) {
+                        Log.d("AttendanceActivity", "Record: ${record.id} -> ${record.data}")
+                    }
 
                     val logsForDate = recordsSnapshot.documents.map { mapToAttendanceLog(it, date) }
                     allLogs.addAll(logsForDate)
@@ -90,13 +95,14 @@ class AttendanceActivity : AppCompatActivity() {
                 logsList.addAll(allLogs.sortedByDescending { it.date })
 
                 if (logsList.isEmpty()) {
-                    showEmptyMessage("No records for this teacher.")
+                    showEmptyMessage("No attendance records available.")
                 } else {
                     adapter.notifyDataSetChanged()
                     binding.rvAttendanceLogs.visibility = View.VISIBLE
                 }
 
             } catch (e: Exception) {
+                Log.e("AttendanceActivity", "Error loading attendance logs", e)
                 showEmptyMessage("Error loading records: ${e.message}")
             } finally {
                 binding.progressBar.visibility = View.GONE
@@ -115,9 +121,9 @@ class AttendanceActivity : AppCompatActivity() {
 
     private fun mapToAttendanceLog(record: DocumentSnapshot, date: String): AttendanceLog {
         return AttendanceLog(
-            studentName = record.getString("studentName"),
+            studentName = record.getString("studentName") ?: "Unknown Student",
             date = date,
-            status = record.getString("status")
+            status = record.getString("status") ?: "Unknown"
         )
     }
 }

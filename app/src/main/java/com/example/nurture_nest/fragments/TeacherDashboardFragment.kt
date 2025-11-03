@@ -9,9 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nurture_nest.adapters.AttendanceAdapter
 import com.example.nurture_nest.databinding.FragmentTeacherDashboardBinding
-import com.example.nurture_nest.models.StudentAttendance
+import com.example.nurture_nest.model.StudentAttendance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,26 +37,56 @@ class TeacherDashboardFragment : Fragment() {
     ): View {
         _binding = FragmentTeacherDashboardBinding.inflate(inflater, container, false)
         setupRecyclerView()
+        loadChildrenForTeacher() // 🔹 Fetch children from Firestore
         setupSubmitButton()
         return binding.root
     }
 
     private fun setupRecyclerView() {
-        // Replace with actual student data from Firestore if you have a class list
-        studentList.addAll(
-            listOf(
-                StudentAttendance("Alice Moyo"),
-                StudentAttendance("Brian Dlamini"),
-                StudentAttendance("Carla Naidoo"),
-                StudentAttendance("Daniel Mthembu"),
-                StudentAttendance("Evelyn Khumalo")
-            )
-        )
-
         attendanceAdapter = AttendanceAdapter(studentList)
         binding.rvStudentList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = attendanceAdapter
+        }
+    }
+
+    /**
+     * Loads all registered children linked to the current teacher
+     */
+    private fun loadChildrenForTeacher() {
+        val teacherId = auth.currentUser?.uid ?: return
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // 🔹 Get all children linked to this teacher
+                val childrenSnap = db.collection("children")
+                    .whereEqualTo("teacherId", teacherId)
+                    .get()
+                    .await()
+
+                val children = childrenSnap.documents.mapNotNull { doc ->
+                    val name = doc.getString("name")
+                    name?.let { StudentAttendance(it) }
+                }
+
+                withContext(Dispatchers.Main) {
+                    studentList.clear()
+                    studentList.addAll(children)
+                    attendanceAdapter.notifyDataSetChanged()
+
+                    if (studentList.isEmpty()) {
+                        Toast.makeText(
+                            requireContext(),
+                            "No children registered for this teacher yet.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Error loading children: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
         }
     }
 
@@ -70,9 +105,10 @@ class TeacherDashboardFragment : Fragment() {
                 )
             }
 
-            val attendanceCollection = db.collection("attendance").document(currentDate).collection("records")
+            val attendanceCollection = db.collection("attendance")
+                .document(currentDate)
+                .collection("records")
 
-            // Batch write for all students
             val batch = db.batch()
             for (record in attendanceRecords) {
                 val docRef = attendanceCollection.document(record["studentName"].toString())

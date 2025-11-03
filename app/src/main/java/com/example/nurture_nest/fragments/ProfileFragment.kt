@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -38,9 +39,12 @@ class ProfileFragment : Fragment() {
         val tvChildManagement = view.findViewById<TextView>(R.id.tvChildManagement)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
+        // ⬇️ Add the corresponding ImageViews for Payment & Lunch
+        val ivPaymentIcon = view.findViewById<ImageView>(R.id.ic_payment)
+        val ivLunchIcon = view.findViewById<ImageView>(R.id.ic_lunch)
+
         val currentUser = auth.currentUser
 
-        // 🔒 Check if user is logged in
         if (currentUser == null) {
             Toast.makeText(requireContext(), "Session expired. Please log in again.", Toast.LENGTH_SHORT).show()
             startActivity(Intent(requireContext(), Login::class.java))
@@ -50,7 +54,7 @@ class ProfileFragment : Fragment() {
 
         val uid = currentUser.uid
 
-        // ✅ Safely fetch user data
+        // ✅ Fetch user data from Firestore
         db.collection("users").document(uid).get()
             .addOnSuccessListener { doc ->
                 if (doc.exists()) {
@@ -58,10 +62,13 @@ class ProfileFragment : Fragment() {
                     tvUserEmail.text = doc.getString("email") ?: "No Email"
                     tvCellphone.text = doc.getString("cellphone") ?: "No Number"
 
-                    //get users role
                     userRole = doc.getString("role") ?: "Parent"
 
-                    updateUIForRole(tvPaymentDetails, tvLunchOrders, tvAttendanceLogs, tvChildManagement)
+                    // Pass icons to updateUIForRole
+                    updateUIForRole(
+                        tvPaymentDetails, tvLunchOrders, tvAttendanceLogs, tvChildManagement,
+                        ivPaymentIcon, ivLunchIcon
+                    )
                 } else {
                     tvUserName.text = "Unknown User"
                 }
@@ -70,30 +77,21 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to load profile data", Toast.LENGTH_SHORT).show()
             }
 
-        // 🔹 Payment Details
+        // 🔹 Payment
         tvPaymentDetails.setOnClickListener {
             startActivity(Intent(requireContext(), PaymentWindow::class.java))
         }
 
-
         // 🔹 Lunch Ordering
         tvLunchOrders.setOnClickListener {
             when (userRole.lowercase()) {
-                "parent" -> {
-                    // Parents use improved ordering system
-                    startActivity(Intent(requireContext(), LunchOrdering::class.java))
-                }
-                "admin" -> {
-                    // Admins can manage meals
-                    startActivity(Intent(requireContext(), AdminMealManagementActivity::class.java))
-                }
-                "teacher" -> {
-                    // Teachers can view lunch orders
-                    Toast.makeText(requireContext(), "Lunch management coming soon for teachers", Toast.LENGTH_SHORT).show()
-                }
+                "parent" -> startActivity(Intent(requireContext(), LunchOrdering::class.java))
+                "admin" -> startActivity(Intent(requireContext(), AdminMealManagementActivity::class.java))
+                "teacher" -> Toast.makeText(requireContext(), "Lunch management coming soon for teachers", Toast.LENGTH_SHORT).show()
             }
         }
-        // 🔹 Attendance Logs
+
+        // 🔹 Attendance
         tvAttendanceLogs.setOnClickListener {
             startActivity(Intent(requireContext(), AttendanceActivity::class.java))
         }
@@ -113,43 +111,45 @@ class ProfileFragment : Fragment() {
 
         return view
     }
+
     private fun updateUIForRole(
         tvPaymentDetails: TextView,
         tvLunchOrders: TextView,
         tvAttendanceLogs: TextView,
-        tvChildManagement: TextView
+        tvChildManagement: TextView,
+        ivPaymentIcon: ImageView,
+        ivLunchIcon: ImageView
     ) {
         when (userRole.lowercase()) {
             "parent" -> {
-                // Parents see all options
                 tvPaymentDetails.visibility = View.VISIBLE
+                ivPaymentIcon.visibility = View.VISIBLE
                 tvLunchOrders.visibility = View.VISIBLE
+                ivLunchIcon.visibility = View.VISIBLE
                 tvAttendanceLogs.visibility = View.VISIBLE
                 tvChildManagement.visibility = View.VISIBLE
 
-                // Update text labels
                 tvAttendanceLogs.text = "View Attendance"
                 tvLunchOrders.text = "Order Lunch"
             }
             "teacher" -> {
-                // Teachers see limited options
                 tvPaymentDetails.visibility = View.GONE
+                ivPaymentIcon.visibility = View.GONE
                 tvLunchOrders.visibility = View.GONE
+                ivLunchIcon.visibility = View.GONE
                 tvAttendanceLogs.visibility = View.VISIBLE
                 tvChildManagement.visibility = View.VISIBLE
 
-                // Update text labels
                 tvAttendanceLogs.text = "Mark Attendance"
-                tvLunchOrders.text = "View Lunch Orders"
             }
             "admin" -> {
-                // Admins see management options
                 tvPaymentDetails.visibility = View.VISIBLE
+                ivPaymentIcon.visibility = View.VISIBLE
                 tvLunchOrders.visibility = View.VISIBLE
+                ivLunchIcon.visibility = View.VISIBLE
                 tvAttendanceLogs.visibility = View.VISIBLE
                 tvChildManagement.visibility = View.VISIBLE
 
-                // Update text labels
                 tvAttendanceLogs.text = "Attendance Reports"
                 tvLunchOrders.text = "Manage Meals"
             }

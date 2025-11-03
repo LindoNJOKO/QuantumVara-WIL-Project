@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.RadioGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nurture_nest.databinding.ItemStudentAttendanceBinding
-import com.example.nurture_nest.models.StudentAttendance
+import com.example.nurture_nest.model.StudentAttendance
 
 class AttendanceAdapter(
     private val students: List<StudentAttendance>

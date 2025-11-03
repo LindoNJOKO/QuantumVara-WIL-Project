@@ -1,4 +1,4 @@
-package com.example.nurture_nest.models
+package com.example.nurture_nest.model
 
 data class StudentAttendance(
     val name: String,
