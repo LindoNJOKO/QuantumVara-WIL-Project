@@ -7,7 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    private const val BASE_URL = "https://nurture-nest.loca.lt"
+    private const val BASE_URL = "https://quantumvara-project-production.up.railway.app"
 
     val instance: ApiService by lazy {
         val logging = HttpLoggingInterceptor().apply {
