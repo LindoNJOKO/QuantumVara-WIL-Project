@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="?android:windowBackground">
 
     <!-- Fragment container -->
@@ -11,21 +12,26 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="88dp"/>
+        android:layout_marginBottom="88dp"
+        android:fitsSystemWindows="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <!-- Bottom Navigation -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="72dp"
+        android:layout_height="80dp"
         android:layout_gravity="bottom"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:paddingBottom="2dp"
         android:background="@drawable/bottom_nav_bg"
-        android:elevation="10dp"
-    app:itemIconTint="@color/nav_item_color"
-    app:itemTextColor="@color/nav_item_color"
-    app:menu="@menu/bottom_nav_menu"
-    app:labelVisibilityMode="labeled" />
+        android:elevation="12dp"
+        android:fitsSystemWindows="true"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
