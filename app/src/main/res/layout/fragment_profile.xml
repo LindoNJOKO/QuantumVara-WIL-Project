@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:padding="16dp">
 
-            <!-- Profile Picture (Tappable) -->
+            <!-- Profile Picture -->
             <ImageView
                 android:id="@+id/ivProfilePic"
                 android:layout_width="100dp"
@@ -95,7 +95,7 @@
     </com.google.android.material.card.MaterialCardView>
 
 
-    <!-- Menu Items with Icons -->
+    <!-- Lunch Orders -->
     <LinearLayout
         android:id="@+id/btnLunchOrders"
         android:layout_width="0dp"
@@ -114,6 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/ic_lunch"
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:contentDescription="Lunch Orders Icon"
@@ -129,6 +130,7 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <!-- Attendance -->
     <LinearLayout
         android:id="@+id/btnAttendanceLogs"
         android:layout_width="0dp"
@@ -147,6 +149,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/ic_attendance"
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_attendance"
@@ -162,6 +165,7 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <!-- Payment Details -->
     <LinearLayout
         android:id="@+id/btnPaymentDetails"
         android:layout_width="0dp"
@@ -180,6 +184,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/ic_payment"
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_payment"
@@ -195,6 +200,7 @@
             android:textSize="18sp" />
     </LinearLayout>
 
+    <!-- Child Management -->
     <LinearLayout
         android:id="@+id/btnChildManagement"
         android:layout_width="0dp"
@@ -213,6 +219,7 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <ImageView
+            android:id="@+id/ic_child"
             android:layout_width="25dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_child"

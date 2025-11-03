@@ -7,27 +7,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.example.nurture_nest.R
 import com.example.nurture_nest.ChatListActivity
 import com.example.nurture_nest.NotificationActivity
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.nurture_nest.R
+import com.example.nurture_nest.RegisterChildDialog
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import java.util.*
 
 class AdminDashboardFragment : Fragment() {
 
+    private lateinit var btnRegisterChild: MaterialButton
+    private lateinit var btnAddNotification: MaterialButton
     private lateinit var fabCreateEvent: ExtendedFloatingActionButton
     private val db = FirebaseFirestore.getInstance()
 
@@ -37,28 +34,35 @@ class AdminDashboardFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_admin_dashboard, container, false)
 
-        // Initialize FAB
+        // Buttons and FAB
+        btnRegisterChild = view.findViewById(R.id.btnRegisterChild)
+        btnAddNotification = view.findViewById(R.id.btnAddNotification)
         fabCreateEvent = view.findViewById(R.id.fabAdd)
 
-        // Set click listener
+        // Chat button
+        val chatBtn = view.findViewById<ImageButton>(R.id.btnChat)
+
+        // Click Listeners
+        btnRegisterChild.setOnClickListener {
+            val dialog = RegisterChildDialog()
+            dialog.show(parentFragmentManager, "RegisterChildDialog")
+        }
+
+        btnAddNotification.setOnClickListener {
+            startActivity(Intent(requireContext(), NotificationActivity::class.java))
+        }
+
         fabCreateEvent.setOnClickListener {
             showCreateEventDialog()
         }
 
-        val chatBtn = view.findViewById<ImageButton>(R.id.btnChat)
         chatBtn.setOnClickListener {
-            val intent = Intent(requireContext(), ChatListActivity::class.java)
-            startActivity(intent)
-        }
-
-        val notificationBtn = view.findViewById<Button>(R.id.btnAddNotification)
-        notificationBtn.setOnClickListener {
-            val intent = Intent(requireContext(), NotificationActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(requireContext(), ChatListActivity::class.java))
         }
 
         return view
     }
+
     private fun showCreateEventDialog() {
         val dialogView = LayoutInflater.from(requireContext())
             .inflate(R.layout.dialog_create_event, null)

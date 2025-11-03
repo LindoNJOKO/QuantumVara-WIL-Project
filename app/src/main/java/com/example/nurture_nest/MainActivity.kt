@@ -30,7 +30,12 @@ class MainActivity : AppCompatActivity() {
         bottomNav.itemIconTintList = navColors
         bottomNav.itemTextColor = navColors
 
-        // ✅ Only load the initial fragment if activity is newly created
+        // ✅ Hide calendar tab for teachers
+        if (userRole.equals("teacher", ignoreCase = true)) {
+            bottomNav.menu.findItem(R.id.nav_calendar).isVisible = false
+        }
+
+        // ✅ Load correct initial fragment
         if (savedInstanceState == null) {
             val initialFragment = when (userRole.lowercase()) {
                 "parent" -> ParentDashboardFragment()
