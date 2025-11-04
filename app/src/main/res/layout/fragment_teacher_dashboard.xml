@@ -32,43 +32,7 @@
         android:gravity="center"
         app:layout_constraintTop_toBottomOf="@id/tvDashboardTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <TextView
-            android:id="@+id/tvPresentLegend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Present"
-            android:textColor="?attr/colorPrimary"
-            android:textStyle="bold"
-            android:paddingEnd="12dp" />
-
-        <TextView
-            android:id="@+id/tvAbsentLegend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Absent"
-            android:textColor="?attr/colorOnBackground"
-            android:textStyle="bold"
-            android:paddingEnd="12dp" />
-
-        <TextView
-            android:id="@+id/tvSickLegend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Excused"
-            android:textColor="#FFA500"
-            android:textStyle="bold"
-            android:paddingEnd="12dp" />
-
-        <TextView
-            android:id="@+id/tvLateLegend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Late"
-            android:textColor="#FF0000"
-            android:textStyle="bold" />
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <!-- Student List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -81,20 +45,9 @@
         app:layout_constraintTop_toBottomOf="@id/legend_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnSubmitAttendance" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <!-- Submit Button -->
-    <Button
-        android:id="@+id/btnSubmitAttendance"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Submit Attendance"
-        android:textColor="?attr/colorOnPrimary"
-        android:backgroundTint="?attr/colorPrimary"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

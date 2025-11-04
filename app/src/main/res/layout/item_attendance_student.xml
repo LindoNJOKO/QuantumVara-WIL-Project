@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E0E0E0"
+    android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Student Name -->
+        <TextView
+            android:id="@+id/tvStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/darkAccent"
+            android:layout_marginBottom="12dp" />
+
+        <!-- RadioGroup for attendance options -->
+        <RadioGroup
+            android:id="@+id/rgAttendanceStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="8dp">
+
+            <RadioButton
+                android:id="@+id/rbPresent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present"
+                android:textColor="@color/dark_accent"
+                android:padding="3dp"
+                android:buttonTint="@color/dark_accent"/>
+
+            <RadioButton
+                android:id="@+id/rbAbsent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Absent"
+                android:textColor="#E53935"
+                android:padding="3dp"
+                android:buttonTint="#E53935"/>
+
+
+
+            <RadioButton
+                android:id="@+id/rbLate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Late"
+                android:textColor="#FFB300"
+                android:padding="3dp"
+                android:buttonTint="#FFB300"/>
+            <RadioButton
+                android:id="@+id/rbSick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sick"
+                android:textColor="#039BE5"
+                android:padding="3dp"
+                android:buttonTint="#1E88E5"/>
+        </RadioGroup>
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

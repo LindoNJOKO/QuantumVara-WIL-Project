@@ -37,13 +37,15 @@ class TeacherDashboardFragment : Fragment() {
     ): View {
         _binding = FragmentTeacherDashboardBinding.inflate(inflater, container, false)
         setupRecyclerView()
-        loadChildrenForTeacher() // 🔹 Fetch children from Firestore
-        setupSubmitButton()
+        loadChildrenForTeacher()
         return binding.root
     }
 
     private fun setupRecyclerView() {
-        attendanceAdapter = AttendanceAdapter(studentList)
+        attendanceAdapter = AttendanceAdapter(studentList) { student, selectedStatus ->
+            saveAttendanceImmediately(student, selectedStatus)
+        }
+
         binding.rvStudentList.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = attendanceAdapter
@@ -55,19 +57,28 @@ class TeacherDashboardFragment : Fragment() {
      */
     private fun loadChildrenForTeacher() {
         val teacherId = auth.currentUser?.uid ?: return
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 🔹 Get all children linked to this teacher
                 val childrenSnap = db.collection("children")
                     .whereEqualTo("teacherId", teacherId)
                     .get()
                     .await()
 
+                val attendanceSnap = db.collection("attendance")
+                    .document(currentDate)
+                    .collection("records")
+                    .whereEqualTo("teacherId", teacherId)
+                    .get()
+                    .await()
+
+                val alreadyMarked = attendanceSnap.documents.mapNotNull { it.getString("studentName") }
+
                 val children = childrenSnap.documents.mapNotNull { doc ->
                     val name = doc.getString("name")
                     name?.let { StudentAttendance(it) }
-                }
+                }.filterNot { alreadyMarked.contains(it.name) } // remove already-marked
 
                 withContext(Dispatchers.Main) {
                     studentList.clear()
@@ -77,7 +88,7 @@ class TeacherDashboardFragment : Fragment() {
                     if (studentList.isEmpty()) {
                         Toast.makeText(
                             requireContext(),
-                            "No children registered for this teacher yet.",
+                            "All attendance already marked for today 🎉",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
@@ -90,39 +101,34 @@ class TeacherDashboardFragment : Fragment() {
         }
     }
 
-    private fun setupSubmitButton() {
-        binding.btnSubmitAttendance.setOnClickListener {
-            val teacherId = auth.currentUser?.uid ?: "UnknownTeacher"
-            val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+    /**
+     * Saves the attendance record instantly when teacher marks a student
+     */
+    private fun saveAttendanceImmediately(student: StudentAttendance, status: String) {
+        val teacherId = auth.currentUser?.uid ?: "UnknownTeacher"
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
 
-            val attendanceRecords = studentList.map {
-                hashMapOf(
-                    "studentName" to it.name,
-                    "status" to (it.status ?: "Not Marked"),
-                    "date" to currentDate,
-                    "teacherId" to teacherId,
-                    "timestamp" to System.currentTimeMillis()
-                )
+        val record = hashMapOf(
+            "studentName" to student.name,
+            "status" to status,
+            "date" to currentDate,
+            "teacherId" to teacherId,
+            "timestamp" to System.currentTimeMillis()
+        )
+
+        db.collection("attendance")
+            .document(currentDate)
+            .collection("records")
+            .document(student.name)
+            .set(record)
+            .addOnSuccessListener {
+                Toast.makeText(requireContext(), "Marked ${student.name} as $status ✅", Toast.LENGTH_SHORT).show()
+                studentList.remove(student)
+                attendanceAdapter.notifyDataSetChanged()
             }
-
-            val attendanceCollection = db.collection("attendance")
-                .document(currentDate)
-                .collection("records")
-
-            val batch = db.batch()
-            for (record in attendanceRecords) {
-                val docRef = attendanceCollection.document(record["studentName"].toString())
-                batch.set(docRef, record)
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Failed to save attendance: ${e.message}", Toast.LENGTH_SHORT).show()
             }
-
-            batch.commit()
-                .addOnSuccessListener {
-                    Toast.makeText(requireContext(), "Attendance saved to Firebase ✅", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(requireContext(), "Error saving attendance: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-        }
     }
 
     override fun onDestroyView() {

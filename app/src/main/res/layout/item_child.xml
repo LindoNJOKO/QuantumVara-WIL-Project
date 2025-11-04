@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="5dp"
+
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/dark_background"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvChildName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/dark_primary"
+            android:layout_marginBottom="8dp"
+            android:text="Child Name" />
+
+        <TextView
+            android:id="@+id/tvAllergies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/dark_primary"
+            android:text="Allergies: -" />
+
+        <TextView
+            android:id="@+id/tvMedicalConditions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginBottom="6dp"
+            android:textColor="@color/dark_primary"
+            android:text="Medical Conditions: -" />
+
+        <TextView
+            android:id="@+id/tvEmergencyContact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/dark_primary"
+            android:layout_marginBottom="6dp"
+            android:text="Emergency Contact: -" />
+
+        <TextView
+            android:id="@+id/tvNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            android:textColor="@color/dark_primary"
+            android:text="Notes: -" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

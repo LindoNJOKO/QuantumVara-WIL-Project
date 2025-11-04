@@ -25,7 +25,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:paddingBottom="2dp"
         android:background="@drawable/bottom_nav_bg"
         android:elevation="12dp"
         android:fitsSystemWindows="true"

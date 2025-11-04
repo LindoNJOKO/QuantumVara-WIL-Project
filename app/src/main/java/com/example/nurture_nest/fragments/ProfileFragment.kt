@@ -39,7 +39,6 @@ class ProfileFragment : Fragment() {
         val tvChildManagement = view.findViewById<TextView>(R.id.tvChildManagement)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
-        // ⬇️ Add the corresponding ImageViews for Payment & Lunch
         val ivPaymentIcon = view.findViewById<ImageView>(R.id.ic_payment)
         val ivLunchIcon = view.findViewById<ImageView>(R.id.ic_lunch)
 
@@ -63,12 +62,13 @@ class ProfileFragment : Fragment() {
                     tvCellphone.text = doc.getString("cellphone") ?: "No Number"
 
                     userRole = doc.getString("role") ?: "Parent"
-
-                    // Pass icons to updateUIForRole
                     updateUIForRole(
                         tvPaymentDetails, tvLunchOrders, tvAttendanceLogs, tvChildManagement,
                         ivPaymentIcon, ivLunchIcon
                     )
+
+                    // 🔹 Configure navigation after role is known
+                    setupNavigation(tvPaymentDetails, tvLunchOrders, tvAttendanceLogs, tvChildManagement)
                 } else {
                     tvUserName.text = "Unknown User"
                 }
@@ -77,6 +77,23 @@ class ProfileFragment : Fragment() {
                 Toast.makeText(requireContext(), "Failed to load profile data", Toast.LENGTH_SHORT).show()
             }
 
+        // 🔹 Logout
+        btnLogout.setOnClickListener {
+            auth.signOut()
+            Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(requireContext(), Login::class.java))
+            requireActivity().finish()
+        }
+
+        return view
+    }
+
+    private fun setupNavigation(
+        tvPaymentDetails: TextView,
+        tvLunchOrders: TextView,
+        tvAttendanceLogs: TextView,
+        tvChildManagement: TextView
+    ) {
         // 🔹 Payment
         tvPaymentDetails.setOnClickListener {
             startActivity(Intent(requireContext(), PaymentWindow::class.java))
@@ -94,24 +111,29 @@ class ProfileFragment : Fragment() {
         // 🔹 Attendance
         tvAttendanceLogs.setOnClickListener {
             val intent = Intent(requireContext(), AttendanceActivity::class.java)
-            intent.putExtra("userRole", userRole) // ✅ Pass the role
+            intent.putExtra("userRole", userRole)
             startActivity(intent)
         }
 
-        // 🔹 Child Management
-        tvChildManagement.setOnClickListener {
-            startActivity(Intent(requireContext(), ChildManagmentActivity::class.java))
+        // 🔹 Child Management — Role-based navigation
+        when (userRole.lowercase()) {
+            "teacher" -> {
+                tvChildManagement.setOnClickListener {
+                    parentFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, TeacherChildListFragment())
+                        .addToBackStack(null)
+                        .commit()
+                }
+            }
+            "admin" -> {
+                tvChildManagement.setOnClickListener {
+                    startActivity(Intent(requireContext(), ChildManagmentActivity::class.java))
+                }
+            }
+            "parent" -> {
+                tvChildManagement.visibility = View.GONE
+            }
         }
-
-        // 🔹 Logout
-        btnLogout.setOnClickListener {
-            auth.signOut()
-            Toast.makeText(requireContext(), "Logged out successfully", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(requireContext(), Login::class.java))
-            requireActivity().finish()
-        }
-
-        return view
     }
 
     private fun updateUIForRole(
@@ -129,7 +151,7 @@ class ProfileFragment : Fragment() {
                 tvLunchOrders.visibility = View.VISIBLE
                 ivLunchIcon.visibility = View.VISIBLE
                 tvAttendanceLogs.visibility = View.VISIBLE
-                tvChildManagement.visibility = View.VISIBLE
+                tvChildManagement.visibility = View.GONE // ❌ hide for parents
 
                 tvAttendanceLogs.text = "View Attendance"
                 tvLunchOrders.text = "Order Lunch"
